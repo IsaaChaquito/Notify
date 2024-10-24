@@ -8,7 +8,6 @@ import {
 } from "./icons"
 import { generateId } from "./utilities"
 import useNotify from "./useNotify"
-import { useState } from "react"
 
 export const notifyType = {
   info: 'info',
@@ -71,11 +70,11 @@ export default function Notify( props ) {
 
   const { 
     id = generateId(), 
-    type = notifyType.info, 
-    text = 'Notify', 
-    icon = 'warning',
+    type = 'info', 
+    text = 'Notify title', 
+    icon = 'success',
     autoClose = true, 
-    showProgressBar = false,
+    showProgressBar = true,
     timeSettings = {},
   } = props
 
@@ -95,6 +94,8 @@ export default function Notify( props ) {
     progressBarTimer,
     pauseTimer,
     resumeTimer,
+    pauseProgressBar,
+    resumeProgressBar
   } = useNotify( id, autoClose, time, showTimer, timeFormat, showProgressBar )
 
   const { bg, txtColor, iconNotify } = notifyMap[type]
@@ -104,10 +105,22 @@ export default function Notify( props ) {
   const progressBar = () => {
     return (
         <div
-          className="absolute bottom-0 left-0 w-full h-1 bg-white/50 shadow"
+          className={"absolute bottom-0 left-0 w-full h-1 bg-white/50 shadow"}
           style={{ width: `${(progressBarTimer / time) * 100}%` }}
         />
     )
+  }
+
+  const handlerPauseTime = () => {
+    if( !autoClose )  return 
+    pauseTimer()
+    pauseProgressBar()
+  }
+
+  const handlerResumeTime = () => {
+    if( !autoClose )  return 
+    resumeTimer()
+    resumeProgressBar()
   }
 
 
@@ -118,9 +131,9 @@ export default function Notify( props ) {
       ? (
           <div 
             key={ id }
-            onMouseEnter={ pauseTimer }
-            onMouseLeave={ resumeTimer }
-            className={`Notify p-3 text-sm ${bg} ${txtColor} ${isClosing ? 'animate-[zoomOut_.6s_ease] opacity-0' : 'animate-[zoomIn_.6s_ease]'} shadow-md shadow-black/60 relative w-[240px] min-h-[60px] max-h-[60px] flex justify-between  items-center gap-x-2 rounded-md pointer-events-auto z-50 duration-300 overflow-hidden`}
+            onMouseEnter={ handlerPauseTime }
+            onMouseLeave={ handlerResumeTime }
+            className={`Notify p-3 text-sm ${bg} ${txtColor} ${isClosing ? 'animate-[zoomOut_.6s_ease] opacity-0 ' : 'animate-[zoomIn_.6s_ease]'} shadow-md shadow-black/60 relative w-[240px] min-h-[60px] max-h-[60px] flex justify-between  items-center gap-x-2 rounded-md pointer-events-auto z-50 duration-300 overflow-hidden`}
           >
             <h1 className=" truncate"> { text } </h1>
 
