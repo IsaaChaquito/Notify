@@ -88,6 +88,7 @@ export default function Notify( props ) {
 
   const { 
     isClosing, 
+    isOpening,
     isOpen,
     handleClose,
     timer,
@@ -133,8 +134,11 @@ export default function Notify( props ) {
             key={ id }
             onMouseEnter={ handlerPauseTime }
             onMouseLeave={ handlerResumeTime }
-            className={`Notify p-3 text-sm ${bg} ${txtColor} ${isClosing ? 'animate-[zoomOut_.6s_ease] opacity-0 ' : 'animate-[zoomIn_.6s_ease]'} shadow-md shadow-black/60 relative w-[240px] min-h-[60px] max-h-[60px] flex justify-between  items-center gap-x-2 rounded-md pointer-events-auto z-50 duration-300 overflow-hidden`}
-          >
+            className={`Notify p-3  text-sm shadow-md shadow-black/60 relative w-[240px] min-h-[60px] max-h-[60px] flex justify-between  items-center gap-x-2 rounded-md pointer-events-auto z-50 duration-300 overflow-hidden 
+            ${bg} ${txtColor}
+            ${isClosing ? 'animate-[zoomOut_.6s_ease] opacity-0 mb-[-60px]' : 'animate-[zoomIn_.4s_ease] mb-2'}
+            ${isOpening ? 'mb-[-60px]' : 'mb-2'}`}
+            >
             <h1 className=" truncate"> { text } </h1>
 
             { iconNotify(icon, id+1) }

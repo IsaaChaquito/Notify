@@ -150,22 +150,21 @@
 
 
 
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './styles.css'; // Aquí puedes colocar las animaciones CSS
 import Notify from './Notify';
 import useNotify from './useNotify';
 
 export default function NotifyList() {
 
-  const { notifications, notify } = useNotify();
-  
+  const { notifications, notify } = useNotify()
 
-    const handleAddNotify = () => {
-    notify.info('Info message');
-    notify.success('Success message', { timeSettings: { time: 50000, showTimer: true } });
-    notify.warning('Warning message', { timeSettings: { time: 50000, showTimer: true } });
-    notify.error('Error message');
-  };
+  const handleAddNotify = () => {
+    notify.info('Info message', {timeSettings:{time:100000}})
+    // notify.success('Success message', { timeSettings: { time: 100000, showTimer: true } });
+    // notify.warning('Warning message', { timeSettings: { time: 100000, showTimer: true } });
+    // notify.error('Error message');
+  }
+
 
   return (
     <div className="flex flex-col items-center justify-center ">
@@ -174,22 +173,15 @@ export default function NotifyList() {
         Add Toast
       </button>
 
-      <TransitionGroup className="toast-container gap-y-2 transition-all ease-in-out transform flex flex-col justify-center items-center  duration-300">
-        {notifications.map((notify) => (
-          <CSSTransition
-            key={notify.id}
-            timeout={20000}
-            classNames="list"
-            nodeRef={notify.nodeRef}
-            // onExited={() => removeNotify(notify.id)}
-          >
-            <div className='' ref={notify.nodeRef.current}>
-              <Notify {...notify}  />
-            </div>
+      <div className={`toast-container transition-all ease-in-out transform flex flex-col justify-center items-center duration-300 `}>
 
-          </CSSTransition>
+        {notifications.map((notify) => (
+          
+          <Notify key={notify.id} {...notify}  />
+        
         ))}
-      </TransitionGroup>
+
+      </div>
     </div>
   );
 }

@@ -1,10 +1,11 @@
-import { createRef, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useProvider } from "../../contexts/app-context/useProvider";
 import { generateId } from "./utilities";
 
  const useNotify = (id, autoClose, time, showTimer, timeFormat = 'ms', showProgressBar) => {
   const { notifications, setNotifications } = useProvider();
   const [isClosing, setIsClosing] = useState(false);
+  const [isOpening, setIsOpening] = useState(true);
   const [isOpen, setIsOpen] = useState(true);
   const [content, setContent] = useState(null);
   const [timer, setTimer] = useState(timeFormat === 'ms' ? time : time / 1000);
@@ -23,7 +24,7 @@ import { generateId } from "./utilities";
   
   const generateNotify = (type, text, options = null) => ({
     id: generateId(),
-    nodeRef: createRef(null),
+    // nodeRef: createRef(null),
     type,
     text,
     showProgressBar: true,
@@ -52,6 +53,9 @@ import { generateId } from "./utilities";
 
 
   useEffect(() => {
+
+     const interval = setTimeout(() => setIsOpening(false), 0)
+
     // Timer para el tiempo de la notificación
     if ( autoClose ){
       timerControl.current = createTimer(time, setTimer, timeFormat, handleClose) 
@@ -64,11 +68,14 @@ import { generateId } from "./utilities";
         progressBarControl?.current?.stop();
       };
     }
+
+    return () => clearTimeout(interval)
   }, [])
 
 
   return {
     isClosing,
+    isOpening,
     isOpen,
     content,
     timer,
