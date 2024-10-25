@@ -41,7 +41,7 @@ export const notifyMap = {
     iconNotify: ( icon, id ) => iconType[icon](id) || iconType.warning(id)
   },
   [notifyType.error]: { 
-    bg: 'bg-rose-500',
+    bg: 'bg-red-500',
     txtColor: 'text-white',
     iconNotify: ( icon, id ) => iconType[icon](id) || iconType.error(id)
   }
@@ -134,9 +134,9 @@ export default function Notify( props ) {
             key={ id }
             onMouseEnter={ handlerPauseTime }
             onMouseLeave={ handlerResumeTime }
-            className={`Notify p-3  text-sm shadow-md shadow-black/60 relative w-[240px] min-h-[60px] max-h-[60px] flex justify-between  items-center gap-x-2 rounded-md pointer-events-auto z-50 duration-300 overflow-hidden 
+            className={`Notify p-3  text-sm shadow-md shadow-black/60 relative w-[240px] min-h-[60px] max-h-[60px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto z-50 duration-300 overflow-hidden 
             ${bg} ${txtColor}
-            ${isClosing ? 'animate-[zoomOut_.6s_ease] opacity-0 mb-[-60px]' : 'animate-[zoomIn_.4s_ease] mb-2'}
+            ${isClosing ? 'animate-[zoomOut_.4s_ease] opacity-0 mb-[-60px]' : 'animate-[zoomIn_.4s_ease] mb-2'}
             ${isOpening ? 'mb-[-60px]' : 'mb-2'}`}
             >
             <h1 className=" truncate"> { text } </h1>
@@ -144,7 +144,7 @@ export default function Notify( props ) {
             { iconNotify(icon, id+1) }
 
 
-            <button onClick={ handleClose } className="absolute top-1 right-1 p-0.5 bg-gray-50/20 shadow  hover:bg-gray-50/40 rounded duration-300"> 
+            <button onClick={ () => handleClose( id ) } className="absolute top-1 right-1 p-0.5 bg-gray-50/20 shadow  hover:bg-gray-50/40 rounded duration-300"> 
               <CloseIcon className="w-2 h-2 text-black/50" />
             </button>
 

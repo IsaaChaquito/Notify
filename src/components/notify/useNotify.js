@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from "react"
 import { useProvider } from "../../contexts/app-context/useProvider";
 import { generateId } from "./utilities";
 
- const useNotify = (id, autoClose, time, showTimer, timeFormat = 'ms', showProgressBar) => {
+ const useNotify = ( localNotifyId, autoClose, time, timeFormat = 'ms', showProgressBar ) => {
+  
   const { notifications, setNotifications } = useProvider();
+  
   const [isClosing, setIsClosing] = useState(false);
   const [isOpening, setIsOpening] = useState(true);
   const [isOpen, setIsOpen] = useState(true);
@@ -22,46 +24,82 @@ import { generateId } from "./utilities";
     error: (text, options) => saveNotify('error', text, options),
   };
   
-  const generateNotify = (type, text, options = null) => ({
-    id: generateId(),
-    // nodeRef: createRef(null),
-    type,
-    text,
-    showProgressBar: true,
-    autoClose: true,
-    showTimer: false,
-    icon: type,
-    ...options,
-  });
+  const generateNotify = (type, text, options = null) => (
+    {
+      id: generateId(),
+      // nodeRef: createRef(null),
+      type,
+      text,
+      showProgressBar: true,
+      autoClose: true,
+      showTimer: false,
+      icon: type,
+      ...options,
+    }
+  )
 
   const saveNotify = (type, text, options = null) => {
     const newNotify = generateNotify(type, text, options);
+    if ( notifications.length > 4 ) setNotifications( noties => noties.slice(0, 4) )
+    // if ( notifications.length > 4 ) {
+    //   const id = notifications[notifications.length - 1].id;
+    //   handleClose( id );
+    // }
+
+    // while( notifications.length > 4 ){
+    //   const id = notifications[notifications.length - 1]?.id;
+    //   handleClose( id );
+    //   console.log('toy enciclao ayuaaaaaaaaaaa');
+    // }
+
     setNotifications((noties) => [newNotify, ...noties]);
   };
 
-  const handleClose = () => {
+  const handleClose = ( id ) => {
     setIsClosing(true);
     setTimeout(() => {
       setIsOpen(false);
-      removeNotify(id);
+      removeNotify( localNotifyId || id );
     }, 300); // Tiempo para la animación de cierre
   };
 
+
   const removeNotify = (id) => {
+    console.log('deleting for nottis, ', id);
+    // console.log('length ', notifications.length);
     setNotifications((notis) => notis.filter((n) => n.id !== id));
   };
+
+  // const deleteOverFlowNotis = ( id ) => {
+  //   setIsClosing(true);
+  //   setTimeout(() => {
+  //     setIsOpen(false);
+  //     removeNotify( id );
+  //   }, 0); // Tiempo para la animación de cierre
+  // }
+
+  // useEffect(() => {
+  //   console.log('length ', notifications.length);
+
+  //   if (notifications.length > 4) {
+  //     const id = notifications[notifications.length - 1].id
+  //     // console.log('id', id);
+  //     // console.log('notifications', notifications);
+  //     deleteOverFlowNotis( id )
+  //   }
+  // },[notifications])
 
 
   useEffect(() => {
 
-     const interval = setTimeout(() => setIsOpening(false), 0)
+    const interval = setTimeout(() => setIsOpening(false), 0)
 
     // Timer para el tiempo de la notificación
     if ( autoClose ){
-      timerControl.current = createTimer(time, setTimer, timeFormat, handleClose) 
+      timerControl.current = createTimer(time, setTimer, timeFormat, handleClose, localNotifyId) 
 
       // Timer para la barra de progreso
-      if(showProgressBar) progressBarControl.current = createTimer(time, setProgressBarTimer, 'ms', handleClose) 
+      if(showProgressBar) progressBarControl.current = createTimer(time, setProgressBarTimer, 'ms', handleClose, localNotifyId) 
 
       return () => {
         timerControl?.current?.stop();
@@ -102,7 +140,7 @@ import { generateId } from "./utilities";
 export default useNotify;
 
 
-const createTimer = (duration, callback, timeFormat = 'ms', handleClose) => {
+const createTimer = (duration, callback, timeFormat = 'ms', handleClose, localNotifyId) => {
   let interval = null;
   let remainingTime = duration;
   let paused = false;
@@ -120,7 +158,7 @@ const createTimer = (duration, callback, timeFormat = 'ms', handleClose) => {
 
         if (remainingTime <= 0) {
           clearInterval(interval);
-          handleClose();
+          handleClose( localNotifyId );
         }
       }
     },  20);
