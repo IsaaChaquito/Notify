@@ -1,14 +1,20 @@
 import { createRef, useEffect, useRef, useState } from "react"
 import { useProvider } from "../../contexts/app-context/useProvider";
 import { generateId } from "./utilities";
-import { notifyModel } from "./model";
 
-//  const useNotify = ( localNotifyId, autoClose, time, timeFormat = 'ms', showProgressBar ) => {
-  const useNotify = ( notification ) => {
+ const useNotify = ( localNotifyId, autoClose, time, timeFormat = 'ms', showProgressBar ) => {
   
   const { notifications, setNotifications } = useProvider();
-  const [timer, setTimer] = useState(notification?.timeSettings?.duration);
+  
+  const [isClosing, setIsClosing] = useState(false);
+  const [isOpening, setIsOpening] = useState(true);
+  const [isOpen, setIsOpen] = useState(true);
+  const [content, setContent] = useState(null);
+  const [timer, setTimer] = useState(timeFormat === 'ms' ? time : time / 1000);
+  const [progressBarTimer, setProgressBarTimer] = useState(time);
+
   const timerControl = useRef(null);  // Referencia para el control del temporizador
+  const progressBarControl = useRef(null);
 
 
   const notify = {
@@ -16,29 +22,45 @@ import { notifyModel } from "./model";
     info: (text, options) => saveNotify('info', text, options),
     warning: (text, options) => saveNotify('warning', text, options),
     error: (text, options) => saveNotify('error', text, options),
-  }
-
-  const saveNotify = (type, text, options = {}) => {
-    const newNotify = {...notifyModel( type, text, options, handleClose )}
-
-    if ( notifications.length > 4 ) {
-      const id = notifications[notifications.length - 1].id
-      handleClose( id )
+  };
+  
+  const generateNotify = (type, text, options = null) => (
+    {
+      id: generateId(),
+      type,
+      text,
+      showProgressBar: true,
+      autoClose: true,
+      showTimer: false,
+      timeForma: 'ms',
+      icon: type,
+      ...options,
     }
-    
-    setNotifications((noties) => [newNotify, ...noties])
+  )
 
-    return newNotify.id
+  const saveNotify = (type, text, options = null) => {
+    const newNotify = generateNotify(type, text, options);
+    // if ( notifications.length > 4 ) setNotifications( noties => noties.slice(0, 4) )
+    if ( notifications.length > 4 ) {
+      const id = notifications[notifications.length - 1].id;
+      handleClose( id );
+      setTimeout(() => {
+        setNotifications((noties) => [newNotify, ...noties]);
+      }, 300)
+    }else{
+      setNotifications((noties) => [newNotify, ...noties]);
+    }
+
+
   };
 
   const handleClose = ( id ) => {
-
-    setNotifications((notis) => notis.map( n => n.id === id ? { ...n, state: { ...n.state, isClosing: true } } : n ))
+    // console.log( 'localNotifyId: ', localNotifyId );
+    setIsClosing(true);
     setTimeout(() => {
-      setNotifications((notis) => notis.map( n => n.id === id ? { ...n, state: { ...n.state, isOpen: false } } : n ))
-      removeNotify( id );
+      setIsOpen(false);
+      removeNotify( localNotifyId || id );
     }, 300); // Tiempo para la animación de cierre
-
   };
 
 
@@ -50,20 +72,18 @@ import { notifyModel } from "./model";
 
   useEffect(() => {
 
-    // const interval = setTimeout(() => setIsOpening(false), 0)
-    const interval = setTimeout(() => setNotifications((notis) => notis.map( n => n.id === notification?.id ? { ...n, state: { ...n.state, isOpening: false } } : n )), 0)
+    const interval = setTimeout(() => setIsOpening(false), 0)
 
     // Timer para el tiempo de la notificación
-    if ( notification?.autoClose ){
-      timerControl.current =  createTimer(notification?.timeSettings?.duration, setTimer, handleClose, notification.id)
-      // setNotifications((notis) => notis.map( n => n.id === id ? { ...n, state: { ...n.state, isOpen: false } } : n ))
+    if ( autoClose ){
+      timerControl.current = createTimer(time, setTimer, timeFormat, handleClose, localNotifyId) 
 
       // Timer para la barra de progreso
-      // if(showProgressBar) progressBarControl.current = createTimer(time, setProgressBarTimer, 'ms', handleClose, localNotifyId) 
+      if(showProgressBar) progressBarControl.current = createTimer(time, setProgressBarTimer, 'ms', handleClose, localNotifyId) 
 
       return () => {
         timerControl?.current?.stop();
-        // progressBarControl?.current?.stop();
+        progressBarControl?.current?.stop();
       };
     }
 
@@ -72,19 +92,27 @@ import { notifyModel } from "./model";
 
 
   return {
-
-    notify,
-    // removeNotify,
-    handleClose,
+    isClosing,
+    isOpening,
+    isOpen,
+    content,
     timer,
+    setTimer,
+    progressBarTimer,
+    handleClose,
+    setContent,
+    setIsOpen,
+    setIsClosing,
+    notify,
+    removeNotify,
     notifications,
     setNotifications,
 
 
     pauseTimer: () => timerControl.current?.pause(),
     resumeTimer: () => timerControl.current?.resume(),
-    // pauseProgressBar: () => progressBarControl.current?.pause(),
-    // resumeProgressBar: () => progressBarControl.current?.resume()
+    pauseProgressBar: () => progressBarControl.current?.pause(),
+    resumeProgressBar: () => progressBarControl.current?.resume()
 
   };
 };
@@ -92,7 +120,7 @@ import { notifyModel } from "./model";
 export default useNotify;
 
 
-const createTimer = (duration, callback, handleClose, id) => {
+const createTimer = (duration, callback, timeFormat = 'ms', handleClose, localNotifyId) => {
   let interval = null;
   let remainingTime = duration;
   let paused = false;
@@ -104,13 +132,13 @@ const createTimer = (duration, callback, handleClose, id) => {
       if (!paused) {
         const now = Date.now();
         remainingTime = Math.max(endTime - now, 0);
-        // remainingTime = timeFormat === 's' ? Math.round(remainingTime / 1000) : remainingTime;
+        remainingTime = timeFormat === 's' ? Math.round(remainingTime / 1000) : remainingTime;
+        // stop();
         callback(remainingTime);
 
         if (remainingTime <= 0) {
-          console.log('removing: ', id);
           clearInterval(interval);
-          handleClose( id )
+          handleClose( localNotifyId );
         }
       }
     },  20);

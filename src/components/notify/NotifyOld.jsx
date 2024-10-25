@@ -69,18 +69,61 @@ export const timerPositionMap = {
  */
 export default function Notify( { notification } ) {  
 
+  const { 
+    id = generateId(), 
+    type = 'info', 
+    text = 'Notify title', 
+    icon = 'success',
+    autoClose = true, 
+    showProgressBar = true,
+    timeSettings = {},
+  } = props
 
   const { 
+    duration = 5000, 
+    timeFormat = 'ms', 
+    showTimer = false, 
+    timerPosition = 'bottom-right' 
+  } = timeSettings
+
+
+  const { 
+    isClosing, 
+    isOpening,
+    isOpen,
     handleClose,
     timer,
+    progressBarTimer,
     pauseTimer,
     resumeTimer,
+    pauseProgressBar,
+    resumeProgressBar
   } = useNotify( notification )
 
-  const { id, text, type, icon, showProgressBar, autoClose, timeSettings, state } = notification
-  const { duration, timerPosition, timeFormat, showTimer } = timeSettings
-  const { isOpen, isClosing, isOpening } = state
   const { bg, txtColor, iconNotify } = notifyMap[type]
+
+
+
+  const progressBar = () => {
+    return (
+        <div
+          className={"absolute bottom-0 left-0 w-full h-1 bg-white/50 shadow"}
+          style={{ width: `${(progressBarTimer / duration) * 100}%` }}
+        />
+    )
+  }
+
+  const handlerPauseTime = () => {
+    if( !autoClose )  return 
+    pauseTimer()
+    pauseProgressBar()
+  }
+
+  const handlerResumeTime = () => {
+    if( !autoClose )  return 
+    resumeTimer()
+    resumeProgressBar()
+  }
 
 
   return (
@@ -89,8 +132,8 @@ export default function Notify( { notification } ) {
       ? (
           <div 
             key={ id }
-            onMouseEnter={ () => autoClose && pauseTimer() }
-            onMouseLeave={ () => autoClose && resumeTimer() }
+            onMouseEnter={ handlerPauseTime }
+            onMouseLeave={ handlerResumeTime }
             className={`Notify p-3  text-sm shadow-md shadow-black/60 relative w-[240px] min-h-[60px] max-h-[60px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto z-50 duration-300 overflow-hidden 
             ${bg} ${txtColor}
             ${isClosing ? 'animate-[zoomOut_.4s_ease] opacity-0 mb-[-60px]' : 'animate-[zoomIn_.4s_ease] mb-2'}
@@ -110,24 +153,12 @@ export default function Notify( { notification } ) {
               autoClose && (
                 <>
                   {showTimer && (
-                    <div className={`TIMER text-white text-[.55rem] absolute ${timerPositionMap[timerPosition] ?? timerPositionMap['bottom-right']}`}>
-                      <span>
-                        { 
-                          timer > 0 
-                          ? (timeFormat === 's' ? Math.round(timer / 1000) : timer) + timeFormat
-                          : null 
-                        } 
-                      </span>
+                    <div className={`TIMER text-white text-[.55rem] absolute ${timerPositionMap[timerPosition]}`}>
+                      <span>{ timer > 0 ? timer + timeFormat: null } </span>
                     </div>
                   )}
 
-                  { showProgressBar && (
-                    <div
-                      className={"absolute bottom-0 left-0 w-full h-1 bg-white/50 shadow"}
-                      style={{ width: `${(timer / duration) * 100}%` }}
-                    />
-                  )}
-
+                  { showProgressBar && progressBar() }
                 </>
               )
             }
