@@ -91,7 +91,7 @@ export default function Notify( { notification } ) {
             key={ id }
             onMouseEnter={ () => autoClose && pauseTimer() }
             onMouseLeave={ () => autoClose && resumeTimer() }
-            className={`Notify p-3  text-sm shadow-md shadow-black/60 relative w-[240px] min-h-[60px] max-h-[60px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto z-50 duration-300 overflow-hidden 
+            className={`Notify p-3  text-sm shadow-md shadow-black/60 relative w-[240px] min-h-[60px] max-h-[60px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto select-none z-50 duration-300 overflow-hidden 
             ${bg} ${txtColor}
             ${isClosing ? 'animate-[zoomOut_.4s_ease] opacity-0 mb-[-60px]' : 'animate-[zoomIn_.4s_ease] mb-2'}
             ${isOpening ? 'mb-[-60px]' : 'mb-2'}`}

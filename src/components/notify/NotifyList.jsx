@@ -21,9 +21,9 @@ export default function NotifyList() {
 
   const handleAddNotify = () => {
     // notify.info('Info message', {timeSettings:{time:6000}})
-    notify.error('Error message', {autoClose:false});
+    notify.error('Error message', {autoClose:true});
     // notify.success('Success message', { timeSettings: { duration: 4000, showTimer: true } });
-    const notiId = notify.warning('Warning take care!', { icon: 'success', timeSettings: { duration: 10000, showTimer: true, timeFormat: 'ms', timerPosition: 'bottom-left' } });
+    // const notiId = notify.warning('Warning take care!', { icon: 'success', timeSettings: { duration: 10000, showTimer: true, timeFormat: 'ms', timerPosition: 'bottom-left' } });
 
     // console.log('notiId: ', notiId);
 
@@ -45,7 +45,7 @@ export default function NotifyList() {
   return (
     <div className="flex flex-col items-center justify-center ">
 
-      <section className='flex justify-center items-center mb-3 gap-3 *:duration-300  '>
+      <section className='flex justify-center items-center mb-3 gap-3 *:duration-300  select-none'>
         <button onClick={handleAddNotify} className="p-2 bg-violet-800 rounded-xl hover:bg-violet-500 active:scale-95">
           Add Toast
         </button>
