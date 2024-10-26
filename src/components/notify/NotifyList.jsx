@@ -15,21 +15,16 @@ export const positions = {
 
 export default function NotifyList() {
 
-  const { notifications, notify, handleClose } = useNotify()
+  const { notifications, notify } = useNotify()
   const [position, setPosition] = useState( positions['top-right'] )
   const [counter, setCounter] = useState(0)
 
   const handleAddNotify = () => {
     // notify.info('Info message', {timeSettings:{time:6000}})
     notify.error('Error message', {autoClose:true});
-    // notify.success('Success message', { timeSettings: { duration: 4000, showTimer: true } });
+    notify.error('Error message', {autoClose:true});
+    notify.error('Error message', {autoClose:true});
     // const notiId = notify.warning('Warning take care!', { icon: 'success', timeSettings: { duration: 10000, showTimer: true, timeFormat: 'ms', timerPosition: 'bottom-left' } });
-
-    // console.log('notiId: ', notiId);
-
-    // setTimeout(() => {
-    //   handleClose(notiId)
-    // }, 1000)
   }
 
   const handlePositionList = () => {

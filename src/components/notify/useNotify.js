@@ -21,9 +21,12 @@ import { notifyModel } from "./model";
   const saveNotify = (type, text, options = {}) => {
     const newNotify = {...notifyModel( type, text, options, handleClose )}
     
-    setNotifications((noties) => [newNotify, ...noties])
+    setNotifications((noties) => {
+      if ( noties.length > 4 ) deleteQueue()
+      return [newNotify, ...noties]
+    })
     
-    if ( notifications.length > 4 ) deleteQueue()
+    // if ( notifications.length > 4 ) deleteQueue()
 
     return newNotify.id
   };
