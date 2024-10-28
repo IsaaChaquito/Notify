@@ -6,9 +6,8 @@ import {
   WarningTriangleIcon, 
   WarningSquareIcon 
 } from "./icons"
-import { generateId } from "./utilities"
+
 import useNotify from "./useNotify"
-import { useEffect } from "react"
 
 export const notifyType = {
   info: 'info',

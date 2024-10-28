@@ -1,4 +1,4 @@
-import { generateId } from "./utilities";
+import { generateId } from '../../utils/utilities'
 
 /**
  * Generates a notify model with the given options.

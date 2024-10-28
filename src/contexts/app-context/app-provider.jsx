@@ -1,12 +1,15 @@
 
-import { createContext, useState } from 'react';
+import { createContext, useReducer, useState } from 'react';
+import { useProvider } from './useProvider';
+import notifyReducer from '../../components/notify/notifyReducer';
 
 export const AppContext = createContext();
 
 
 export const AppProvider = ({ children }) => {
   
-  const [notifications, setNotifications] = useState([])
+  const [notifyState, notifyDispatch] = useReducer(notifyReducer);
+
   const [modal, setModal] = useState({
     content: null,
     isOpen: false,
@@ -18,8 +21,8 @@ export const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider value={
       { 
-        notifications, 
-        setNotifications,
+        notifyState,
+        notifyDispatch,
         modal,
         setModal
       }

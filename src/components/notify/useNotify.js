@@ -1,15 +1,13 @@
-import { createRef, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useProvider } from "../../contexts/app-context/useProvider";
-import { generateId } from "./utilities";
 import { notifyModel } from "./model";
 
-//  const useNotify = ( localNotifyId, autoClose, time, timeFormat = 'ms', showProgressBar ) => {
+
   const useNotify = ( notification ) => {
-  
-  const { notifications, setNotifications } = useProvider();
+
+  const { notifyState, notifyDispatch } = useProvider()
   const [timer, setTimer] = useState(notification?.timeSettings?.duration);
   const timerControl = useRef(null);  // Referencia para el control del temporizador
-
 
   const notify = {
     success: (text, options) => saveNotify('success', text, options),
@@ -21,40 +19,43 @@ import { notifyModel } from "./model";
   const saveNotify = (type, text, options = {}) => {
     const newNotify = {...notifyModel( type, text, options, handleClose )}
     
-    setNotifications((noties) => {
-      if ( noties.length > 4 ) deleteQueue()
-      return [newNotify, ...noties]
-    })
+    notifyDispatch({ type: 'ADD_NOTIFY', payload: newNotify })
     
-    // if ( notifications.length > 4 ) deleteQueue()
+    if ( notifyState.notifies.length > 4 ) deleteQueue()
 
     return newNotify.id
   };
 
 
   const deleteQueue = () => {
-    const excededQ = notifications.slice(4, notifications.length)
+    const excededQ = notifyState.notifies.slice(4, notifyState.notifies.length)
     excededQ.map( n => handleClose( n.id ) )
   }
 
   const handleClose = ( id ) => {
 
-    setNotifications((notis) => notis.map( n => n.id === id ? { ...n, state: { ...n.state, isClosing: true } } : n ))
+    notifyDispatch({ type: 'IS_CLOSING_TRUE', payload: id })
+
     setTimeout(() => {
-      setNotifications((notis) => notis.map( n => n.id === id ? { ...n, state: { ...n.state, isOpen: false } } : n ))
+      notifyDispatch(({ type: 'IS_OPEN_FALSE', payload: id }))
       removeNotify( id );
     }, 300)
 
   };
 
 
-  const removeNotify = (id) => setNotifications((notis) => notis.filter((n) => n.id !== id))
+  const removeNotify = ( id ) => notifyDispatch({ type: 'REMOVE_NOTIFY', payload: id })
+
+  const setNotifiesPosition = ( position) => {
+    notifyDispatch({ type: 'SET_NOTIFIES_POSITION', payload: position })
+  }
 
 
   useEffect(() => {
 
     const interval = setTimeout(() => {
-      setNotifications((notis) => notis.map( n => n.id === notification?.id ? { ...n, state: { ...n.state, isOpening: false } } : n ))
+
+      notifyDispatch({ type: 'IS_OPENING_FALSE', payload: notification?.id })
     }, 0)
 
     // Timer para el tiempo de la notificación
@@ -73,8 +74,9 @@ import { notifyModel } from "./model";
     notify, //notify caller. example: notify.success( 'success message')
     handleClose,
     timer,
-    notifications,
-    setNotifications,
+
+    notifyState, //notify state. example: notifyState.notifies, comes from notifyReducer
+    setNotifiesPosition,
 
     pauseTimer: () => timerControl.current?.pause(),
     resumeTimer: () => timerControl.current?.resume(),
