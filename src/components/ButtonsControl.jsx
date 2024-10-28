@@ -21,6 +21,8 @@ export default function ButtonsControl() {
 
   const handlePositionList = () => {
     setCounter( counter => (counter + 1 === Object.keys(positions).length) ? 0 : counter + 1 )
+
+    handleAddNotify()
   }
 
   useEffect(() => {
@@ -37,7 +39,7 @@ export default function ButtonsControl() {
       type: notyTypes[rnd],
       text: `I am a ${notyTypes[rnd]} Notify`,
       icon: notyTypes[rnd],
-      autoClose: true,
+      autoClose: false,
       showProgressBar: rnd < 2 ? true : false,
       timeSettings: {
         duration: rnd * 1000 + 3000,
@@ -47,9 +49,7 @@ export default function ButtonsControl() {
       }
     }
 
-    console.log('rnd ', rnd);
     notify[randomNotifyCfg.type](randomNotifyCfg.text, randomNotifyCfg)
-
   }
 
 

@@ -1,12 +1,21 @@
 
 
+// export const positions = {
+//   'top-right': 'top-20 right-4',
+//   'bottom-right': 'bottom-1 right-1 flex-col-reverse',
+//   'bottom-center': 'bottom-1 left-1/2 -translate-x-1/2 flex-col-reverse',
+//   'bottom-left': 'bottom-1 left-1 flex-col-reverse',
+//   'top-left': 'top-20 left-1',
+//   'top-center': 'top-20 left-1/2 -translate-x-1/2',
+// }
+
 export const positions = {
-  'top-right': 'top-20 right-4',
-  'bottom-right': 'bottom-1 right-1 flex-col-reverse',
-  'bottom-center': 'bottom-1 left-1/2 -translate-x-1/2 flex-col-reverse',
-  'bottom-left': 'bottom-1 left-1 flex-col-reverse',
-  'top-left': 'top-20 left-1',
-  'top-center': 'top-20 left-1/2 -translate-x-1/2',
+  'top-right': 'flex-col items-end',
+  'bottom-right': 'flex-col-reverse items-end',
+  'bottom-center': 'flex-col-reverse items-center',
+  'bottom-left': 'flex-col-reverse items-start',
+  'top-left': 'flex-col items-start',
+  'top-center': 'flex-col items-center',
 }
 
 const initialState = { 
