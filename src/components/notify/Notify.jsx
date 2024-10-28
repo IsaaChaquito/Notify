@@ -24,27 +24,54 @@ export const iconType = {
 }
 
 
+// export const notifyMap = {
+//   [notifyType.info]: {
+//     bg: 'bg-blue-500',
+//     txtColor: 'text-white',
+//     iconNotify: ( icon, id ) => iconType[icon](id) || iconType.info(id)
+//   },
+//   [notifyType.success]: {
+//     bg: 'bg-emerald-500',
+//     txtColor: 'text-white',
+//     iconNotify: ( icon, id ) => iconType[icon](id) || iconType.success(id)
+//   },
+//   [notifyType.warning]: {
+//     bg: 'bg-orange-500',
+//     txtColor: 'text-white',
+//     iconNotify: ( icon, id ) => iconType[icon](id) || iconType.warning(id)
+//   },
+//   [notifyType.error]: { 
+//     bg: 'bg-red-500',
+//     txtColor: 'text-white',
+//     iconNotify: ( icon, id ) => iconType[icon](id) || iconType.error(id)
+//   }
+// }
+
 export const notifyMap = {
-  [notifyType.info]: {
-    bg: 'bg-blue-500',
-    txtColor: 'text-white',
-    iconNotify: ( icon, id ) => iconType[icon](id) || iconType.info(id)
-  },
-  [notifyType.success]: {
-    bg: 'bg-emerald-500',
-    txtColor: 'text-white',
-    iconNotify: ( icon, id ) => iconType[icon](id) || iconType.success(id)
-  },
-  [notifyType.warning]: {
-    bg: 'bg-orange-500',
-    txtColor: 'text-white',
-    iconNotify: ( icon, id ) => iconType[icon](id) || iconType.warning(id)
-  },
-  [notifyType.error]: { 
-    bg: 'bg-red-500',
-    txtColor: 'text-white',
-    iconNotify: ( icon, id ) => iconType[icon](id) || iconType.error(id)
-  }
+  [notifyType.info]: ( fullfilled ) => ({
+    bg: fullfilled ? 'bg-blue-500' : 'bg-white',
+    txtColor: fullfilled ? 'text-white font-regular' : 'text-blue-500 font-bold',
+    iconNotify: ( icon, id ) => iconType[icon](id) || iconType.info(id),
+    progressBarColor: fullfilled ? 'bg-white/50' : 'bg-blue-500'
+  }),
+  [notifyType.success]: ( fullfilled ) => ({
+    bg: fullfilled ? 'bg-emerald-500' : 'bg-white',
+    txtColor: fullfilled ? 'text-white' : 'text-emerald-500 font-bold',
+    iconNotify: ( icon, id ) => iconType[icon](id) || iconType.success(id),
+    progressBarColor: fullfilled ? 'bg-white/50' : 'bg-emerald-500'
+  }),
+  [notifyType.warning]: ( fullfilled ) => ({
+    bg: fullfilled ? 'bg-orange-500' : 'bg-white',
+    txtColor: fullfilled ? 'text-white' : 'text-orange-500 font-bold',
+    iconNotify: ( icon, id ) => iconType[icon](id) || iconType.warning(id),
+    progressBarColor: fullfilled ? 'bg-white/50' : 'bg-orange-500'
+  }),
+  [notifyType.error]: ( fullfilled ) => ({ 
+    bg: fullfilled ? 'bg-red-500' : 'bg-white',
+    txtColor: fullfilled ? 'text-white' : 'text-red-500 font-bold',
+    iconNotify: ( icon, id ) => iconType[icon](id) || iconType.error(id),
+    progressBarColor: fullfilled ? 'bg-white/50' : 'bg-red-500'
+  })
 }
 
 export const timerPositionMap = {
@@ -76,10 +103,11 @@ export default function Notify( { notification } ) {
     resumeTimer,
   } = useNotify( notification )
 
-  const { id, text, type, icon, showProgressBar, autoClose, timeSettings, state } = notification
+  const { id, text, type, icon, showProgressBar, autoClose, fullfilled = true, timeSettings, state } = notification
   const { duration, timerPosition, timeFormat, showTimer } = timeSettings
   const { isOpen, isClosing, isOpening } = state
-  const { bg, txtColor, iconNotify } = notifyMap[type]
+  
+  const { bg, txtColor, iconNotify, progressBarColor } = notifyMap[type]( fullfilled )
 
 
   return (
@@ -90,7 +118,7 @@ export default function Notify( { notification } ) {
             key={ id }
             onMouseEnter={ () => autoClose && pauseTimer() }
             onMouseLeave={ () => autoClose && resumeTimer() }
-            className={`Notify p-3  text-sm shadow-md shadow-black/60 relative w-[240px] min-h-[60px] max-h-[60px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto select-none z-50 duration-300 overflow-hidden 
+            className={`Notify p-3 text-sm shadow-md shadow-black/60 relative w-[240px] min-h-[60px] max-h-[60px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto select-none z-50 duration-300 overflow-hidden 
             ${bg} ${txtColor}
             ${isClosing ? 'animate-[zoomOut_.4s_ease] opacity-0 mb-[-60px]' : 'animate-[zoomIn_.4s_ease] mb-2'}
             ${isOpening ? 'mb-[-60px]' : 'mb-2'}`}
@@ -122,7 +150,7 @@ export default function Notify( { notification } ) {
 
                   { showProgressBar && (
                     <div
-                      className={"absolute bottom-0 left-0 w-full h-1 bg-white/50 shadow"}
+                      className={`absolute bottom-0 left-0 w-full h-1 ${progressBarColor} shadow`}
                       style={{ width: `${(timer / duration) * 100}%` }}
                     />
                   )}

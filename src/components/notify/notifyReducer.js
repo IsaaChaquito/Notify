@@ -1,14 +1,5 @@
 
 
-// export const positions = {
-//   'top-right': 'top-20 right-4',
-//   'bottom-right': 'bottom-1 right-1 flex-col-reverse',
-//   'bottom-center': 'bottom-1 left-1/2 -translate-x-1/2 flex-col-reverse',
-//   'bottom-left': 'bottom-1 left-1 flex-col-reverse',
-//   'top-left': 'top-20 left-1',
-//   'top-center': 'top-20 left-1/2 -translate-x-1/2',
-// }
-
 export const positions = {
   'top-right': 'flex-col items-end',
   'bottom-right': 'flex-col-reverse items-end',
@@ -20,7 +11,7 @@ export const positions = {
 
 const initialState = { 
   notifies: [],
-  screenPositionStyle: 'top-20 right-4',
+  screenPositionStyle: positions['top-right'],
   screenPosition: 'top-right'
 }
 
@@ -47,13 +38,13 @@ const actions = {
   )}),
   
   SET_NOTIFIES_POSITION: ( state, action ) => {  
-    
-    const pos = positions[ action.payload ]
+
+    if( !positions[ action.payload ]) return {...state}
 
     return {
       ...state,
-      screenPositionStyle: pos ?? 'top-20 right-4',
-      screenPosition: pos ? action.payload : 'top-right'
+      screenPositionStyle: positions[ action.payload ],
+      screenPosition: action.payload
     } },
 }
 
