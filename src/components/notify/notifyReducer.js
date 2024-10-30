@@ -12,14 +12,17 @@ export const positions = {
 const initialState = { 
   notifies: [],
   screenPositionStyle: positions['top-right'],
-  screenPosition: 'top-right'
+  screenPosition: 'top-right',
+  maxLength: 7
 }
 
 const actions = {
     
   ADD_NOTIFY: ( state, action ) =>  ({ ...state, notifies: [ action.payload, ...state.notifies ]}),
 
-  REMOVE_NOTIFY: ( state, action ) => ({ ...state, notifies: state.notifies.filter( notify => notify.id != action.payload ) }),
+  REMOVE_NOTIFY: ( state, action ) => ({ ...state, notifies: state.notifies.filter( notify => notify.id !== action.payload ) }),
+
+  UPDATE_NOTIFY: ( state, action ) => ({ ...state, notifies: state.notifies.map( n => n.id === action.payload.id ? action.payload : n ) }),
 
   IS_OPENING_FALSE: ( state, action ) => ({ ...state, notifies: state.notifies.map( n => n.id === action.payload 
     ? { ...n, state: { ...(n.state), isOpening: false } } 
@@ -46,6 +49,8 @@ const actions = {
       screenPositionStyle: positions[ action.payload ],
       screenPosition: action.payload
     } },
+
+  SET_MAX_LENGTH: ( state, action ) => ({ ...state, maxLength: action.payload })
 }
 
 const notifyReducer = ( state = initialState, action ) => {

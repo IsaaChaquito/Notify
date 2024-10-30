@@ -14,6 +14,8 @@ import { notifyModel } from "./model";
     info: (text, options) => saveNotify('info', text, options),
     warning: (text, options) => saveNotify('warning', text, options),
     error: (text, options) => saveNotify('error', text, options),
+    neutral: (text, options) => saveNotify('neutral', text, options),
+    promise: (text, options) => saveNotify('promise', text, options),
   }
 
   const saveNotify = (type, text, options = {}) => {
@@ -21,16 +23,18 @@ import { notifyModel } from "./model";
     
     notifyDispatch({ type: 'ADD_NOTIFY', payload: newNotify })
     
-    if ( notifyState.notifies.length > 4 ) deleteQueue()
+    // if ( notifyState.notifies.length > notifyState.maxLength ) deleteQueue()
 
     return newNotify.id
   };
 
 
-  const deleteQueue = () => {
-    const excededQ = notifyState.notifies.slice(4, notifyState.notifies.length)
-    excededQ.map( n => handleClose( n.id ) )
-  }
+  const verifyLengthOfList = () => {
+    if ( notifyState?.notifies?.length > notifyState?.maxLength ) {
+      const excededQ = notifyState?.notifies.slice(notifyState?.maxLength, notifyState?.notifies?.length)
+      excededQ.map( n => handleClose( n.id ) )
+    }
+  } 
 
   const handleClose = ( id ) => {
 
@@ -44,6 +48,13 @@ import { notifyModel } from "./model";
   };
 
 
+  const getNotify = ( id ) => {
+    const notify = notifyState.notifies.find( n => n.id === id )
+    // console.log(notify)
+    // console.log(notifyState.notifies);
+  }
+
+  const updateNotify = ( notify ) => notifyDispatch({ type: 'UPDATE_NOTIFY', payload: notify }) 
   const removeNotify = ( id ) => notifyDispatch({ type: 'REMOVE_NOTIFY', payload: id })
 
   const setNotifiesPosition = ( position) => {
@@ -53,20 +64,20 @@ import { notifyModel } from "./model";
 
   useEffect(() => {
 
-    const interval = setTimeout(() => {
+    if ( !notification ) return
 
-      notifyDispatch({ type: 'IS_OPENING_FALSE', payload: notification?.id })
-    }, 0)
+    verifyLengthOfList()
 
-    // Timer para el tiempo de la notificación
-    if ( notification?.autoClose ){
-      timerControl.current =  createTimer(notification?.timeSettings?.duration, setTimer, handleClose, notification.id)
+    notifyDispatch({ type: 'IS_OPENING_FALSE', payload: notification.id })
+    
+    if ( notification.autoClose ){
+      // Timer para el tiempo de la notificación
+      timerControl.current =  createTimer(notification.timeSettings.duration, setTimer, handleClose, notification.id)
 
-      return () => timerControl?.current?.stop()
+      return () => timerControl.current.stop()
     }
 
-    return () => clearTimeout(interval)
-  }, [])
+  }, [notification?.autoClose, notification?.timeSettings?.duration, notification?.id])
 
 
   return {
@@ -76,7 +87,12 @@ import { notifyModel } from "./model";
     timer,
 
     notifyState, //notify state. example: notifyState.notifies, comes from notifyReducer
+    notifyDispatch,
+
     setNotifiesPosition,
+    getNotify,
+    updateNotify,
+    removeNotify,
 
     pauseTimer: () => timerControl.current?.pause(),
     resumeTimer: () => timerControl.current?.resume(),

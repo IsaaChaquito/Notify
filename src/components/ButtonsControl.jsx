@@ -2,6 +2,9 @@
 import { useEffect, useState } from 'react'
 
 import useNotify from './notify/useNotify'
+import { useProvider } from '../contexts/app-context/useProvider'
+import { notifyModel } from './notify/model'
+
 
 export const positions = {
   'top-right': 'top-right',
@@ -10,14 +13,16 @@ export const positions = {
   'bottom-left': 'bottom-left',
   'top-left': 'top-left',
   'top-center': 'top-center',
-
 }
 
 export default function ButtonsControl() {
 
 
-  const { notify, setNotifiesPosition, notifyState } = useNotify()
-    const [counter, setCounter] = useState(0)
+  const { notify, setNotifiesPosition, getNotify, notifyDispatch, removeNotify } = useNotify()
+
+  const { notifyState } = useProvider()
+
+  const [counter, setCounter] = useState(0)
 
   const handlePositionList = () => {
     setCounter( counter => (counter + 1 === Object.keys(positions).length) ? 0 : counter + 1 )
@@ -31,31 +36,50 @@ export default function ButtonsControl() {
   }, [counter])
 
 
-  const notyTypes = ['info', 'success', 'warning', 'error']
+  const notyTypes = ['info', 'success', 'warning', 'error', 'neutral', 'promise']
   const handleAddNotify = () => {
 
-    // const rnd = Math.floor(Math.random() * notyTypes.length)
-    // const randomNotifyCfg = {
-    //   type: notyTypes[rnd],
-    //   text: `I am a ${notyTypes[rnd]} Notify`,
-    //   icon: notyTypes[rnd],
-    //   autoClose: false,
-    //   showProgressBar: rnd < 2 ? true : false,
-    //   timeSettings: {
-    //     duration: rnd * 1000 + 3000,
-    //     showTimer: rnd % 2 === 0,
-    //     timeFormat: rnd > 2 ? 's' : 'ms',
-    //     timerPosition: rnd > 1  ? 'bottom-left' : 'bottom-right',
-    //   }
-    // }
+    const rnd = Math.floor(Math.random() * notyTypes.length)
+    const randomNotifyCfg = {
+      type: notyTypes[rnd],
+      text: `I am a ${notyTypes[rnd]} Notify`,
+      filled: Math.floor(Math.random() * 10) % 2 === 0,
+      icon: notyTypes[rnd],
+      autoClose: Math.floor(Math.random() * 10) % 2 === 0,
+      showProgressBar: Math.floor(Math.random() * 10) % 2 === 0,
+      timeSettings: {
+        duration: Math.floor(Math.random() * 3) * 1000 + 3000,
+        showTimer: Math.floor(Math.random() * 10) % 2 === 0,
+        timeFormat: Math.floor(Math.random() * 10) % 2 === 0? 's' : 'ms',
+        timerPosition: Math.floor(Math.random() * 10) % 2 === 0  ? 'bottom-left' : 'bottom-right',
+      }
+    }
 
-    // notify[randomNotifyCfg.type](randomNotifyCfg.text, randomNotifyCfg)
+    notify[randomNotifyCfg.type](randomNotifyCfg.text, randomNotifyCfg)
 
-    notify.info('I am an info Notify', { autoClose: false })
-    notify.success('I am a success Notify', { autoClose: false })
-    notify.warning('I am a warning Notify',   { autoClose: false })
-    notify.error('I am an error Notify', { autoClose: false })
+    // const id = notify.promise('Updating task', { autoClose: false, filled: false, icon: 'promise' })
+
+    // setTimeout(() => {
+
+    //   const updatedNotify = notifyModel(
+    //     'info', 
+    //     'Task updated successfully', 
+    //     { id, filled: false, icon: 'success' }, 
+    //   )
+
+    //   notifyDispatch({ type: 'UPDATE_NOTIFY', payload: updatedNotify })
+    //   // notify.promise('Task updated successfully', {id, filled: false, icon: 'success'})
+      
+    // } , Math.floor((Math.random() * 2) + 3) * 1000 )
+
+
+    // notify.success('I am a success Notify', { autoClose: false })
+    // notify.warning('I am a warning Notify',   { autoClose: false, filled: false })
+    // notify.error('I am an error Notify', { autoClose: false, filled: false })
+    // notify.neutral('I am a neutral Notify', { autoClose: false, filled: false })
+
   }
+
 
 
   return (

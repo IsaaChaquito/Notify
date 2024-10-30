@@ -1,100 +1,31 @@
 
+import { useEffect, useState } from "react"
 import { 
   CheckIcon, 
   WarningCircleIcon, 
   CloseIcon, 
   WarningTriangleIcon, 
-  WarningSquareIcon 
+  WarningSquareIcon, 
+  ExclamationIcon,
+  LoaderIcon
 } from "./icons"
 
 import useNotify from "./useNotify"
-
-export const notifyType = {
-  info: 'info',
-  success: 'success',
-  warning: 'warning',
-  error: 'error'
-}
-
-export const iconType = {
-  info: ( id ) => <WarningSquareIcon key={ id } id={ id } className="w-6 h-6 " />,
-  success: ( id ) => <CheckIcon key={ id } id={ id } className="w-6 h-6 " />,
-  warning: ( id ) => <WarningTriangleIcon key={ id } id={ id } className="w-6 h-6 " />,
-  error: ( id ) => <WarningCircleIcon key={ id } id={ id } className="w-6 h-6 " />,
-}
+import { notifyMap, timerPositionMap } from "./notifyTypes"
 
 
-// export const notifyMap = {
-//   [notifyType.info]: {
-//     bg: 'bg-blue-500',
-//     txtColor: 'text-white',
-//     iconNotify: ( icon, id ) => iconType[icon](id) || iconType.info(id)
-//   },
-//   [notifyType.success]: {
-//     bg: 'bg-emerald-500',
-//     txtColor: 'text-white',
-//     iconNotify: ( icon, id ) => iconType[icon](id) || iconType.success(id)
-//   },
-//   [notifyType.warning]: {
-//     bg: 'bg-orange-500',
-//     txtColor: 'text-white',
-//     iconNotify: ( icon, id ) => iconType[icon](id) || iconType.warning(id)
-//   },
-//   [notifyType.error]: { 
-//     bg: 'bg-red-500',
-//     txtColor: 'text-white',
-//     iconNotify: ( icon, id ) => iconType[icon](id) || iconType.error(id)
-//   }
-// }
 
-export const notifyMap = {
-  [notifyType.info]: ( fullfilled ) => ({
-    bg: fullfilled ? 'bg-blue-500' : 'bg-white',
-    txtColor: fullfilled ? 'text-white font-regular' : 'text-blue-500 font-bold',
-    iconNotify: ( icon, id ) => iconType[icon](id) || iconType.info(id),
-    progressBarColor: fullfilled ? 'bg-white/50' : 'bg-blue-500'
-  }),
-  [notifyType.success]: ( fullfilled ) => ({
-    bg: fullfilled ? 'bg-emerald-500' : 'bg-white',
-    txtColor: fullfilled ? 'text-white' : 'text-emerald-500 font-bold',
-    iconNotify: ( icon, id ) => iconType[icon](id) || iconType.success(id),
-    progressBarColor: fullfilled ? 'bg-white/50' : 'bg-emerald-500'
-  }),
-  [notifyType.warning]: ( fullfilled ) => ({
-    bg: fullfilled ? 'bg-orange-500' : 'bg-white',
-    txtColor: fullfilled ? 'text-white' : 'text-orange-500 font-bold',
-    iconNotify: ( icon, id ) => iconType[icon](id) || iconType.warning(id),
-    progressBarColor: fullfilled ? 'bg-white/50' : 'bg-orange-500'
-  }),
-  [notifyType.error]: ( fullfilled ) => ({ 
-    bg: fullfilled ? 'bg-red-500' : 'bg-white',
-    txtColor: fullfilled ? 'text-white' : 'text-red-500 font-bold',
-    iconNotify: ( icon, id ) => iconType[icon](id) || iconType.error(id),
-    progressBarColor: fullfilled ? 'bg-white/50' : 'bg-red-500'
-  })
-}
-
-export const timerPositionMap = {
-  'top-left': '-top-0.5 left-1',
-  'bottom-left': '-bottom-0.5 left-1',
-  'bottom-center': '-bottom-0.5 left-1/2 right-1/2 -translate-x-1/2 ',
-  'bottom-right': '-bottom-0.5 right-1',
-}
 /**
- * Notification component that displays a message with optional auto-close and timer features.
- *
- * @param {object} props - The component props.
- * @param {string} props.id - Unique identifier for the notification.
- * @param {string} [props.type='info'] - Type of notification, can be 'info', 'success', 'warning', or 'error'.
- * @param {string} [props.text='Notify'] - Text to display within the notification.
- * @param {boolean} [props.autoClose=true] - Whether the notification should automatically close after a specified time, default is true.
- * @param {number} [props.time=4000] - Duration in milliseconds before the notification automatically closes, default is 4000 (4 seconds).
- * @param {boolean} [props.showTimer=false] - Whether to display a countdown timer within the notification, default is false.
- * @param {string} [props.timeFormat='ms'] - Format of the time displayed in the timer, can be 'ms' or 's', default is 'ms'.
- * @returns {ReactElement|null} - The rendered notification component or null if not open.
+ * A notification component that displays a notification message, icon and a close button.
+ * When the notification is autoClosing, a timer is displayed and the notification is closed when it reaches 0.
+ * When the notification is hovered, the close button and timer are displayed.
+ * When the notification is clicked, the notification is removed.
+ * When the notification is updated, the notification is re-rendered with the new props.
+ * When the notification is removed, the notification is removed from the DOM.
+ * @param {{ notification: { id: string, text: string, type: string, icon: string, showProgressBar: boolean, autoClose: boolean, filled: boolean, timeSettings: { duration: number, timerPosition: string, timeFormat: string, showTimer: boolean}, state: { isOpen: boolean, isClosing: boolean, isOpening: boolean }, isUpdating: boolean}}} props
+ * @returns {JSX.Element}
  */
 export default function Notify( { notification } ) {  
-
 
   const { 
     handleClose,
@@ -103,12 +34,10 @@ export default function Notify( { notification } ) {
     resumeTimer,
   } = useNotify( notification )
 
-  const { id, text, type, icon, showProgressBar, autoClose, fullfilled = true, timeSettings, state } = notification
+  const { id, text, type, icon, showProgressBar, autoClose, filled, timeSettings, state, isUpdating } = notification
   const { duration, timerPosition, timeFormat, showTimer } = timeSettings
   const { isOpen, isClosing, isOpening } = state
-  
-  const { bg, txtColor, iconNotify, progressBarColor } = notifyMap[type]( fullfilled )
-
+  const { bg, txtColor, iconNotify, progressBarColor, timerColor } = notifyMap[type]( filled, icon )
 
   return (
     
@@ -118,18 +47,21 @@ export default function Notify( { notification } ) {
             key={ id }
             onMouseEnter={ () => autoClose && pauseTimer() }
             onMouseLeave={ () => autoClose && resumeTimer() }
-            className={`Notify p-3 text-sm shadow-md shadow-black/60 relative w-[240px] min-h-[60px] max-h-[60px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto select-none z-50 duration-300 overflow-hidden 
+            className={`Notify group p-3 text-sm shadow-md shadow-black/60 relative w-[240px] min-h-[55px] max-h-[55px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto select-none z-50 duration-300 overflow-hidden 
             ${bg} ${txtColor}
             ${isClosing ? 'animate-[zoomOut_.4s_ease] opacity-0 mb-[-60px]' : 'animate-[zoomIn_.4s_ease] mb-2'}
-            ${isOpening ? 'mb-[-60px]' : 'mb-2'}`}
+            ${isOpening ? 'mb-[-55px]' : 'mb-2'}`}
             >
-            <h1 className=" truncate"> { text } </h1>
+            <h1 className={`${isUpdating ? 'animate-fade-in' : ''}  truncate duration-75`}> { text } </h1>
 
-            { iconNotify(icon, id+1) }
+            { iconNotify }
 
 
-            <button onClick={ () => handleClose( id ) } className="absolute top-1 right-1 p-0.5 bg-gray-50/20 shadow  hover:bg-gray-50/40 rounded duration-300"> 
-              <CloseIcon className="w-2 h-2 text-black/50" />
+            <button 
+              onClick={ () => handleClose( id ) } 
+              className={`absolute top-1 right-1 p-0.5 ${filled ? 'bg-gray-50/20 hover:bg-gray-50/40' : 'bg-black/40 hover:bg-black/60'} opacity-0 group-hover:opacity-100 shadow rounded duration-300`}
+            > 
+              <CloseIcon className={`w-2 h-2 ${filled ? 'text-black/50' : 'text-white'}`} />
             </button>
 
   
@@ -137,7 +69,7 @@ export default function Notify( { notification } ) {
               autoClose && (
                 <>
                   {showTimer && (
-                    <div className={`TIMER text-white text-[.55rem] absolute ${timerPositionMap[timerPosition] ?? timerPositionMap['bottom-right']}`}>
+                    <div className={`TIMER ${timerColor} text-[.55rem] absolute ${timerPositionMap[timerPosition] ?? timerPositionMap['bottom-right']}`}>
                       <span>
                         { 
                           timer > 0 
