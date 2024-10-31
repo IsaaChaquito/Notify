@@ -6,7 +6,7 @@ import CustomSelect from './CustomSelect'
 import { WarningCircleIcon } from '../notify/icons'
 
 const notyTypesOpitons = ['info', 'success', 'warning', 'error', 'neutral', 'promise']
-const booleanOptions = [true, false]
+const booleanOptions = ['true', 'false']
 const timerPositionOptions = ['bottom-right', 'bottom-left', 'top-left']
 const durationOptions = ['2000', '3000', '4000', '5000', '10000']
 const timeFormatOptions = ['s', 'ms']
@@ -36,8 +36,9 @@ const NotifyInteractiveConfig = () => {
     setState( {...newState, id: generateId()} )}
 
   useEffect(() => {
-    notify[state.type]?.(state.text, state) || alert('El tipo de notificacion no existe')
-    
+    const newNoti = { ...state }
+    delete newNoti.id
+    notify[newNoti.type]?.(newNoti.text, newNoti) || alert('El tipo de notificacion no existe')
   }, [state])
 
   return (
@@ -50,7 +51,7 @@ const NotifyInteractiveConfig = () => {
 
           <div className='flex flex-col my-4 gap-1'>
 
-              <span className='flex items-center gap-x-2'>id: { state.id } <WarningCircleIcon className='w-4 h-4 text-white' /> </span>
+              <span className='flex items-center gap-x-2'>id: { state.id } </span>
 
               <CustomSelect 
                 attribute={'type'}
