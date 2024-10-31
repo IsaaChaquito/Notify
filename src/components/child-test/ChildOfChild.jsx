@@ -1,16 +1,16 @@
 
 import React from 'react'
-import { useProvider } from '../contexts/app-context/useProvider'
-import Notify from './notify/Notify'
+import { useProvider } from '../../contexts/app-context/useProvider'
+import Notify from '../notify/Notify'
 
 export default function ChildOfChild() {
 
-  const { notifications } = useProvider()
+  const { notifyState } = useProvider()
 
   return (
     <>
       {
-          notifications.map((notify) => { 
+          notifyState?.notifies.map((notify) => { 
             return (
               <Notify 
                 key={notify.id} 

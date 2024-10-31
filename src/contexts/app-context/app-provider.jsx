@@ -1,6 +1,5 @@
 
 import { createContext, useReducer, useState } from 'react';
-import { useProvider } from './useProvider';
 import notifyReducer from '../../components/notify/notifyReducer';
 
 export const AppContext = createContext();

@@ -10,7 +10,7 @@ export default function NotifyList() {
 
   return (
 
-      <div className={`TOAST-CONTAINER absolute top-2 right-2 bottom-2 left-2  pointer-events-none flex ${notifyState?.screenPositionStyle} overflow-hidden`}>
+      <div className={`TOAST-CONTAINER fixed z-40 top-2 right-2 bottom-2 left-2  pointer-events-none flex ${notifyState?.screenPositionStyle} overflow-hidden`}>
 
         {notifyState?.notifies.map((notify) => (
           

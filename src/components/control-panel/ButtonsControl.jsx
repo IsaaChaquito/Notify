@@ -1,9 +1,10 @@
 
 import { useEffect, useState } from 'react'
 
-import useNotify from './notify/useNotify'
-import { useProvider } from '../contexts/app-context/useProvider'
-import { notifyModel } from './notify/model'
+import useNotify from '../notify/useNotify'
+import { useProvider } from '../../contexts/app-context/useProvider'
+import { notifyModel } from '../notify/model'
+import NotifyInteractiveConfig from './NotifyInteractiveConfig'
 
 
 export const positions = {
@@ -45,7 +46,8 @@ export default function ButtonsControl() {
       text: `I am a ${notyTypes[rnd]} Notify`,
       filled: Math.floor(Math.random() * 10) % 2 === 0,
       icon: notyTypes[rnd],
-      autoClose: Math.floor(Math.random() * 10) % 2 === 0,
+      // autoClose: Math.floor(Math.random() * 10) % 2 === 0,
+      // autoClose: true,
       showProgressBar: Math.floor(Math.random() * 10) % 2 === 0,
       timeSettings: {
         duration: Math.floor(Math.random() * 3) * 1000 + 3000,
@@ -83,18 +85,25 @@ export default function ButtonsControl() {
 
 
   return (
-    <section className='flex justify-center items-center mb-3 gap-3 *:duration-300  select-none'>
-      <button onClick={handleAddNotify} className="p-2 bg-violet-800 rounded-xl hover:bg-violet-500 active:scale-95">
-        Add Toast
-      </button>
+    <div className='flex flex-col items-center w-full h-full '>
+      
+      <section className='flex justify-center items-center m-24 gap-3 *:duration-300  select-none'>
+        <button onClick={handleAddNotify} className="p-2 bg-violet-800 rounded-xl hover:bg-violet-500 active:scale-95">
+          Add Toast
+        </button>
 
-      <button onClick={ handlePositionList } className='p-2 rounded-xl group bg-black hover:bg-black/80 text-sm flex flex-col justify-center items-center '>
-        <span>Alternate position</span>
-        <code className='text-xs  p-1 rounded-full bg-gradient-to-tr from-blue-900 from-10% shadow-sm group-hover:shadow-blue-900 group-active:scale-75 duration-300' > 
-          { notifyState?.screenPosition } 
-        </code>
-      </button>
+        <button onClick={ handlePositionList } className='p-2 rounded-xl group bg-black hover:bg-black/80 text-sm flex flex-col justify-center items-center '>
+          <span>Alternate position</span>
+          <code className='text-xs p-1 rounded-full bg-gradient-to-tr from-blue-900 from-10% shadow-sm group-hover:shadow-blue-900 group-active:scale-75 duration-300' > 
+            { notifyState?.screenPosition } 
+          </code>
+        </button>
+      </section>
 
-    </section>
+      <NotifyInteractiveConfig />
+
+    </div>
+
+
   )
 }

@@ -19,7 +19,7 @@ import { notifyModel } from "./model";
   }
 
   const saveNotify = (type, text, options = {}) => {
-    const newNotify = {...notifyModel( type, text, options, handleClose )}
+    const newNotify = {...notifyModel( type, text, options )}
     
     notifyDispatch({ type: 'ADD_NOTIFY', payload: newNotify })
     
