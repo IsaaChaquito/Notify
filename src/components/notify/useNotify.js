@@ -22,8 +22,6 @@ import { notifyModel } from "./model";
     const newNotify = {...notifyModel( type, text, options )}
     
     notifyDispatch({ type: 'ADD_NOTIFY', payload: newNotify })
-    
-    // if ( notifyState.notifies.length > notifyState.maxLength ) deleteQueue()
 
     return newNotify.id
   };
@@ -68,7 +66,9 @@ import { notifyModel } from "./model";
 
     verifyLengthOfList()
 
-    notifyDispatch({ type: 'IS_OPENING_FALSE', payload: notification.id })
+    setTimeout(() => {
+      notifyDispatch({ type: 'IS_OPENING_FALSE', payload: notification.id })
+    }, 0)
     
     if ( notification.autoClose ){
       // Timer para el tiempo de la notificación

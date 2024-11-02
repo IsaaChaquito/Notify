@@ -22,7 +22,7 @@ import { generateId } from '../../utils/utilities'
  */
 export const notifyModel = ( type, text, options ) => {
 
-  const { timeSettings, autoClose, showProgressBar, icon, filled, id } = options
+  const { id, timeSettings, autoClose, showProgressBar, icon, iconFirst, filled } = options
   
   const notify = {
 
@@ -32,6 +32,7 @@ export const notifyModel = ( type, text, options ) => {
     showProgressBar: showProgressBar ?? true,
     autoClose: autoClose ?? true,
     icon: icon ?? type,
+    iconFirst: iconFirst ?? false,
     filled: filled ?? true,
     isUpdating: id ? true : false,
 

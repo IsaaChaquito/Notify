@@ -5,6 +5,9 @@ import useNotify from '../notify/useNotify'
 import { useProvider } from '../../contexts/app-context/useProvider'
 import { notifyModel } from '../notify/model'
 import NotifyInteractiveConfig from './NotifyInteractiveConfig'
+import IntExml from './IntExml'
+
+
 
 
 export const positions = {
@@ -41,11 +44,13 @@ export default function ButtonsControl() {
   const handleAddNotify = () => {
 
     const rnd = Math.floor(Math.random() * notyTypes.length)
+
     const randomNotifyCfg = {
       type: notyTypes[rnd],
       text: `I am a ${notyTypes[rnd]} Notify`,
       filled: Math.floor(Math.random() * 10) % 2 === 0,
       icon: notyTypes[rnd],
+      iconFirst: Math.floor(Math.random() * 10) % 2 === 0,
       // autoClose: Math.floor(Math.random() * 10) % 2 === 0,
       // autoClose: true,
       showProgressBar: Math.floor(Math.random() * 10) % 2 === 0,
@@ -64,7 +69,7 @@ export default function ButtonsControl() {
     // setTimeout(() => {
 
     //   const updatedNotify = notifyModel(
-    //     'info', 
+    //     'success', 
     //     'Task updated successfully', 
     //     { id, filled: false, icon: 'success' }, 
     //   )
@@ -72,7 +77,7 @@ export default function ButtonsControl() {
     //   notifyDispatch({ type: 'UPDATE_NOTIFY', payload: updatedNotify })
     //   // notify.promise('Task updated successfully', {id, filled: false, icon: 'success'})
       
-    // } , Math.floor((Math.random() * 2) + 3) * 1000 )
+    // } , Math.floor((Math.random() * 2) + 3) * 10000 )
 
 
     // notify.success('I am a success Notify', { autoClose: false })
@@ -88,19 +93,21 @@ export default function ButtonsControl() {
     <div className='flex flex-col items-center w-full h-full '>
       
       <section className='flex justify-center items-center m-24 gap-3 *:duration-300  select-none'>
-        <button onClick={handleAddNotify} className="p-2 bg-violet-800 rounded-xl hover:bg-violet-500 active:scale-95">
-          Add Toast
+        <button onClick={ handleAddNotify } className="p-2 bg-gradient-to-tr from-blue-900 from-10% shadow-sm group-hover:shadow-blue-900 rounded-xl hover:bg-violet-700 active:scale-95">
+          Random Notify
         </button>
 
         <button onClick={ handlePositionList } className='p-2 rounded-xl group bg-black hover:bg-black/80 text-sm flex flex-col justify-center items-center '>
           <span>Alternate position</span>
-          <code className='text-xs p-1 rounded-full bg-gradient-to-tr from-blue-900 from-10% shadow-sm group-hover:shadow-blue-900 group-active:scale-75 duration-300' > 
+          <code className='text-xs p-1 rounded bg-gradient-to-tr from-blue-900 from-10% hover:bg-violet-700 shadow-sm group-hover:shadow-blue-900 group-active:scale-75 duration-300' > 
             { notifyState?.screenPosition } 
           </code>
         </button>
       </section>
 
-      <NotifyInteractiveConfig />
+      {/* <NotifyInteractiveConfig /> */}
+      <IntExml />
+
 
     </div>
 

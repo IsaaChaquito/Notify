@@ -1,3 +1,18 @@
+import { useState } from "react"
+
+
+const newVal = {
+  'number': ( val ) => Number( val ),
+  'string': ( val ) => val,
+  'boolean': ( val ) => val === 'true'
+}
+
+const colors = {
+  'number': 'text-red-400',
+  'string': 'text-lime-300',
+  'true': 'text-lime-500 italic',
+  'false': 'text-red-600 italic'
+}
 
 
 /**
@@ -10,41 +25,50 @@
  */
 const CustomSelect = ({ attribute, options, type, state, updateState }) => {
 
+  const [selectedValue, setSelectedValue] = useState(options[0])
 
   const handleUpdate = (e) => {
-    
-    const value = e.target.value
-    const newVal = {
-      'number': Number( value ),
-      'string': value,
-      'boolean': value === 'true'
-    }
-
-    updateState( iterateObject({...state}, attribute, newVal) )
+    const val = newVal[type](e.target.value) //convert string to respective type
+        
+    updateState( iterateObject({...state}, attribute, val) ) // recursively update state
+    setSelectedValue(val)
   }
 
-  function iterateObject(obj, attribute, newVal) {
+  function iterateObject(obj, attribute, val) {
     for (const key in obj) {
       if(key === attribute) {
-        obj[key] = newVal[type]
+        obj[key] = val
         return {...obj}
       }
       if(obj[key] instanceof Object) {
-        return {...obj, [key]: iterateObject(obj[key], attribute, newVal)}
+        return {...obj, [key]: iterateObject(obj[key], attribute, val)}
       }
     }
   }
+
+
+  const getOptionColor = (option) => type === 'boolean' ? colors[newVal[type](option)] : colors[type]
 
   return (
     <div className='flex'>
       <span>{ attribute }:</span>
       <div className='SELECT-TYPE flex relative bg-black'>
         <select 
-          className='bg-black outline-none'
+          className={`bg-black outline-none ${getOptionColor(selectedValue)}`}
           onChange={ (e) => handleUpdate(e) } 
-          defaultValue={state.type + ':'} 
+          value={selectedValue}
         >
-          {options.map(type => <option key={type} value={type}>{type}</option>)}
+          {
+            options.map(option => (
+              <option 
+                className={`${getOptionColor(option)} italic`} 
+                key={option} 
+                value={option}
+              >
+                {type === 'string' ? `${option},` : option + ','}
+              </option>
+            ))
+          }
         </select>
       </div>
     </div>

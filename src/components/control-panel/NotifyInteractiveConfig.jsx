@@ -3,7 +3,6 @@ import { generateId } from '../../utils/utilities'
 import useNotify from '../notify/useNotify'
 import '../notify/styles.css' 
 import CustomSelect from './CustomSelect'
-import { WarningCircleIcon } from '../notify/icons'
 
 const notyTypesOpitons = ['info', 'success', 'warning', 'error', 'neutral', 'promise']
 const booleanOptions = ['true', 'false']
@@ -31,9 +30,7 @@ const NotifyInteractiveConfig = () => {
     }
   })
 
-  const updateState = ( newState ) => {
-    console.log('newState', newState)
-    setState( {...newState, id: generateId()} )}
+  const updateState = ( newState ) => setState( {...newState, id: generateId()} )
 
   useEffect(() => {
     const newNoti = { ...state }
@@ -42,29 +39,80 @@ const NotifyInteractiveConfig = () => {
   }, [state])
 
   return (
-    <div>
-      <code className='flex items-center gap-x-2  min-w-fit min-h-fit p-3 bg-black rounded-3xl overflow-x-auto *:text-xs *:text-yellow-500'>
-        <span className="">notify =</span>
+    <div className='flex flex-col gap-2 '>
+      <code className='flex flex-col items-center gap-x-2  min-w-fit min-h-fit p-3 bg-black shadow-md rounded-xl overflow-x-auto *:text-xs *:text-sky-400'>
+        
+        <div className='flex items-center gap-x-2 '>
+          <span className="self-start !text-sky-300 after:content-['='] after:text-sky-500">options </span>
 
-        <span className='self-start'><pre>{"{"}</pre></span>
-        <span className='self-end -ml-3.5'><pre>{"}"}</pre></span>
+        <span className='self-start !text-pink-400'><pre>{"{"}</pre></span>
+        <span className='self-end !text-pink-400 -ml-3.5'><pre>{"}"}</pre></span>
 
-          <div className='flex flex-col my-4 gap-1'>
+        <div className='flex flex-col my-4 gap-1'>
 
-              <span className='flex items-center gap-x-2'>id: { state.id } </span>
+          <span className='flex items-center gap-x-2 '>id: auto-generated,</span>
+
+          <CustomSelect 
+            attribute={'type'}
+            options={notyTypesOpitons} 
+            type='string'
+            state={state} 
+            updateState={ updateState } 
+          /> 
+
+          <CustomSelect 
+            attribute={'showProgressBar'}
+            options={booleanOptions} 
+            type='boolean'
+            state={state} 
+            updateState={ updateState } 
+          />
+
+          <CustomSelect 
+            attribute={'autoClose'}
+            options={booleanOptions} 
+            type='boolean'
+            state={state} 
+            updateState={ updateState } 
+          />
+
+          <CustomSelect 
+            attribute={'icon'}
+            options={notyTypesOpitons} 
+            type='string'
+            state={state} 
+            updateState={ updateState } 
+          />
+
+          <CustomSelect 
+            attribute={'filled'}
+            options={booleanOptions} 
+            type='boolean'
+            state={state} 
+            updateState={ updateState } 
+          />
+
+          <span>{`timeSettings: {`}</span>
+            <div className='flex flex-col gap-1 ml-3'>
+              
+              <CustomSelect 
+                attribute={'duration'}
+                options={durationOptions} 
+                type='number'
+                state={state} 
+                updateState={ updateState } 
+              />
 
               <CustomSelect 
-                attribute={'type'}
-                options={notyTypesOpitons} 
+                attribute={'timeFormat'}
+                options={timeFormatOptions} 
                 type='string'
                 state={state} 
                 updateState={ updateState } 
               />
 
-              <span>{`string: "I am a ${state.type} Notify"`}</span>
-
               <CustomSelect 
-                attribute={'showProgressBar'}
+                attribute={'showTimer'}
                 options={booleanOptions} 
                 type='boolean'
                 state={state} 
@@ -72,80 +120,41 @@ const NotifyInteractiveConfig = () => {
               />
 
               <CustomSelect 
-                attribute={'autoClose'}
-                options={booleanOptions} 
-                type='boolean'
-                state={state} 
-                updateState={ updateState } 
-              />
-
-              <CustomSelect 
-                attribute={'icon'}
-                options={notyTypesOpitons} 
+                attribute={'timerPosition'}
+                options={timerPositionOptions} 
                 type='string'
                 state={state} 
                 updateState={ updateState } 
               />
 
-              <CustomSelect 
-                attribute={'filled'}
-                options={booleanOptions} 
-                type='boolean'
-                state={state} 
-                updateState={ updateState } 
-              />
+            </div>
 
-                <span>{`timeSettings: {`}</span>
-              <div className='flex flex-col gap-1 ml-3'>
-                  
-                <CustomSelect 
-                  attribute={'duration'}
-                  options={durationOptions} 
-                  type='number'
-                  state={state} 
-                  updateState={ updateState } 
-                />
-
-                <CustomSelect 
-                  attribute={'timeFormat'}
-                  options={timeFormatOptions} 
-                  type='string'
-                  state={state} 
-                  updateState={ updateState } 
-                />
-
-                <CustomSelect 
-                  attribute={'showTimer'}
-                  options={booleanOptions} 
-                  type='boolean'
-                  state={state} 
-                  updateState={ updateState } 
-                />
-
-                <CustomSelect 
-                  attribute={'timerPosition'}
-                  options={timerPositionOptions} 
-                  type='string'
-                  state={state} 
-                  updateState={ updateState } 
-                />
-
-              </div>
-
-                <span>{`}`}</span>
-
-              {/* <div>
-              <span>{`timeSettings: {`}</span>
-              <span className='self-end'><pre>{"}"}</pre></span>
-              </div> */}
-
-
-
+          <span className="">{`}`}</span>
 
           </div>
-        {/* <span className='self-end'><pre>{"}"}</pre></span> */}
+
+
+        </div>
+        
+        <div className='flex self-start gap-y-2 mt-10'>
+          <span className='flex text-white'> notify.</span>
+          <span className='text-yellow-500'>{state.type}</span>
+          <span className='text-blue-500'>(</span>
+          <span className='text-lime-300'>"I'm a </span>
+          <span className='text-pink-400'><pre> $</pre></span>
+          <span className='text-orange-300'>{`{`}</span>
+          <span className='text-white'>{`options.`}</span>
+          <span className='text-sky-400'>{`type`}</span>
+          <span className='text-orange-300'>{`}`}</span>
+          <span className='text-lime-300'><pre> Notify"</pre></span>
+          <span className='text-white'>,</span>
+          <span className='text-sky-300'><pre> options</pre></span>
+          <span className='text-blue-500'>)</span>
+        </div>
 
       </code>
+
+      
 
     </div>
   )
