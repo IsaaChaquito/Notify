@@ -10,130 +10,118 @@ const timerPositionOptions = ['bottom-right', 'bottom-left', 'top-left']
 const durationOptions = ['2000', '3000', '4000', '5000', '10000']
 const timeFormatOptions = ['s', 'ms']
 
-const NotifyInteractiveConfig = () => {
+const optionsReducer = {
+  'type': notyTypesOpitons,
+  'icon': notyTypesOpitons,
+  'iconFirst': booleanOptions,
+  'filled': booleanOptions,
+  'autoClose': booleanOptions,
+  'showProgressBar': booleanOptions,
+  'timerPosition': timerPositionOptions,
+  'duration': durationOptions,
+  'timeFormat': timeFormatOptions,
+  'showTimer': booleanOptions,
+}
+
+const IntExml = () => {
 
   const { notify } = useNotify()
 
   const [state, setState] = useState({
-    id: generateId(),
     type: 'info',
-    text: 'I am a info Notify',
     filled: true,
     icon: 'info',
+    iconFirst: true,
     autoClose: true,
     showProgressBar: true,
     timeSettings: {
-      duration: 3000,
+      duration: 2000,
       showTimer: true,
       timeFormat: 's',
       timerPosition: 'bottom-right',
     }
   })
 
-  const updateState = ( newState ) => setState( {...newState, id: generateId()} )
+
+  function objectMapper(obj, tabCounter = 0, keyObj = '', endKey = '') {
+    const elements = [];
+  
+    const renderElement = (key, content, marginLeft) => (
+      <span key={key} style={{ marginLeft: `${marginLeft}px` }}>
+        {content}
+      </span>
+    );
+  
+    const renderEndKey = (key, marginLeft) => (
+      <span key={key} style={{ marginLeft: `${marginLeft}px` }}>
+        {'}'}
+        <span className="text-white">,</span>
+      </span>
+    );
+  
+    Object.entries(obj).forEach(([key, value]) => {
+      const marginLeft = tabCounter * 12;
+  
+      if (keyObj) {
+        elements.push(renderElement(key + 1, `${keyObj}: {`, marginLeft - 12));
+        keyObj = '';
+      }
+  
+      if (value instanceof Object) {
+        const objKeys = Object.keys(value);
+        elements.push(objectMapper(value, tabCounter + 1, key, objKeys[objKeys.length - 1]));
+  
+        if (endKey === key) {
+          elements.push(renderEndKey(key + 5, marginLeft - 12));
+          endKey = '';
+        }
+      } else {
+        elements.push(
+          <span key={key + 3} style={{ marginLeft: `${marginLeft}px` }}>
+            <CustomSelect
+              attribute={key}
+              options={optionsReducer[key] ?? optionsReducer['type']}
+              type={typeof obj[key]}
+              state={state}
+              updateState={updateState}
+            />
+          </span>
+        );
+  
+        if (endKey === key) {
+          elements.push(renderEndKey(key + 5, marginLeft - 12));
+          endKey = '';
+        }
+      }
+    });
+  
+    return elements;
+  }
+  
+
+  const updateState = ( newState ) => setState( { ...newState } )
 
   useEffect(() => {
+
     const newNoti = { ...state }
-    delete newNoti.id
-    notify[newNoti.type]?.(newNoti.text, newNoti) || alert('El tipo de notificacion no existe')
+ 
+    notify[newNoti.type]?.(`I'm a ${newNoti.type} Notify`, newNoti) || alert('El tipo de notificacion no existe')
   }, [state])
 
   return (
     <div className='flex flex-col gap-2 '>
+          
       <code className='flex flex-col items-center gap-x-2  min-w-fit min-h-fit p-3 bg-black shadow-md rounded-xl overflow-x-auto *:text-xs *:text-sky-400'>
         
         <div className='flex items-center gap-x-2 '>
           <span className="self-start !text-sky-300 after:content-['='] after:text-sky-500">options </span>
 
-        <span className='self-start !text-pink-400'><pre>{"{"}</pre></span>
-        <span className='self-end !text-pink-400 -ml-3.5'><pre>{"}"}</pre></span>
+          <span className='self-start !text-pink-400'><pre>{"{"}</pre></span>
+          <span className='self-end !text-pink-400 -ml-3.5'><pre>{"}"}</pre></span>
 
-        <div className='flex flex-col my-4 gap-1'>
-
-          <span className='flex items-center gap-x-2 '>id: auto-generated,</span>
-
-          <CustomSelect 
-            attribute={'type'}
-            options={notyTypesOpitons} 
-            type='string'
-            state={state} 
-            updateState={ updateState } 
-          /> 
-
-          <CustomSelect 
-            attribute={'showProgressBar'}
-            options={booleanOptions} 
-            type='boolean'
-            state={state} 
-            updateState={ updateState } 
-          />
-
-          <CustomSelect 
-            attribute={'autoClose'}
-            options={booleanOptions} 
-            type='boolean'
-            state={state} 
-            updateState={ updateState } 
-          />
-
-          <CustomSelect 
-            attribute={'icon'}
-            options={notyTypesOpitons} 
-            type='string'
-            state={state} 
-            updateState={ updateState } 
-          />
-
-          <CustomSelect 
-            attribute={'filled'}
-            options={booleanOptions} 
-            type='boolean'
-            state={state} 
-            updateState={ updateState } 
-          />
-
-          <span>{`timeSettings: {`}</span>
-            <div className='flex flex-col gap-1 ml-3'>
-              
-              <CustomSelect 
-                attribute={'duration'}
-                options={durationOptions} 
-                type='number'
-                state={state} 
-                updateState={ updateState } 
-              />
-
-              <CustomSelect 
-                attribute={'timeFormat'}
-                options={timeFormatOptions} 
-                type='string'
-                state={state} 
-                updateState={ updateState } 
-              />
-
-              <CustomSelect 
-                attribute={'showTimer'}
-                options={booleanOptions} 
-                type='boolean'
-                state={state} 
-                updateState={ updateState } 
-              />
-
-              <CustomSelect 
-                attribute={'timerPosition'}
-                options={timerPositionOptions} 
-                type='string'
-                state={state} 
-                updateState={ updateState } 
-              />
-
-            </div>
-
-          <span className="">{`}`}</span>
-
+          <div className='flex flex-col my-4 gap-1'>
+            { objectMapper(state) }
           </div>
-
-
         </div>
         
         <div className='flex self-start gap-y-2 mt-10'>
@@ -154,10 +142,8 @@ const NotifyInteractiveConfig = () => {
 
       </code>
 
-      
-
     </div>
   )
 }
 
-export default NotifyInteractiveConfig
+export default IntExml

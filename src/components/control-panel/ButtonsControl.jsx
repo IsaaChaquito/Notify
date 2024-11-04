@@ -1,14 +1,9 @@
 
 import { useEffect, useState } from 'react'
-
 import useNotify from '../notify/useNotify'
 import { useProvider } from '../../contexts/app-context/useProvider'
 import { notifyModel } from '../notify/model'
 import NotifyInteractiveConfig from './NotifyInteractiveConfig'
-import IntExml from './IntExml'
-
-
-
 
 export const positions = {
   'top-right': 'top-right',
@@ -22,7 +17,7 @@ export const positions = {
 export default function ButtonsControl() {
 
 
-  const { notify, setNotifiesPosition, getNotify, notifyDispatch, removeNotify } = useNotify()
+  const { notify, setNotifiesPosition } = useNotify()
 
   const { notifyState } = useProvider()
 
@@ -44,46 +39,40 @@ export default function ButtonsControl() {
   const handleAddNotify = () => {
 
     const rnd = Math.floor(Math.random() * notyTypes.length)
+    const isPromise = notyTypes[rnd] === 'promise'
+    console.log(isPromise);
 
     const randomNotifyCfg = {
       type: notyTypes[rnd],
       text: `I am a ${notyTypes[rnd]} Notify`,
       filled: Math.floor(Math.random() * 10) % 2 === 0,
-      icon: notyTypes[rnd],
+      icon: isPromise ? notyTypes['promise'] : notyTypes[rnd],
       iconFirst: Math.floor(Math.random() * 10) % 2 === 0,
-      // autoClose: Math.floor(Math.random() * 10) % 2 === 0,
-      // autoClose: true,
-      showProgressBar: Math.floor(Math.random() * 10) % 2 === 0,
+      autoClose: !isPromise,
+      showProgressBar: isPromise ? 'false' : Math.floor(Math.random() * 10) % 2 === 0,
       timeSettings: {
         duration: Math.floor(Math.random() * 3) * 1000 + 3000,
-        showTimer: Math.floor(Math.random() * 10) % 2 === 0,
+        showTimer: isPromise ? 'false' : Math.floor(Math.random() * 10) % 2 === 0,
         timeFormat: Math.floor(Math.random() * 10) % 2 === 0? 's' : 'ms',
         timerPosition: Math.floor(Math.random() * 10) % 2 === 0  ? 'bottom-left' : 'bottom-right',
       }
     }
 
-    notify[randomNotifyCfg.type](randomNotifyCfg.text, randomNotifyCfg)
+    const id = notify[randomNotifyCfg.type](randomNotifyCfg.text, randomNotifyCfg)
 
-    // const id = notify.promise('Updating task', { autoClose: false, filled: false, icon: 'promise' })
-
-    // setTimeout(() => {
-
-    //   const updatedNotify = notifyModel(
-    //     'success', 
-    //     'Task updated successfully', 
-    //     { id, filled: false, icon: 'success' }, 
-    //   )
-
-    //   notifyDispatch({ type: 'UPDATE_NOTIFY', payload: updatedNotify })
-    //   // notify.promise('Task updated successfully', {id, filled: false, icon: 'success'})
+    if( isPromise ){
       
-    // } , Math.floor((Math.random() * 2) + 3) * 10000 )
+      setTimeout(() => {
+        const updatedNotify = {...notifyModel(
+          'success', 
+          'Task updated successfully', 
+          { id, filled: randomNotifyCfg.filled, icon: 'success' }, 
+        )}
 
+        notify.update(updatedNotify)
 
-    // notify.success('I am a success Notify', { autoClose: false })
-    // notify.warning('I am a warning Notify',   { autoClose: false, filled: false })
-    // notify.error('I am an error Notify', { autoClose: false, filled: false })
-    // notify.neutral('I am a neutral Notify', { autoClose: false, filled: false })
+      } , Math.floor((Math.random() * 2) + 3) * 1000 )
+    }
 
   }
 
@@ -105,8 +94,8 @@ export default function ButtonsControl() {
         </button>
       </section>
 
-      {/* <NotifyInteractiveConfig /> */}
-      <IntExml />
+      <NotifyInteractiveConfig />
+      {/* <IntExml /> */}
 
 
     </div>

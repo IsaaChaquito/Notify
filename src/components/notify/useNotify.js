@@ -16,15 +16,21 @@ import { notifyModel } from "./model";
     error: (text, options) => saveNotify('error', text, options),
     neutral: (text, options) => saveNotify('neutral', text, options),
     promise: (text, options) => saveNotify('promise', text, options),
+    update: ( notify ) => updateNotify( notify ),
+    remove: ( id ) => removeNotify( id ),
   }
 
   const saveNotify = (type, text, options = {}) => {
+
     const newNotify = {...notifyModel( type, text, options )}
     
     notifyDispatch({ type: 'ADD_NOTIFY', payload: newNotify })
 
     return newNotify.id
-  };
+  }
+
+  const updateNotify = ( notify ) => notifyDispatch({ type: 'UPDATE_NOTIFY', payload: notify })
+  const removeNotify = ( id ) => notifyDispatch({ type: 'REMOVE_NOTIFY', payload: id })
 
 
   const verifyLengthOfList = () => {
@@ -45,15 +51,6 @@ import { notifyModel } from "./model";
 
   };
 
-
-  const getNotify = ( id ) => {
-    const notify = notifyState.notifies.find( n => n.id === id )
-    // console.log(notify)
-    // console.log(notifyState.notifies);
-  }
-
-  const updateNotify = ( notify ) => notifyDispatch({ type: 'UPDATE_NOTIFY', payload: notify }) 
-  const removeNotify = ( id ) => notifyDispatch({ type: 'REMOVE_NOTIFY', payload: id })
 
   const setNotifiesPosition = ( position) => {
     notifyDispatch({ type: 'SET_NOTIFIES_POSITION', payload: position })
@@ -90,9 +87,6 @@ import { notifyModel } from "./model";
     notifyDispatch,
 
     setNotifiesPosition,
-    getNotify,
-    updateNotify,
-    removeNotify,
 
     pauseTimer: () => timerControl.current?.pause(),
     resumeTimer: () => timerControl.current?.resume(),

@@ -16,6 +16,18 @@ const initialState = {
   maxLength: 7
 }
 
+function dynamicPropUpdater(obj, attribute, val) {
+  for (const key in obj) {
+    if(key === attribute) {
+      obj[key] = val
+      return {...obj}
+    }
+    if(obj[key] instanceof Object) {
+      return {...obj, [key]: iterateObject(obj[key], attribute, val)}
+    }
+  }
+}
+
 const actions = {
     
   ADD_NOTIFY: ( state, action ) =>  ({ ...state, notifies: [ action.payload, ...state.notifies ]}),
@@ -52,6 +64,8 @@ const actions = {
 
   SET_MAX_LENGTH: ( state, action ) => ({ ...state, maxLength: action.payload })
 }
+
+
 
 const notifyReducer = ( state = initialState, action ) => {
   return actions[action.type] ? actions[action.type]( state, action ) : state
