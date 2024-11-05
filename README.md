@@ -59,10 +59,10 @@ Con este setup, podemos utilizar las notificaciones (`Notifies`) en cualquier co
 ```javascript
 const { notify } = useNotify();
 notify.success('Notificación exitosa!');
+```
 
-
-Para personalizar la notificación, se le puede pasar un objeto de settings
-
+## Para personalizar la notificación, se le puede pasar un objeto de settings
+```javascript
 const settings = {
   type: 'info',
   filled: true,
@@ -83,16 +83,16 @@ const settings = {
 };
 
 notify.success('Notificación exitosa!', settings);
+```
 
 
-
-Para cambiar solo una propiedad, se puede modificar directamente:
-
+## Para cambiar solo una propiedad, se puede modificar directamente:
+```javascript
 notify.success('Notificación exitosa', { timeSettings: { duration: 5000 } });
+```
 
 
-
-Tipos de Notificación Disponibles
+## Tipos de Notificación Disponibles
 
 Las opciones para notify['type'] son:
 
@@ -106,23 +106,25 @@ Las opciones para notify['type'] son:
 Función notifyModel
 
 Cada tipo de notificación es gestionado por notifyModel, que configura los parámetros de la notificación según el tipo.
-
+```javascript
 export const notifyModel = (type, text, options) => {
   // Definición de opciones y parámetros por defecto
 };
+```
 
+```javascript
+notify.update() y notify.remove()
+```
 
-notify.update y notify.remove
-
-Para actualizar o remover una notificación manualmente:
+## Para actualizar o remover una notificación manualmente:
 
     Actualizar: notify.update se usa con el identificador de la notificación para cambiar sus propiedades.
     Remover: notify.remove(notifyId)
 
 notify.promise
 
-Para manejar notificaciones de tipo promise, que pueden actualizar su estado según el resultado de una operación asíncrona:
-
+## Para manejar notificaciones de tipo promise, que pueden actualizar su estado según el resultado de una operación asíncrona:
+```javascript
 const notifyObj = notify.promise('Updating task...', settings);
 
 // Operación asíncrona
@@ -145,23 +147,23 @@ updateTaskInCloud(something)
       });
     }
   });
+```
 
 
+## Estado y Acciones del notifyReducer
 
-Estado y Acciones del notifyReducer
-
-El estado global de las notificaciones (notifyState) es gestionado por el notifyReducer, y useNotify hace uso de este estado para facilitar el manejo de notificaciones.
-
+### El estado global de las notificaciones (notifyState) es gestionado por el notifyReducer, y useNotify hace uso de este estado para facilitar el manejo de notificaciones.
+```javascript
 const initialState = {
   notifies: [],
   screenPositionStyle: positions['top-right'],
   screenPosition: 'top-right',
   maxLength: 7,
 };
+```
 
 
-
-Las acciones definidas incluyen:
+## Las acciones definidas incluyen:
 
     ADD_NOTIFY: Agregar una notificación
     REMOVE_NOTIFY: Remover una notificación
@@ -171,10 +173,10 @@ Las acciones definidas incluyen:
     SET_NOTIFIES_POSITION: Configurar la posición de las notificaciones
     SET_MAX_LENGTH: Establecer la longitud máxima de notificaciones
 
-Tipos de Notificaciones e Iconos
+## Tipos de Notificaciones e Iconos
 
-El sistema incluye tipos de iconos (iconType) y una configuración de color y estilo (notifyMap) para cada tipo de notificación:
-
+### El sistema incluye tipos de iconos (iconType) y una configuración de color y estilo (notifyMap) para cada tipo de notificación:
+```javascript
 export const iconType = {
   info: <WarningSquareIcon className="w-6 h-6" />,
   success: <CheckIcon className="w-6 h-6" />,
@@ -183,24 +185,24 @@ export const iconType = {
   neutral: <ExclamationIcon className="w-8 h-8" />,
   promise: <LoaderIcon className="w-6 h-6" />
 };
+```
 
 
+## Posiciones de la Barra de Tiempo
 
-Posiciones de la Barra de Tiempo
-
-Las posiciones de la barra de tiempo se manejan en timerPositionMap:
-
+### Las posiciones de la barra de tiempo se manejan en timerPositionMap:
+```javascript
 export const timerPositionMap = {
   'top-left': '-top-0.5 left-1',
   'bottom-left': '-bottom-0.5 left-1',
   'bottom-center': '-bottom-0.5 left-1/2 right-1/2 -translate-x-1/2',
   'bottom-right': '-bottom-0.5 right-1',
 };
+```
 
 
-
-Ejemplo de useNotify
-
+## Ejemplo de useNotify
+```javascript
 /**
  * useNotify es un hook que gestiona el estado de las notificaciones.
  * Recibe un objeto de notificación y devuelve:
@@ -232,6 +234,6 @@ const useNotify = (notification) => {
     resumeTimer: () => timerControl.current?.resume(),
   };
 };
+```
 
-
-¡Listo! Con este setup puedes implementar y personalizar notificaciones en tu aplicación.
+### ¡Listo! Con este setup puedes implementar y personalizar notificaciones en tu aplicación.
