@@ -1,4 +1,4 @@
-import { generateId } from "../../utils/utilities";
+import generateId from "./id-generator";
 
 export function CheckIcon(props) {
 

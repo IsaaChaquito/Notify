@@ -37,13 +37,14 @@ const CustomSelect = ({ attribute, options, type, state, updateState }) => {
   function iterateObject(obj, attribute, val) {
     for (const key in obj) {
       if(key === attribute) {
-        obj[key] = val
-        return {...obj}
+        return {...obj, [key]: val}
       }
       if(obj[key] instanceof Object) {
-        return {...obj, [key]: iterateObject(obj[key], attribute, val)}
+        obj = {...obj, [key]: iterateObject(obj[key], attribute, val)}
       }
     }
+
+    return obj
   }
 
 

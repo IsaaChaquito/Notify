@@ -94,8 +94,6 @@ export default function ButtonsControl() {
       </section>
 
       <NotifyInteractiveConfig />
-      {/* <IntExml /> */}
-
 
     </div>
 

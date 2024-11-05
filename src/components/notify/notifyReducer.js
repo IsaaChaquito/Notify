@@ -9,48 +9,72 @@ export const positions = {
   'top-center': 'flex-col items-center',
 }
 
-const initialState = { 
+
+const initialState = {
   notifies: [],
+  animations: {
+    entrance: 'fade-in 0.6s ease-in',
+    exit: 'fade-out 0.6s ease-out',
+  },
   screenPositionStyle: positions['top-right'],
   screenPosition: 'top-right',
-  maxLength: 7
+  maxLength: 7,
 }
 
-function dynamicPropUpdater(obj, attribute, val) {
-  for (const key in obj) {
-    if(key === attribute) {
-      obj[key] = val
-      return {...obj}
-    }
-    if(obj[key] instanceof Object) {
-      return {...obj, [key]: iterateObject(obj[key], attribute, val)}
-    }
-  }
-}
 
 const actions = {
     
-  ADD_NOTIFY: ( state, action ) =>  ({ ...state, notifies: [ action.payload, ...state.notifies ]}),
+  ADD_NOTIFY: ( state, action ) =>  (
+    {
+      ...state, 
+      notifies: [ action.payload, ...state.notifies ]
+    }
+  ),
 
-  REMOVE_NOTIFY: ( state, action ) => ({ ...state, notifies: state.notifies.filter( notify => notify.id !== action.payload ) }),
+  REMOVE_NOTIFY: ( state, action ) => (
+    {
+      ...state, 
+      notifies: state.notifies.filter( notify => notify.id !== action.payload ) 
+    }
+  ),
 
-  UPDATE_NOTIFY: ( state, action ) => ({ ...state, notifies: state.notifies.map( n => n.id === action.payload.id ? action.payload : n ) }),
+  UPDATE_NOTIFY: ( state, action ) => (
+    {
+      ...state, 
+      notifies: state.notifies.map( n => n.id === action.payload.id ? action.payload : n ) 
+    }
+  ),
 
-  IS_OPENING_FALSE: ( state, action ) => ({ ...state, notifies: state.notifies.map( n => n.id === action.payload 
-    ? { ...n, state: { ...(n.state), isOpening: false } } 
-    : n 
-  )}),
+  IS_OPENING_FALSE: ( state, action ) => (
+    {
+      ...state, 
+      notifies: state.notifies.map( n => n.id === action.payload 
+        ? { ...n, state: { ...(n.state), isOpening: false } } 
+        : n 
+      )
+    }
+  ),
   
 
-  IS_CLOSING_TRUE: ( state, action ) => ({ ...state, notifies: state.notifies.map( n => n.id === action.payload 
-    ? { ...n, state: { ...(n.state), isClosing: true } }
-    : n
-  )}),
+  IS_CLOSING_TRUE: ( state, action ) => (
+    {
+      ...state, 
+      notifies: state.notifies.map( n => n.id === action.payload 
+        ? { ...n, state: { ...(n.state), isClosing: true } }
+        : n
+      )
+    }
+  ),
   
-  IS_OPEN_FALSE: ( state, action ) => ({ ...state, notifies: state.notifies.map( n => n.id === action.payload
-    ? { ...n, state: { ...(n.state), isOpen: false } }
-    : n
-  )}),
+  IS_OPEN_FALSE: ( state, action ) => (
+    {
+      ...state, 
+      notifies: state.notifies.map( n => n.id === action.payload
+        ? { ...n, state: { ...(n.state), isOpen: false } }
+        : n
+      )
+    }
+  ),
   
   SET_NOTIFIES_POSITION: ( state, action ) => {  
 
@@ -67,6 +91,16 @@ const actions = {
 
 
 
+/**
+ * The reducer function for the notify state.
+ * It takes a state and an action as arguments and returns a new state.
+ * It uses the actions object to determine the correct action to take
+ * based on the type of the action.
+ * If the action is not recognized, it returns the original state.
+ * @param {object} state - The notify state to be updated.
+ * @param {object} action - The action to be performed on the state.
+ * @returns {object} - The new notify state.
+ */
 const notifyReducer = ( state = initialState, action ) => {
   return actions[action.type] ? actions[action.type]( state, action ) : state
 }

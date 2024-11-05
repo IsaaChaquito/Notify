@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { generateId } from '../../utils/utilities'
 import useNotify from '../notify/useNotify'
-import '../notify/styles.css' 
 import CustomSelect from './CustomSelect'
 
 const notyTypesOpitons = ['info', 'success', 'warning', 'error', 'neutral', 'promise']
@@ -9,6 +7,10 @@ const booleanOptions = ['true', 'false']
 const timerPositionOptions = ['bottom-right', 'bottom-left', 'top-left']
 const durationOptions = ['2000', '3000', '4000', '5000', '10000']
 const timeFormatOptions = ['s', 'ms']
+const animationOptions = {
+  entrance: ['animate-[zoomIn_.4s_ease]', 'animate-[fade-in_.4s_ease]',  'animate-[jump_.4s_ease]', 'animate-[slide-in-bottom_.4s_ease]', 'animate-[slide-in-top_.4s_ease]'],
+  exit: [ 'animate-[zoomOut_.4s_ease]', 'animate-[fade-out_.4s_ease]', 'animate-[jump_.4s_ease]', 'animate-[slide-out-top_.4s_ease]', 'animate-[slide-out-bottom_.4s_ease]']
+}
 
 const optionsReducer = {
   'type': notyTypesOpitons,
@@ -21,9 +23,11 @@ const optionsReducer = {
   'duration': durationOptions,
   'timeFormat': timeFormatOptions,
   'showTimer': booleanOptions,
+  'entrance': animationOptions.entrance,
+  'exit': animationOptions.exit
 }
 
-const IntExml = () => {
+const NotifyInteractiveConfig = () => {
 
   const { notify } = useNotify()
 
@@ -34,12 +38,18 @@ const IntExml = () => {
     iconFirst: true,
     autoClose: true,
     showProgressBar: true,
+
     timeSettings: {
       duration: 2000,
       showTimer: true,
       timeFormat: 's',
       timerPosition: 'bottom-right',
-    }
+    },
+
+    animation: { 
+      entrance: animationOptions.entrance[0],
+      exit: animationOptions.exit[0] 
+    },
   })
 
 
@@ -104,7 +114,7 @@ const IntExml = () => {
   useEffect(() => {
 
     const newNoti = { ...state }
- 
+
     notify[newNoti.type]?.(`I'm a ${newNoti.type} Notify`, newNoti) || alert('El tipo de notificacion no existe')
   }, [state])
 
@@ -112,9 +122,20 @@ const IntExml = () => {
     <div className='flex flex-col gap-2 '>
           
       <code className='flex flex-col items-center gap-x-2  min-w-fit min-h-fit p-3 bg-black shadow-md rounded-xl overflow-x-auto *:text-xs *:text-sky-400'>
+
+        <div className='flex items-center self-start gap-x-2 mb-2'>
+          <span className='text-red-500'>const</span>
+          <span className='self-start !text-pink-400'><pre>{"{"}</pre></span>
+          <span className="">{ ` notify `}</span>
+          <span className=' !text-pink-400'><pre>{"}"}</pre></span>
+          <span className="text-yellow-500">{ `useNotify`}</span>
+          <span className="!text-pink-400 -ml-2">{ `()`}</span>
+        </div>
         
         <div className='flex items-center gap-x-2 '>
-          <span className="self-start !text-sky-300 after:content-['='] after:text-sky-500">options </span>
+          
+          <span className='self-start text-red-500'>const</span>
+          <span className="self-start !text-sky-300 after:content-['='] after:text-sky-500">settings </span>
 
           <span className='self-start !text-pink-400'><pre>{"{"}</pre></span>
           <span className='self-end !text-pink-400 -ml-3.5'><pre>{"}"}</pre></span>
@@ -136,7 +157,7 @@ const IntExml = () => {
           <span className='text-orange-300'>{`}`}</span>
           <span className='text-lime-300'><pre> Notify"</pre></span>
           <span className='text-white'>,</span>
-          <span className='text-sky-300'><pre> options</pre></span>
+          <span className='text-sky-300'><pre> settings</pre></span>
           <span className='text-blue-500'>)</span>
         </div>
 
@@ -146,4 +167,4 @@ const IntExml = () => {
   )
 }
 
-export default IntExml
+export default NotifyInteractiveConfig
