@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useNotify from '../notify/useNotify'
 import CustomSelect from './CustomSelect'
 
@@ -52,6 +52,7 @@ const NotifyInteractiveConfig = () => {
     },
   })
 
+  
 
   function objectMapper(obj, tabCounter = 0, keyObj = '', endKey = '') {
     const elements = [];

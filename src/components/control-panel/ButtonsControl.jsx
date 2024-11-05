@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react'
 import useNotify from '../notify/useNotify'
 import { useProvider } from '../../context/useProvider'
-import { notifyModel } from '../notify/model'
 import NotifyInteractiveConfig from './NotifyInteractiveConfig'
 
 export const positions = {
@@ -57,18 +56,19 @@ export default function ButtonsControl() {
       }
     }
 
-    const id = notify[randomNotifyCfg.type](randomNotifyCfg.text, randomNotifyCfg)
+    const notifyObj = notify[randomNotifyCfg.type](randomNotifyCfg.text, randomNotifyCfg)
 
     if( isPromise ){
       
       setTimeout(() => {
-        const updatedNotify = {...notifyModel(
-          'success', 
-          'Task updated successfully', 
-          { id, filled: randomNotifyCfg.filled, icon: 'success' }, 
-        )}
-
-        notify.update(updatedNotify)
+        notify.update(
+          {
+            ...notifyObj, 
+            text: 'Task updated successfully', 
+            icon: 'success',
+            autoClose: true,
+          }
+        )
 
       } , Math.floor((Math.random() * 2) + 3) * 1000 )
     }

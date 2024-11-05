@@ -58,7 +58,7 @@ import { notifyModel } from "./model";
     
     notifyDispatch({ type: 'ADD_NOTIFY', payload: newNotify })
 
-    return newNotify.id
+    return newNotify
   }
 
   const updateNotify = ( notify ) => notifyDispatch({ type: 'UPDATE_NOTIFY', payload: notify })
@@ -122,8 +122,8 @@ import { notifyModel } from "./model";
 
     pauseTimer: () => timerControl.current?.pause(),
     resumeTimer: () => timerControl.current?.resume(),
-  };
-};
+  }
+}
 
 export default useNotify;
 

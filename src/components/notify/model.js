@@ -21,7 +21,7 @@ export const notifyModel = ( type, text, options ) => {
     type,
     text,
     showProgressBar: showProgressBar ?? true,
-    autoClose: autoClose ?? true,
+    autoClose: type === 'promise' ? false : ( autoClose ?? true ),
     icon: icon ?? type,
     iconFirst: iconFirst ?? false,
     filled: filled ?? true,

@@ -12,10 +12,6 @@ export const positions = {
 
 const initialState = {
   notifies: [],
-  animations: {
-    entrance: 'fade-in 0.6s ease-in',
-    exit: 'fade-out 0.6s ease-out',
-  },
   screenPositionStyle: positions['top-right'],
   screenPosition: 'top-right',
   maxLength: 7,
