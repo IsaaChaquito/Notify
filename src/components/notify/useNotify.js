@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { useProvider } from "../../contexts/app-context/useProvider";
+import { useProvider } from "../../context/useProvider";
 import { notifyModel } from "./model";
 
 

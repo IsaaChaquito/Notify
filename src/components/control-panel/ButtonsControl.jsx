@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react'
 import useNotify from '../notify/useNotify'
-import { useProvider } from '../../contexts/app-context/useProvider'
+import { useProvider } from '../../context/useProvider'
 import { notifyModel } from '../notify/model'
 import NotifyInteractiveConfig from './NotifyInteractiveConfig'
 
