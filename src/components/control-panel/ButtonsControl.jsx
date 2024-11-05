@@ -40,7 +40,6 @@ export default function ButtonsControl() {
 
     const rnd = Math.floor(Math.random() * notyTypes.length)
     const isPromise = notyTypes[rnd] === 'promise'
-    console.log(isPromise);
 
     const randomNotifyCfg = {
       type: notyTypes[rnd],
