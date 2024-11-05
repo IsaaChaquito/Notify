@@ -94,7 +94,7 @@ notify.success('Notificación exitosa', { timeSettings: { duration: 5000 } });
 
 ## Tipos de Notificación Disponibles
 
-Las opciones para notify['type'] son:
+### Las opciones para notify['type'] son:
 
     info
     success
@@ -103,9 +103,9 @@ Las opciones para notify['type'] son:
     neutral
     promise
 
-Función notifyModel
+## Función notifyModel
 
-Cada tipo de notificación es gestionado por notifyModel, que configura los parámetros de la notificación según el tipo.
+### Cada tipo de notificación es gestionado por notifyModel, que configura los parámetros de la notificación según el tipo.
 ```javascript
 export const notifyModel = (type, text, options) => {
   // Definición de opciones y parámetros por defecto
