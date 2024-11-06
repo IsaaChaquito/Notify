@@ -13,7 +13,7 @@ Currently, two official plugins are available:
 
 Este sistema de notificaciones permite manejar diferentes tipos de notificaciones en tu aplicación de forma flexible y personalizable. A continuación se detallan los pasos para la configuración y uso de este sistema.
 
-## [Demo](https://www.google.com "Very interactive demo.").
+### You can try the [Demo](https://www.google.com "Very interactive demo.")
 
 ## Configuración
 
