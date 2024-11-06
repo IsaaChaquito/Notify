@@ -72,6 +72,10 @@ import { notifyModel } from "./model";
     }
   } 
 
+  const setMaxLength = ( maxLength = 7 ) => {
+    notifyDispatch({ type: 'SET_MAX_LENGTH', payload: maxLength })
+  }
+
   const handleClose = ( id ) => {
 
     notifyDispatch({ type: 'IS_CLOSING_TRUE', payload: id })
@@ -114,6 +118,7 @@ import { notifyModel } from "./model";
     notify, //notify caller. example: notify.success( 'success message')
     handleClose,
     timer,
+    setMaxLength,
 
     notifyState, //notify state. example: notifyState.notifies, comes from notifyReducer
     notifyDispatch,

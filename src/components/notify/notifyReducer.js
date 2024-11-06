@@ -20,6 +20,15 @@ const initialState = {
 
 const actions = {
     
+  /**
+   * ADD_NOTIFY: adds a notification.
+   * This is used when a notification needs to be added.
+   * The new notification is added at the beginning of the array.
+   * If the length of the array exceeds maxLength, the oldest notification is removed.
+   * @param {{ notifies: Notify[], maxLength: number }} state - current state
+   * @param {{ payload: Notify }} action - action payload
+   * @returns {{ notifies: Notify[] }} - new state
+   */
   ADD_NOTIFY: ( state, action ) =>  (
     {
       ...state, 
@@ -27,6 +36,13 @@ const actions = {
     }
   ),
 
+  /**
+   * REMOVE_NOTIFY: removes a notification.
+   * This is used when a notification needs to be removed.
+   * @param {state} current state of the notifyReducer
+   * @param {action} action object with payload containing the notification id
+   * @returns new state with removed notification
+   */
   REMOVE_NOTIFY: ( state, action ) => (
     {
       ...state, 
@@ -34,6 +50,13 @@ const actions = {
     }
   ),
 
+  /**
+   * UPDATE_NOTIFY: updates a notification.
+   * This is used when a notification's properties need to be changed.
+   * @param {state} current state of the notifyReducer
+   * @param {action} action object with payload containing the new notification object
+   * @returns new state with updated notification
+   */
   UPDATE_NOTIFY: ( state, action ) => (
     {
       ...state, 
@@ -41,6 +64,13 @@ const actions = {
     }
   ),
 
+/**
+ * IS_OPENING_FALSE: sets a notification as opening false.
+ * This is used to mark a notification's opening transition as complete.
+ * @param {state} current state of the notifyReducer
+ * @param {action} action object with payload containing the notification id
+ * @returns new state with updated notification state
+ */
   IS_OPENING_FALSE: ( state, action ) => (
     {
       ...state, 
@@ -52,6 +82,13 @@ const actions = {
   ),
   
 
+  /**
+   * IS_CLOSING_TRUE: sets a notification as closing true.
+   * This is used when a notification is about to be removed.
+   * @param {state} current state of the notifyReducer
+   * @param {action} action object with payload containing the notification id
+   * @returns new state with updated notification state
+   */
   IS_CLOSING_TRUE: ( state, action ) => (
     {
       ...state, 
@@ -62,6 +99,13 @@ const actions = {
     }
   ),
   
+  /**
+   * IS_OPEN_FALSE: sets a notification as open false.
+   * This is used when a notification is removed or closed.
+   * @param {state} current state of the notifyReducer
+   * @param {action} action object with payload containing the notification id
+   * @returns new state with updated notification state
+   */
   IS_OPEN_FALSE: ( state, action ) => (
     {
       ...state, 
@@ -72,6 +116,13 @@ const actions = {
     }
   ),
   
+  /**
+   * SET_NOTIFIES_POSITION: sets the notify container position. 
+   * 
+   * @param {state} current state of the notifyReducer
+   * @param {action} action object with payload containing the new position string
+   * @returns new state with updated screenPositionStyle and screenPosition
+   */
   SET_NOTIFIES_POSITION: ( state, action ) => {  
 
     if( !positions[ action.payload ]) return {...state}
@@ -82,7 +133,20 @@ const actions = {
       screenPosition: action.payload
     } },
 
-  SET_MAX_LENGTH: ( state, action ) => ({ ...state, maxLength: action.payload })
+
+  /**
+   * SET_MAX_LENGTH: sets the maximum number of notifications allowed.
+   * It ensures that the maxLength is within the range of 1 to 20.
+   * If the provided payload is not valid, it defaults to 7.
+   * 
+   * @param {state} current state of the notifyReducer
+   * @param {action} action object with payload containing the desired maxLength
+   * @returns new state with updated maxLength
+   */
+  SET_MAX_LENGTH: ( state, action ) => ({
+    ...state,
+    maxLength: Math.min(15, Math.max(1, action.payload ?? 7))
+  }),
 }
 
 

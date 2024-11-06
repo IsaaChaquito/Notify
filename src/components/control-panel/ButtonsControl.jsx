@@ -16,7 +16,7 @@ export const positions = {
 export default function ButtonsControl() {
 
 
-  const { notify, setNotifiesPosition } = useNotify()
+  const { notify, setNotifiesPosition, setMaxLength } = useNotify()
 
   const { notifyState } = useProvider()
 
@@ -27,6 +27,8 @@ export default function ButtonsControl() {
 
     handleAddNotify()
   }
+
+
 
   useEffect(() => {
     const key = Object.keys(positions)[counter]
@@ -64,7 +66,7 @@ export default function ButtonsControl() {
         notify.update(
           {
             ...notifyObj, 
-            text: 'Task updated successfully', 
+            text: 'Promise resolve successfully', 
             icon: 'success',
             autoClose: true,
           }
@@ -76,11 +78,10 @@ export default function ButtonsControl() {
   }
 
 
-
   return (
-    <div className='flex flex-col items-center w-full h-full '>
+    <div className='flex flex-col items-center w-full h-full'>
       
-      <section className='flex justify-center items-center m-24 gap-3 *:duration-300  select-none'>
+      <section className='flex justify-center items-center m-10 gap-3 *:duration-300  select-none'>
         <button onClick={ handleAddNotify } className="p-2 bg-gradient-to-tr from-blue-900 from-10% shadow-sm group-hover:shadow-blue-900 rounded-xl hover:bg-violet-700 active:scale-95">
           Random Notify
         </button>
@@ -91,6 +92,20 @@ export default function ButtonsControl() {
             { notifyState?.screenPosition } 
           </code>
         </button>
+
+
+        <div className='p-2 rounded-xl group bg-black hover:bg-black/80 text-sm flex flex-col justify-center items-center '>
+          <span>Max stack</span>
+          
+          <input 
+            className="w-10 p-1 text-xs bg-gradient-to-tr from-blue-900 from-10% shadow-sm group-hover:shadow-blue-900 rounded hover:bg-violet-700" type="number" 
+            min={1} 
+            max={15} 
+            value={ notifyState?.maxLength ?? 7 }
+            onChange={(e) => setMaxLength(e.target.value)}
+          />
+        </div>
+
       </section>
 
       <NotifyInteractiveConfig />
