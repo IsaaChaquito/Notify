@@ -26,10 +26,11 @@ export default function Notify( { notification } ) {
   } = useNotify( notification )
 
   const { id, text, type, icon, iconFirst, showProgressBar, autoClose, filled, timeSettings, state, isUpdating, animation } = notification
-  // const { entrance, exit } = animation
+  
   const { duration, timerPosition, timeFormat, showTimer } = timeSettings
   const { isOpen, isClosing, isOpening } = state
   const { bg, txtColor, iconNotify, progressBarColor, timerColor } = notifyMap[type]( filled, icon )
+
 
   return (
     
@@ -39,7 +40,7 @@ export default function Notify( { notification } ) {
             key={ id }
             onMouseEnter={ () => autoClose && pauseTimer() }
             onMouseLeave={ () => autoClose && resumeTimer() }
-            className={`Notify group p-3 text-sm shadow-md shadow-black/60 relative w-[240px] min-h-[55px] max-h-[55px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto select-none z-50 duration-300 overflow-hidden ${bg} ${txtColor} ${isClosing ? animation.exit +' opacity-0 mb-[-55px]' : animation.entrance +' mb-2'} ${isOpening ? 'mb-[-55px]' : 'mb-2'}`}
+            className={`Notify will-change-transform group p-3 text-sm shadow-md shadow-black/60 relative w-[240px] min-h-[55px] max-h-[55px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto select-none z-50 duration-300 overflow-hidden ${bg} ${txtColor} ${isClosing ? animation.exit +' opacity-0 mb-[-55px]' : animation.entrance +' mb-2'} ${isOpening ? 'mb-[-55px]' : 'mb-2'}`}
           >
           
           <div className={`w-full flex items-center ${iconFirst ? 'flex-row-reverse justify-end' : 'justify-between '} gap-x-2`}>

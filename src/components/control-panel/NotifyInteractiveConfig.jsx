@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import useNotify from '../notify/useNotify'
 import CustomSelect from './CustomSelect'
 
@@ -27,7 +27,7 @@ const optionsReducer = {
   'exit': animationOptions.exit
 }
 
-const NotifyInteractiveConfig = () => {
+function NotifyInteractiveConfig () {
 
   const { notify } = useNotify()
 
@@ -52,9 +52,8 @@ const NotifyInteractiveConfig = () => {
     },
   })
 
-  
 
-  function objectMapper(obj, tabCounter = 0, keyObj = '', endKey = '') {
+  function renderObjectStructure(obj, tabCounter = 0, keyObj = '', endKey = '') {
     const elements = [];
   
     const renderElement = (key, content, marginLeft) => (
@@ -80,7 +79,7 @@ const NotifyInteractiveConfig = () => {
   
       if (value instanceof Object) {
         const objKeys = Object.keys(value);
-        elements.push(objectMapper(value, tabCounter + 1, key, objKeys[objKeys.length - 1]));
+        elements.push(renderObjectStructure(value, tabCounter + 1, key, objKeys[objKeys.length - 1]));
   
         if (endKey === key) {
           elements.push(renderEndKey(key + 5, marginLeft - 12));
@@ -110,14 +109,11 @@ const NotifyInteractiveConfig = () => {
   }
   
 
-  const updateState = ( newState ) => setState( { ...newState } )
+  const updateState = ( newState ) => {
+    setState( { ...newState } )
+    notify[newState.type]?.(`I'm a ${newState.type} Notify`, newState) || alert('El tipo de notificacion no existe')
+  }
 
-  useEffect(() => {
-
-    const newNoti = { ...state }
-
-    notify[newNoti.type]?.(`I'm a ${newNoti.type} Notify`, newNoti) || alert('El tipo de notificacion no existe')
-  }, [state])
 
   return (
     <div className='flex flex-col gap-2 '>
@@ -142,7 +138,7 @@ const NotifyInteractiveConfig = () => {
           <span className='self-end !text-pink-400 -ml-3.5'><pre>{"}"}</pre></span>
 
           <div className='flex flex-col my-4 gap-1'>
-            { objectMapper(state) }
+            { renderObjectStructure(state) }
           </div>
         </div>
         

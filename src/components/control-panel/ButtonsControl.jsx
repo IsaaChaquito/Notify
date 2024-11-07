@@ -98,7 +98,8 @@ export default function ButtonsControl() {
           <span>Max stack</span>
           
           <input 
-            className="w-10 p-1 text-xs bg-gradient-to-tr from-blue-900 from-10% shadow-sm group-hover:shadow-blue-900 rounded hover:bg-violet-700" type="number" 
+            className="w- py-1  text-xs appearance-none bg-gradient-to-tr from-blue-900 from-10% shadow-sm group-hover:shadow-blue-900 rounded hover:bg-violet-700" 
+            type="range" 
             min={1} 
             max={15} 
             value={ notifyState?.maxLength ?? 7 }

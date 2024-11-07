@@ -27,5 +27,25 @@ root {
   min-height: 100vh;
 }
 
+/* Estilo para navegadores basados en WebKit */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px; /* Ancho del thumb */
+  height: 20px; /* Altura del thumb */
+  background-color: #ff6347; /* Cambia el color al que desees */
+  border-radius: 50%; /* Hace que el thumb sea circular */
+  cursor: pointer;
+}
+
+/* Estilo para Firefox */
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background-color: #ff6347;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 
 
