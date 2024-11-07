@@ -118,7 +118,7 @@ function NotifyInteractiveConfig () {
   return (
     <div className='flex flex-col gap-2 '>
           
-      <code className='flex flex-col items-center gap-x-2  min-w-fit min-h-fit p-3 bg-black shadow-md rounded-xl overflow-x-auto *:text-xs *:text-sky-400'>
+      <code className='flex flex-col items-center gap-x-2  min-w-fit min-h-fit p-3 bg-black shadow-md rounded overflow-x-auto *:text-xs *:text-sky-400'>
 
         <div className='flex items-center self-start gap-x-2 mb-2'>
           <span className='text-red-500'>const</span>

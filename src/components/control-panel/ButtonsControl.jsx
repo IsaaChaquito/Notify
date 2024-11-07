@@ -82,21 +82,21 @@ export default function ButtonsControl() {
   return (
     <div className='flex flex-col items-center w-full h-full'>
       
-      <section className='flex justify-center items-center m-10 gap-3 *:duration-300  select-none'>
-        <button onClick={ handleAddNotify } className="flex items-center gap-x-2 p-2 bg-gradient-to-tr from-indigo-900 from-0% bg-violet-900 hover:bg-violet-700 shadow-sm rounded active:scale-95 duration-300">
+      <section className='flex justify-center items-center my-5 gap-3 *:duration-300  select-none'>
+        <button onClick={ handleAddNotify } className="flex items-center gap-x-2 h-12 px-3 bg-gradient-to-tr from-indigo-900 from-0% bg-indigo-900 hover:bg-indigo-700 shadow-sm rounded active:scale-95 duration-300">
           <span>Random Notify</span>
           <DicesIcon />
         </button>
 
-        <button onClick={ handlePositionList } className='p-2 rounded-xl group bg-black hover:bg-black/80 text-sm flex flex-col justify-center items-center gap-1 '>
+        <button onClick={ handlePositionList } className='p-2 rounded group bg-black hover:bg-black/80 text-sm flex flex-col justify-center items-center gap-1 '>
           <span>Alternate position</span>
-          <code className='text-xs p-1 rounded bg-gradient-to-tr from-indigo-900 from-0% bg-violet-900 hover:bg-violet-700 shadow-sm group-active:scale-75 duration-300' > 
+          <code className='text-xs p-1 rounded-sm bg-gradient-to-tr from-indigo-900 from-0% bg-indigo-900 hover:bg-indigo-700 shadow-sm group-active:scale-75 duration-300' > 
             { notifyState?.screenPosition } 
           </code>
         </button>
 
 
-        <div className='p-2 rounded-xl group  text-sm flex flex-col justify-center items-center bg-gradient-to-tr from-indigo-900 from-0% bg-violet-900 hover:bg-violet-700 shadow-sm'>
+        <div className='h-12 px-2 rounded group  flex flex-col justify-center items-center bg-gradient-to-tr from-indigo-900 from-0% bg-indigo-900 hover:bg-indigo-700 shadow-sm'>
 
           <div className="flex justify-center items-center gap-x-2 ">
             <span>Max stack:</span>
