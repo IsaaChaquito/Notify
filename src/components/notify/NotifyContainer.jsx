@@ -18,7 +18,7 @@ export default function NotifyContainer() {
 
   return (
 
-      <div className={`TOAST-CONTAINER fixed z-40 top-2 right-2 bottom-2 left-2  pointer-events-none flex ${notifyState?.screenPositionStyle} overflow-hidden will-change-transform duration-300`}>
+      <div className={`TOAST-CONTAINER fixed z-40 top-2 right-2 bottom-2 left-2  pointer-events-none flex ${notifyState?.screenPositionStyle} overflow-hidden will-change-transform duration-300 *:mb-2`}>
 
         {notifyState?.notifies.map((notify) => (
           

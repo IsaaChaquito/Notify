@@ -61,7 +61,9 @@ import { notifyModel } from "./model";
     return newNotify
   }
 
-  const updateNotify = ( notify ) => notifyDispatch({ type: 'UPDATE_NOTIFY', payload: notify })
+  const updateNotify = ( notify ) => {
+    notifyDispatch({ type: 'UPDATE_NOTIFY', payload: {...notify, isUpdating: true} })
+  }
   const removeNotify = ( id ) => notifyDispatch({ type: 'REMOVE_NOTIFY', payload: id })
 
 

@@ -98,9 +98,7 @@ export default {
         zoomIn: {
           from: {
             opacity: 0,
-            // transform: 'scale3d(0.3, 0.3, 0.3)',
-            transform: 'scale(0.3)',
-            transition: 'transform 0.3s ease-in-out'
+            transform: 'scale3d(0.3, 0.3, 0.3)',
           },
         
           '50%': {
