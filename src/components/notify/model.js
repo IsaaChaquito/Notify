@@ -1,3 +1,4 @@
+import { createRef } from "react"
 import generateId from "./id-generator"
 
 
@@ -44,6 +45,8 @@ export const notifyModel = ( type, text, options ) => {
       isClosing: false,
       isOpening: true,
     },
+
+    // nodeRef: createRef(null),
 
   }
 

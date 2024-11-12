@@ -1,6 +1,7 @@
 
 import { AppProvider } from './context/app-provider'
 import NotifyContainer from './components/notify/NotifyContainer'
+import NotifyContainerWithTransition from './components/notify/NotifyContainerWithTransition'
 import ButtonsControl from './components/control-panel/ButtonsControl'
 import Header from './components/Header'
 
@@ -13,7 +14,9 @@ function App() {
         <Header />
 
         <ButtonsControl />
-        <NotifyContainer />
+        {/* <NotifyContainer /> */}
+        <NotifyContainerWithTransition />
+
       </div>
     </AppProvider>
   )
