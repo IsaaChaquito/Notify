@@ -37,7 +37,7 @@ function Notify( { notification } ) {
           <div 
             onMouseEnter={ () => autoClose && pauseTimer() }
             onMouseLeave={ () => autoClose && resumeTimer() }
-            className={`Notify group h-[55px] p-2 text-sm shadow-md shadow-black/60 relative w-[240px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto select-none z-50  overflow-hidden duration-300 ${bg} ${txtColor} ${isClosing ? animation.exit + ' opacity-0'  : animation.entrance} `}
+            className={`Notify group h-[55px] p-2 text-sm shadow-md shadow-black/60 relative scale-90 sm:scale-100 w-[240px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto select-none z-50  overflow-hidden duration-300 ${bg} ${txtColor} ${isClosing ? animation.exit + ' opacity-0'  : animation.entrance} `}
           >
           
           <div className={`w-full flex items-center ${iconFirst ? 'flex-row-reverse justify-end' : 'justify-between '} gap-x-2`}>
