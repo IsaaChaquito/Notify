@@ -116,9 +116,9 @@ function NotifyInteractiveConfig () {
 
 
   return (
-    <div className='flex flex-col gap-2 '>
+    <div className='flex flex-col gap-2 m-5'>
           
-      <code className='flex flex-col items-center gap-x-2  min-w-fit min-h-fit p-3 bg-black shadow-md rounded overflow-x-auto *:text-xs *:text-sky-400'>
+      <code className='flex flex-col items-center gap-x-2 w-auto sm:min-w-fit sm:min-h-fit p-5 bg-black shadow-md rounded overflow-x-auto *:text-xs *:text-sky-400'>
 
         <div className='flex items-center self-start gap-x-2 mb-2'>
           <span className='text-red-500'>const</span>
@@ -129,17 +129,20 @@ function NotifyInteractiveConfig () {
           <span className="!text-pink-400 -ml-2">{ `()`}</span>
         </div>
         
-        <div className='flex items-center gap-x-2 '>
+        <div className='flex flex-col items-center self-start gap-x-2 '>
           
-          <span className='self-start text-red-500'>const</span>
-          <span className="self-start !text-sky-300 after:content-['='] after:text-sky-500">settings </span>
+          <div className='flex self-start gap-x-2'>
+            <span className=' text-red-500'>const</span>
+            <span className=" !text-sky-300 after:content-['='] after:text-sky-500">settings </span>
+            <span className=' !text-pink-400'><pre>{"{"}</pre></span>
+          </div>
 
-          <span className='self-start !text-pink-400'><pre>{"{"}</pre></span>
-          <span className='self-end !text-pink-400 -ml-3.5'><pre>{"}"}</pre></span>
-
-          <div className='flex flex-col my-4 gap-1'>
+          <div className='flex flex-col my-1 gap-1 ml-4'>
             { renderObjectStructure(state) }
           </div>
+
+          <span className='self-start !text-pink-400'><pre>{"}"}</pre></span>
+
         </div>
         
         <div className='flex self-start gap-y-2 mt-10'>

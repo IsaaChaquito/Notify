@@ -99,14 +99,14 @@ export default function ButtonsControl() {
 
 
   return (
-    <div className='flex flex-col items-center w-full h-full gap-y-3'>
+    <div className='flex flex-col items-center w-full h-full'>
 
-      <h2 className='text-xl sm:text-2xl w-full p-2 text-center bg-black shadow-sm text-white z-10 '>
+      <h2 className='text-xl sm:text-2xl w-full p-2 text-center text-white z-10 '>
         Some things you can try <code className='text-base bg-gray-500/50 rounded-md p-1 mr-1'>Notify</code>
       </h2>    
 
       <Flipper flipKey={flipKey} spring={{ stiffness: 200, damping: 30 }} stagger>
-        <section className={`flex ${isMobileView ? 'flex-col' : 'flex-row'} justify-center items-center my-5 gap-3 select-none`}>
+        <section className={`flex ${isMobileView ? 'flex-col' : 'flex-row '} justify-center items-center my-5 gap-3 select-none`}>
           
           <Flipped flipId="add-notify">
             <div>
@@ -151,7 +151,7 @@ export default function ButtonsControl() {
       </Flipper>
 
 
-      <h2 className='text-xl sm:text-2xl w-full p-2 text-center bg-black shadow-sm text-white z-10 '>Or try a dynamic notify settings</h2>
+      <h2 className='text-xl sm:text-2xl w-full p-2 text-center   text-white z-10 '>Or try a dynamic notify settings</h2>
 
       <NotifyInteractiveConfig />
 
