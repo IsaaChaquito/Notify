@@ -17,7 +17,7 @@ import { useEffect, useRef } from "react"
  * @param {{ notification: { id: string, text: string, type: string, icon: string, showProgressBar: boolean, autoClose: boolean, filled: boolean, timeSettings: { duration: number, timerPosition: string, timeFormat: string, showTimer: boolean}, state: { isOpen: boolean, isClosing: boolean, isOpening: boolean }, isUpdating: boolean}}} props
  * @returns {JSX.Element}
  */
-export default function Notify( { notification, ...rest } ) {  
+export default function Notify( { notification } ) {  
 
   const { 
     handleClose,
@@ -38,11 +38,11 @@ export default function Notify( { notification, ...rest } ) {
       isOpen
       ? (
           <div 
-            { ...rest }
             onMouseEnter={ () => autoClose && pauseTimer() }
             onMouseLeave={ () => autoClose && resumeTimer() }
-            className={`Notify group h-[55px] p-2 text-sm shadow-md shadow-black/60 relative w-[240px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto select-none z-50  overflow-hidden ${bg} ${txtColor} ${isClosing ? animation.exit + ' opacity-0'  : animation.entrance} `}
+            className={`Notify group h-[55px] p-2 text-sm shadow-md shadow-black/60 relative w-[240px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto select-none z-50  overflow-hidden duration-300 ${bg} ${txtColor} ${isClosing ? animation.exit + ' opacity-0'  : animation.entrance} `}
           >
+            {/* ${isClosing ? animation.exit + ' opacity-0'  : animation.entrance} */}
 
 {/* className={` will-change-transform group p-3 text-sm shadow-md shadow-black/60 relative w-[240px] min-h-[55px] max-h-[55px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto select-none z-50 duration-300 overflow-hidden ${bg} ${txtColor} ${isClosing ? animation.exit +' opacity-0 mb-[-55px]' : animation.entrance+''} ${isOpening ? 'mb-[-55px]' : 'mb-2'}`} */}
           
