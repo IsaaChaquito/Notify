@@ -64,23 +64,6 @@ const actions = {
     }
   ),
 
-/**
- * IS_OPENING_FALSE: sets a notification as opening false.
- * This is used to mark a notification's opening transition as complete.
- * @param {state} current state of the notifyReducer
- * @param {action} action object with payload containing the notification id
- * @returns new state with updated notification state
- */
-  IS_OPENING_FALSE: ( state, action ) => (
-    {
-      ...state, 
-      notifies: state.notifies.map( n => n.id === action.payload 
-        ? { ...n, state: { ...(n.state), isOpening: false } } 
-        : n 
-      )
-    }
-  ),
-  
 
   /**
    * IS_CLOSING_TRUE: sets a notification as closing true.
@@ -148,7 +131,6 @@ const actions = {
     maxLength: Math.min(15, Math.max(1, action.payload ?? 7))
   }),
 }
-
 
 
 /**

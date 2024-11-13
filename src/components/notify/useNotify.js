@@ -66,7 +66,6 @@ import { notifyModel } from "./model";
   }
   const removeNotify = ( id ) => notifyDispatch({ type: 'REMOVE_NOTIFY', payload: id })
 
-
   const verifyLengthOfList = () => {
     if ( notifyState?.notifies?.length > notifyState?.maxLength ) {
       const excededQ = notifyState?.notifies.slice(notifyState?.maxLength, notifyState?.notifies?.length)

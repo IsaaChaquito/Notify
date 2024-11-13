@@ -66,7 +66,7 @@ const CustomSelect = ({ attribute, options, type, state, updateState }) => {
                 key={option} 
                 value={option}
               >
-                {type === 'string' ? `${option},` : option + ','}
+                {type === 'string' ? `'${option}',` : option + ','}
               </option>
             ))
           }

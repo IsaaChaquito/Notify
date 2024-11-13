@@ -43,7 +43,6 @@ export const notifyModel = ( type, text, options ) => {
     state: {
       isOpen: true,
       isClosing: false,
-      isOpening: true,
     },
 
     // nodeRef: createRef(null),

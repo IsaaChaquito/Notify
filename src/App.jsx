@@ -5,6 +5,7 @@ import NotifyContainerWithTransition from './components/notify/NotifyContainerWi
 import ButtonsControl from './components/control-panel/ButtonsControl'
 import Header from './components/Header'
 
+
 function App() {
 
   return (
@@ -14,8 +15,8 @@ function App() {
         <Header />
 
         <ButtonsControl />
-        {/* <NotifyContainer /> */}
-        <NotifyContainerWithTransition />
+        <NotifyContainer />
+        {/* <NotifyContainerWithTransition /> */}
 
       </div>
     </AppProvider>

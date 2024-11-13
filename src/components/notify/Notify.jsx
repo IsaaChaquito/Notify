@@ -1,11 +1,8 @@
 
-
 import { CloseIcon } from "./icons"
 import useNotify from "./useNotify"
 import { notifyMap, timerPositionMap } from "./notifyTypes"
-import { useEffect, useRef } from "react"
-
-
+import { memo } from "react"
 
 /**
  * A notification component that displays a notification message, icon and a close button.
@@ -17,7 +14,7 @@ import { useEffect, useRef } from "react"
  * @param {{ notification: { id: string, text: string, type: string, icon: string, showProgressBar: boolean, autoClose: boolean, filled: boolean, timeSettings: { duration: number, timerPosition: string, timeFormat: string, showTimer: boolean}, state: { isOpen: boolean, isClosing: boolean, isOpening: boolean }, isUpdating: boolean}}} props
  * @returns {JSX.Element}
  */
-export default function Notify( { notification } ) {  
+function Notify( { notification } ) {  
 
   const { 
     handleClose,
@@ -29,7 +26,7 @@ export default function Notify( { notification } ) {
   const { id, text, type, icon, iconFirst, showProgressBar, autoClose, filled, timeSettings, state, isUpdating, animation } = notification
   
   const { duration, timerPosition, timeFormat, showTimer } = timeSettings
-  const { isOpen, isClosing, isOpening } = state
+  const { isOpen, isClosing } = state
   const { bg, txtColor, iconNotify, progressBarColor, timerColor } = notifyMap[type]( filled, icon )  
 
 
@@ -42,9 +39,6 @@ export default function Notify( { notification } ) {
             onMouseLeave={ () => autoClose && resumeTimer() }
             className={`Notify group h-[55px] p-2 text-sm shadow-md shadow-black/60 relative w-[240px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto select-none z-50  overflow-hidden duration-300 ${bg} ${txtColor} ${isClosing ? animation.exit + ' opacity-0'  : animation.entrance} `}
           >
-            {/* ${isClosing ? animation.exit + ' opacity-0'  : animation.entrance} */}
-
-{/* className={` will-change-transform group p-3 text-sm shadow-md shadow-black/60 relative w-[240px] min-h-[55px] max-h-[55px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto select-none z-50 duration-300 overflow-hidden ${bg} ${txtColor} ${isClosing ? animation.exit +' opacity-0 mb-[-55px]' : animation.entrance+''} ${isOpening ? 'mb-[-55px]' : 'mb-2'}`} */}
           
           <div className={`w-full flex items-center ${iconFirst ? 'flex-row-reverse justify-end' : 'justify-between '} gap-x-2`}>
 
@@ -98,5 +92,8 @@ export default function Notify( { notification } ) {
 
 }
 
-
+export default memo(Notify, (prevProps, nextProps) => {
+  // Comparación personalizada si necesitas verificar propiedades específicas de `notification`.
+  return prevProps.notification === nextProps.notification;
+});
 
