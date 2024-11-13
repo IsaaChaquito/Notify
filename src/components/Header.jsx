@@ -5,10 +5,10 @@ const Header = () => {
   return (
     <div className="relative h-56 w-full">
       
-      <div className='flex flex-col justify-center items-center  duration-300 z-50'>
-        <h1 className="flex select-none h-auto text-7xl animate-[zoomIn_.4s_ease] font-bold text-center italic py-10 px-2 text-white z-10 drop-shadow-lg">
+      <div className='flex flex-col justify-center items-center  duration-300 z-50 p-2'>
+        <h1 className="flex select-none h-auto text-6xl sm:text-7xl animate-[zoomIn_.4s_ease] font-bold text-center italic py-10 px-2 text-white z-10 drop-shadow-lg">
           Just Notify
-          <CheckIcon className="text-8xl"/>
+          {/* <CheckIcon className="text-8xl"/> */}
         </h1>
 
         {/* <ol className='p-3'>

@@ -1,12 +1,12 @@
 import { CheckIcon, ExclamationIcon, LoaderIcon, WarningCircleIcon, WarningSquareIcon, WarningTriangleIcon } from "./icons"
 
 export const iconType = {
-  info: <WarningSquareIcon  className="w-6 h-6 " />,
-  success: <CheckIcon  className="w-6 h-6 " />,
-  warning: <WarningTriangleIcon  className="w-6 h-6 " />,
-  error: <WarningCircleIcon  className="w-6 h-6 " />,
+  info: <WarningSquareIcon  className="w-5 h-5 sm:w-6 sm:h-6 " />,
+  success: <CheckIcon  className="w-5 h-5 sm:w-6 sm:h-6 " />,
+  warning: <WarningTriangleIcon  className="w-5 h-5 sm:w-6 sm:h-6 " />,
+  error: <WarningCircleIcon  className="w-5 h-5 sm:w-6 sm:h-6 " />,
   neutral: <ExclamationIcon  className="w-8 h-8 " />,
-  promise: <LoaderIcon  className="w-6 h-6 " />
+  promise: <LoaderIcon  className="w-5 h-5 sm:w-6 sm:h-6 " />
 }
 
 

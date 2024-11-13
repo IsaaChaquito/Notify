@@ -37,10 +37,10 @@ function Notify( { notification } ) {
           <div 
             onMouseEnter={ () => autoClose && pauseTimer() }
             onMouseLeave={ () => autoClose && resumeTimer() }
-            className={`Notify group h-[55px] p-2 text-sm shadow-md shadow-black/60 relative scale-90 sm:scale-100 w-[240px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto select-none z-50  overflow-hidden duration-300 ${bg} ${txtColor} ${isClosing ? animation.exit + ' opacity-0'  : animation.entrance} `}
+            className={`Notify group h-[45px] sm:h-[55px] p-2 text-xs sm:text-sm shadow-md shadow-black/60 relative w-[190px] sm:w-[240px] flex justify-between items-center gap-x-2 rounded-md pointer-events-auto select-none z-50  overflow-hidden duration-300 ${bg} ${txtColor} ${isClosing ? animation.exit + ' opacity-0'  : animation.entrance} `}
           >
           
-          <div className={`w-full flex items-center ${iconFirst ? 'flex-row-reverse justify-end' : 'justify-between '} gap-x-2`}>
+          <div className={`w-full flex items-center font-medium ${iconFirst ? 'flex-row-reverse justify-end' : 'justify-between '} gap-x-2`}>
 
             <h1 className={`h-auto overflow-hidden ${isUpdating ? 'animate-fade-in' : ''}  truncate duration-75`}>
               { text }
@@ -62,7 +62,7 @@ function Notify( { notification } ) {
               autoClose && (
                 <>
                   {showTimer && (
-                    <div className={`TIMER ${timerColor} text-[.55rem] absolute ${timerPositionMap[timerPosition] ?? timerPositionMap['bottom-right']}`}>
+                    <div className={`TIMER ${timerColor} text-[.50rem] sm:text-[.55rem] absolute ${timerPositionMap[timerPosition] ?? timerPositionMap['bottom-right']}`}>
                       <span>
                         { 
                           timer > 0 
@@ -75,7 +75,7 @@ function Notify( { notification } ) {
 
                   { showProgressBar && (
                     <div
-                      className={`absolute bottom-0 left-0 w-full h-1 ${progressBarColor} shadow`}
+                      className={`absolute bottom-0 left-0 w-full h-0.5 sm:h-1 ${progressBarColor} shadow`}
                       style={{ width: `${(timer / duration) * 100}%` }}
                     />
                   )}
