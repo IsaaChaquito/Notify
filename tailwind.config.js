@@ -93,8 +93,22 @@ export default {
         fadeDownBottomRight: 'fadeDownBottomRight 0.6s ease-out',
         zoomIn: 'zoomIn 0.6s ease-out',
         zoomOut: 'zoomOut 0.6s ease-out',
+        backInRight: 'backInRight 0.6s ease-out',
+        backOutRight: 'backOutRight 0.6s ease-out',
       },
       keyframes: {
+        backInRight: {
+          '0%': { transform: 'translateX(2000px) scale(0.7)',  opacity: 0.7 },
+          '80%': { transform: 'translateX(0px) scale(0.7)',  opacity: 0.7 },
+          '100%': { transform: 'scale(1)',  opacity: 1 },
+        },
+
+        backOutRight: {
+          '0%': { transform: 'scale(1)',  opacity: 1 },
+          '20%': { transform: 'translateX(0px) scale(0.7)',  opacity: 0.7 },
+          '100%': { transform: 'translateX(2000px) scale(0.7)',  opacity: 0.7 },
+        },
+
         zoomIn: {
           from: {
             opacity: 0,
@@ -105,6 +119,8 @@ export default {
             opacity: 1,
           }
         },
+
+
         zoomOut: {
           from: {
             opacity: 1,
@@ -115,6 +131,7 @@ export default {
             transform: 'scale3d(0.3, 0.3, 0.3)',
           }
         },
+
         fadeInTopRight: {
           from: {
             opacity: 0,
@@ -126,6 +143,7 @@ export default {
             transform: 'translate3d(0, 0, 0)',
           }
         },
+
         fadeDownBottomRight: {
           from: {
             opacity: 1,
@@ -137,6 +155,7 @@ export default {
             transform: 'translate3d(100%, 100%, 0)',
           }
         },
+
         fadeOutDown: {
           from: {
             opacity: 1,
@@ -147,6 +166,7 @@ export default {
             transform: 'translate3d(0, 100%, 0)',
           }
         },
+
         fadeOutDownBig: {
           from: {
             opacity: 1,
@@ -157,6 +177,7 @@ export default {
             transform: 'translate3d(0, 2000px, 0)',
           }
         },
+
         fadeInDown: {
           from: {
             opacity: 0,
@@ -168,6 +189,7 @@ export default {
             transform: 'translate3d(0, 0, 0)',
           }
         },
+
         fadeInDownBig: {
           from: {
             opacity: 0,
@@ -179,6 +201,7 @@ export default {
             transform: 'translate3d(0, 0, 0)',
           }
         },
+
         'background-shine': {
           from: {
             backgroundPosition: '0 0',

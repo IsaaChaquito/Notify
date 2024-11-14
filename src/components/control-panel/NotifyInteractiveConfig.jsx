@@ -8,8 +8,22 @@ const timerPositionOptions = ['bottom-right', 'bottom-left', 'top-left']
 const durationOptions = ['2000', '3000', '4000', '5000', '10000']
 const timeFormatOptions = ['s', 'ms']
 const animationOptions = {
-  entrance: ['animate-[zoomIn_.3s_ease-in-out]', 'animate-[fade-in_.3s_ease]',  'animate-[jump_.3s_ease]', 'animate-[slide-in-bottom_.3s_ease]', 'animate-[slide-in-top_.3s_ease]'],
-  exit: [ 'animate-[zoomOut_.3s_ease-in-out]', 'animate-[fade-out_.3s_ease]', 'animate-[jump_.3s_ease]', 'animate-[slide-out-top_.3s_ease]', 'animate-[slide-out-bottom_.3s_ease]']
+  entrance: [
+    'animate-[zoomIn_.3s_ease-in-out]', 
+    'animate-[fadeInDown_.4s_ease-in-out]',  
+    'animate-[jump_.3s_ease]', 
+    'animate-[slide-in-bottom_.3s_ease]', 
+    'animate-[slide-in-top_.3s_ease]',
+    'animate-[backInRight_.4s_ease-in-out]',
+  ],
+  exit: [ 
+    'animate-[zoomOut_.4s_ease-in-out]', 
+    'animate-[fadeOutDown_.6s_ease-in-out]', 
+    'animate-[jump_.3s_ease]', 
+    'animate-[slide-out-top_.3s_ease]', 
+    'animate-[slide-out-bottom_.3s_ease]',
+    'animate-[backOutRight_.4s_ease-in-out]',
+  ]
 }
 
 const optionsReducer = {
