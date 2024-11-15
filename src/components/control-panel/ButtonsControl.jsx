@@ -5,6 +5,8 @@ import { useProvider } from '../../context/useProvider'
 import NotifyInteractiveConfig from './NotifyInteractiveConfig'
 import { DicesIcon } from '../../assets/icons/dices'
 import { Flipped, Flipper } from 'react-flip-toolkit'
+import { notifyModel, notifySetup } from '../notify/model'
+import Notify from '../notify/Notify'
 
 export const positions = {
   'top-right': 'top-right',
@@ -105,6 +107,7 @@ export default function ButtonsControl() {
         Some things you can try <code className='text-base bg-gray-500/50 rounded-md p-1 mr-1'>Notify</code>
       </h2>    
 
+
       <Flipper flipKey={flipKey} spring={{ stiffness: 200, damping: 30 }} stagger>
         <section className={`flex ${isMobileView ? 'flex-col' : 'flex-row '} justify-center items-center my-5 gap-3 select-none`}>
           
@@ -119,7 +122,7 @@ export default function ButtonsControl() {
 
           <Flipped flipId="alternate-container">
             <div className='w-full sm:w-auto '>
-              <button onClick={handlePositionList} className='w-full sm:w-auto p-2 rounded group bg-black hover:bg-black/80 text-sm flex flex-col justify-center items-center gap-1 duration-300'>
+              <button onClick={handlePositionList} className='w-full sm:w-auto p-2 rounded group bg-black hover:bg-black/80 shadow-sm text-sm flex flex-col justify-center items-center gap-1 duration-300'>
                 <span>Alternate position</span>
                 <code className='text-xs p-1 rounded-sm bg-gradient-to-tr from-indigo-900 bg-indigo-900 hover:bg-indigo-700 shadow-sm group-active:scale-75 duration-300'> 
                   {notifyState?.screenPosition}

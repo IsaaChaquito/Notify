@@ -12,7 +12,6 @@ export default {
   theme: {
     extend: {
       animation: {
-        'background-shine': 'background-shine 2s linear infinite',
         'fade-in': 'fade-in 0.6s ease-in',
         'fade-out': 'fade-out 0.6s ease-out',
         'slide-in-top': 'slide-in-top 0.6s ease-out',
@@ -95,8 +94,42 @@ export default {
         zoomOut: 'zoomOut 0.6s ease-out',
         backInRight: 'backInRight 0.6s ease-out',
         backOutRight: 'backOutRight 0.6s ease-out',
+        backInDown: 'backInDown 0.6s ease-out',
+        backOutDown: 'backOutDown 0.6s ease-out',
+        bounceIn: 'bounceIn 0.6s ease-out',
+        bounceOut: 'bounceOut 0.6s ease-out',
       },
       keyframes: {
+
+        bounceIn: {
+          '0%': { opacity: '0', transform: 'scale3d(0.3, 0.3, 0.3)' },
+          '20%': { transform: 'scale3d(1.1, 1.1, 1.1)' },
+          '40%': { transform: 'scale3d(0.9, 0.9, 0.9)' },
+          '60%': { opacity: '1', transform: 'scale3d(1.03, 1.03, 1.03)' },
+          '80%': { transform: 'scale3d(0.97, 0.97, 0.97)' },
+          '100%': { opacity: '1', transform: 'scale3d(1, 1, 1)' },
+        },
+
+        bounceOut: {
+          '0%': { opacity: '1', transform: 'scale3d(1, 1, 1)' },
+          '20%': { opacity: '1', transform: 'scale3d(0.9, 0.9, 0.9)' },
+          '50%': { opacity: '1', transform: 'scale3d(1.1, 1.1, 1.1)' },
+          '55%': { opacity: '1', transform: 'scale3d(1.1, 1.1, 1.1)' },
+          '100%': { opacity: '0', transform: 'scale3d(0.3, 0.3, 0.3)' },
+        },
+
+        backInDown: {
+          '0%': { transform: 'translateY(-1200px) scale(0.7)',  opacity: 0.7 },
+          '80%': { transform: 'translateY(0px) scale(0.7)',  opacity: 0.7 },
+          '100%': { transform: 'scale(1)',  opacity: 1 },
+        },
+
+        backOutDown: {
+          '0%': { transform: 'scale(1)',  opacity: 1 },
+          '20%': { transform: 'translateY(0px) scale(0.7)',  opacity: 0.7 },
+          '100%': { transform: 'translateY(700px) scale(0.7)',  opacity: 0.7 },
+        },
+
         backInRight: {
           '0%': { transform: 'translateX(2000px) scale(0.7)',  opacity: 0.7 },
           '80%': { transform: 'translateX(0px) scale(0.7)',  opacity: 0.7 },
@@ -202,14 +235,6 @@ export default {
           }
         },
 
-        'background-shine': {
-          from: {
-            backgroundPosition: '0 0',
-          },
-          to: {
-            backgroundPosition: '-200% 0',
-          },
-        },
         'fade-in': {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },

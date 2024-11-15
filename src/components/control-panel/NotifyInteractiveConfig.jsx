@@ -15,6 +15,8 @@ const animationOptions = {
     'animate-[slide-in-bottom_.3s_ease]', 
     'animate-[slide-in-top_.3s_ease]',
     'animate-[backInRight_.4s_ease-in-out]',
+    'animate-[backInDown_.4s_ease-in-out]',
+    'animate-[bounceIn_.4s_ease-in-out]',
   ],
   exit: [ 
     'animate-[zoomOut_.4s_ease-in-out]', 
@@ -23,6 +25,8 @@ const animationOptions = {
     'animate-[slide-out-top_.3s_ease]', 
     'animate-[slide-out-bottom_.3s_ease]',
     'animate-[backOutRight_.4s_ease-in-out]',
+    'animate-[backOutDown_.4s_ease-in-out]',
+    'animate-[bounceOut_.4s_ease-in-out]',
   ]
 }
 
@@ -166,7 +170,7 @@ function NotifyInteractiveConfig () {
           <span className='text-lime-300'>"I'm a</span>
           <span className='text-pink-400'><pre> $</pre></span>
           <span className='text-orange-300'>{`{`}</span>
-          <span className='text-white'>{`options.`}</span>
+          <span className='text-white'>{`settings.`}</span>
           <span className='text-sky-400'>{`type`}</span>
           <span className='text-orange-300'>{`}`}</span>
           <span className='text-lime-300'><pre> Notify"</pre></span>

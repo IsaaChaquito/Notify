@@ -71,5 +71,9 @@ input[type="range"]::-moz-slider-thumb:hover {
 }
 
 
+.github-link{
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
 
 
