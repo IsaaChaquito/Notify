@@ -101,16 +101,16 @@ export default function ButtonsControl() {
 
 
   return (
-    <div className='flex flex-col items-center max-w-2/3 h-full  p-4 rounded'>
+    <div className='flex flex-col items-center max-w-[320px] sm:max-w-xl h-full p-3 sm:p-4 rounded'>
 
-      <div className='bg-sky-950 w-full rounded p-4'>
-        <h2 className='text-xl sm:text-2xl w-full py-2 rounded text-start text-white z-10 '>
-          Random possible examples of <code className='notify-badge text-base  rounded-md py-1 px-2 mr-1'>Notify</code>
+      <div className='bg-sky-950 w-full rounded p-4 flex flex-col justify-center items-center'>
+        <h2 className='text-xl sm:text-2xl w-full pb-8 rounded text-start text-white z-10 '>
+          Random examples of <code className='notify-badge text-base rounded-md py-1 px-2 ml-1'>Notify</code>
         </h2>    
 
 
-        <Flipper className='w-full sm:auto' flipKey={flipKey} spring={{ stiffness: 200, damping: 30 }} stagger>
-          <section className={`flex  ${isMobileView ? 'flex-col justify-center gap-y-3 w-[160px]' : 'flex-row justify-between w-full'}  items-center  select-none`}>
+        <Flipper flipKey={flipKey} spring={{ stiffness: 200, damping: 30 }} stagger>
+          <section className={`flex gap-3 ${isMobileView ? 'flex-col justify-center  w-[160px]' : 'flex-row justify-between w-full'}  items-center  select-none`}>
             
             <Flipped flipId="add-notify">
               <div className='w-full sm:w-auto '>
