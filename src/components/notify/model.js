@@ -29,8 +29,8 @@ export const notifyModel = ( type, text, options = {} ) => {
     isUpdating: id ? true : false,
 
     animation: {
-      entrance: animation?.entrance ?? 'animate-[fadeInDown_.4s_ease-in-out]',
-      exit: animation?.exit ?? 'animate-[fadeOutDown_.4s_ease-in-out]',
+      entrance: animation?.entrance ?? 'animate-[zoomIn_.4s_ease-in-out]',
+      exit: animation?.exit ?? 'animate-[zoomOut_.4s_ease-in-out]',
     },
 
     timeSettings: {

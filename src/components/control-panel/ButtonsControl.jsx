@@ -105,15 +105,15 @@ export default function ButtonsControl() {
 
       <div className='bg-sky-950 w-full rounded p-4'>
         <h2 className='text-xl sm:text-2xl w-full py-2 rounded text-start text-white z-10 '>
-          Random examples of <code className='notify-badge text-base  rounded-md py-1 px-2 mr-1'>Notify</code>
+          Random possible examples of <code className='notify-badge text-base  rounded-md py-1 px-2 mr-1'>Notify</code>
         </h2>    
 
 
         <Flipper className='w-full sm:auto' flipKey={flipKey} spring={{ stiffness: 200, damping: 30 }} stagger>
-          <section className={`flex  ${isMobileView ? 'flex-col justify-center gap-y-3' : 'flex-row justify-between w-full'}  items-center my-5  select-none`}>
+          <section className={`flex  ${isMobileView ? 'flex-col justify-center gap-y-3 w-[160px]' : 'flex-row justify-between w-full'}  items-center  select-none`}>
             
             <Flipped flipId="add-notify">
-              <div>
+              <div className='w-full sm:w-auto '>
                 <button onClick={handleAddNotify} className="flex items-center gap-x-2 h-12 px-3 bg-gradient-to-tr from-indigo-900 bg-indigo-900 hover:bg-indigo-700 shadow-sm rounded active:scale-95 duration-300">
                   <span>Random Notify</span>
                   <DicesIcon />
