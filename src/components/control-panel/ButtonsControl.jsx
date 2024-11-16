@@ -101,7 +101,7 @@ export default function ButtonsControl() {
 
 
   return (
-    <div className='flex flex-col items-center max-w-[320px] sm:max-w-xl h-full p-3 sm:p-4 rounded'>
+    <div className='flex flex-col items-center max-w-[320px] sm:max-w-xl h-full p-2.5 sm:p-4 rounded'>
 
       <div className='bg-sky-950 w-full rounded p-4 flex flex-col justify-center items-center'>
         <h2 className='text-xl sm:text-2xl w-full pb-8 rounded text-start text-white z-10 '>
