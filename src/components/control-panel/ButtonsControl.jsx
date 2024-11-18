@@ -157,13 +157,12 @@ export default function ButtonsControl() {
 
       
 
-      <div className='bg-sky-950 w-full rounded p-4 flex flex-col justify-center items-center'>
-      <h2 className='text-xl sm:text-2xl w-full p-2 text-start text-white z-10 '>
-        Or try arbitrary <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>settings</code>
-      </h2>
+      <div className='bg-sky-950 w-full rounded px-4 pt-4 flex flex-col justify-center items-center'>
+        <h2 className='text-xl sm:text-2xl w-full p-2 text-start text-white z-10 '>
+          Or try arbitrary <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>settings</code>
+        </h2>
 
-      <NotifyInteractiveConfig />
-
+        <NotifyInteractiveConfig />
       </div>
 
     </div>
