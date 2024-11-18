@@ -134,9 +134,9 @@ function NotifyInteractiveConfig () {
 
 
   return (
-    <div className='flex flex-col gap-2 m-5 overflow-x-auto max-w-[320px] sm:max-w-xl'>
+    <div className='flex flex-col gap-2 m-5 overflow-x-auto max-w-[300px] shadow-md rounded p-5 bg-black sm:max-w-xl'>
           
-      <code className='flex flex-col items-center gap-x-2 w-full  p-5 bg-black shadow-md rounded  *:text-xs *:text-sky-400'>
+      <code className='flex flex-col items-center gap-x-2 w-full *:text-xs *:text-sky-400'>
 
         <div className='flex items-center self-start gap-x-2 mb-2'>
           <span className='text-red-500'>const</span>
@@ -167,7 +167,7 @@ function NotifyInteractiveConfig () {
           <span className='flex text-white'> notify.</span>
           <span className='text-yellow-500'>{state.type}</span>
           <span className='text-blue-500'>(</span>
-          <span className='text-lime-300'>"I'm a</span>
+          <span className='text-lime-300 text-nowrap'>{`"I'm a`}</span>
           <span className='text-pink-400'><pre> $</pre></span>
           <span className='text-orange-300'>{`{`}</span>
           <span className='text-white'>{`settings.`}</span>
