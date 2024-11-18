@@ -101,15 +101,15 @@ export default function ButtonsControl() {
 
 
   return (
-    <div className='flex flex-col gap-y-10 items-center max-w-[320px] sm:max-w-xl h-full p-2.5 sm:p-4 rounded'>
+    <div className='flex flex-col gap-y-16 items-center w-full sm:w-max-w-[320px] sm:max-w-xl  h-full sm:p-4 sm:rounded overflow-hidden'>
 
-      <div className='bg-sky-950 w-full rounded  flex flex-col justify-center items-center overflow-x-auto'>
-        <h2 className='text-xl sm:text-2xl w-full p-2 text-start text-white z-10 '>
-          Simple use of <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>Notify</code>
+      <div className='bg-sky-950 w-full sm:rounded flex flex-col justify-center items-center overflow-x-auto'>
+        <h2 className='text-xl sm:text-2xl w-full p-3 text-start text-white z-10 '>
+          Basic use of <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>Notify</code>
         </h2>
 
-        <code className='bg-black p-2 w-full'>
-          <div className='flex self-start gap-y-2 text-xs '>
+        <code className='bg-black p-6 w-full'>
+          <div className='flex gap-y-2 text-xs '>
             <span className='flex text-white'> notify.</span>
             <span className='text-yellow-500'>success</span>
             <span className='text-blue-500'>(</span>
@@ -119,18 +119,18 @@ export default function ButtonsControl() {
         </code>
       </div>
 
-      <div className='bg-sky-950 w-full rounded p-4 flex flex-col justify-center items-center '>
-        <h2 className='text-xl sm:text-2xl w-full p-2 rounded text-start text-white z-10 '>
+      <div className='bg-sky-950 w-full sm:rounded flex flex-col justify-center items-center '>
+        <h2 className='text-xl sm:text-2xl w-full p-3 rounded text-start text-white z-10 '>
           Random examples of <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>Notify</code>
         </h2>    
 
 
         <Flipper flipKey={flipKey} spring={{ stiffness: 200, damping: 30 }} stagger>
-          <section className={`flex gap-3 ${isMobileView ? 'flex-col justify-center  w-[160px]' : 'flex-row justify-between w-full'}  items-center  select-none`}>
+          <section className={`flex gap-3 m-2 ${isMobileView ? 'flex-col justify-center  w-[200px] ' : 'flex-row justify-between w-full'}  items-center  select-none`}>
             
             <Flipped flipId="add-notify">
               <div className='w-full sm:w-auto '>
-                <button onClick={handleAddNotify} className="flex items-center gap-x-2 h-12 px-3 bg-gradient-to-tr from-indigo-900 bg-indigo-900 hover:bg-indigo-700 shadow-sm rounded active:scale-95 duration-300">
+                <button onClick={handleAddNotify} className="flex items-center justify-center gap-x-2 w-full h-12 px-3 bg-gradient-to-tr from-indigo-900 bg-indigo-900 hover:bg-indigo-700 shadow-sm rounded active:scale-95 duration-300">
                   <span>Random Notify</span>
                   <DicesIcon />
                 </button>
@@ -156,7 +156,7 @@ export default function ButtonsControl() {
                     <span>{notifyState?.maxLength}</span>
                   </div>
                   <input 
-                    className="text-xs appearance-none group-hover rounded m-1" 
+                    className="text-xs appearance-none group-hover rounded m-1 w-full" 
                     type="range" 
                     min={1} 
                     max={15} 
@@ -173,8 +173,8 @@ export default function ButtonsControl() {
 
       
 
-      <div className='bg-sky-950 w-full rounded overflow-hidden  flex flex-col justify-center items-center'>
-        <h2 className='text-xl sm:text-2xl w-full p-2 text-start text-white z-10 '>
+      <div className='bg-sky-950 w-full sm:rounded overflow-hidden  flex flex-col justify-center items-center'>
+        <h2 className='text-xl sm:text-2xl w-full p-3 text-start text-white z-10 '>
           Or try arbitrary <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>settings</code>
         </h2>
 
