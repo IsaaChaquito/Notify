@@ -101,7 +101,7 @@ export default function ButtonsControl() {
 
 
   return (
-    <div className='flex flex-col gap-y-16 items-center w-full sm:w-max-w-[320px] sm:max-w-xl  h-full sm:p-4 sm:rounded overflow-hidden'>
+    <div className='flex flex-col gap-y-16 items-center w-full sm:w-max-w-[320px] sm:max-w-xl -mt-14 h-full sm:p-4 sm:rounded overflow-hidden z-50'>
 
       <div className='bg-sky-950 w-full sm:rounded flex flex-col justify-center items-center overflow-x-auto'>
         <h2 className='text-xl sm:text-2xl w-full p-3 text-start text-white z-10 '>
