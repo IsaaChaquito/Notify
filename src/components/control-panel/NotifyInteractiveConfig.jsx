@@ -134,7 +134,7 @@ function NotifyInteractiveConfig () {
 
 
   return (
-    <div className='flex flex-col gap-2 m-5 overflow-x-auto max-w-[300px] shadow-md rounded p-5 bg-black sm:max-w-xl'>
+    <div className='flex flex-col gap-2 m-5 overflow-x-auto max-w-[300px] min-w-[300px]  sm:min-w-full shadow-md rounded p-5 bg-black '>
           
       <code className='flex flex-col items-center gap-x-2 w-full *:text-xs *:text-sky-400'>
 
