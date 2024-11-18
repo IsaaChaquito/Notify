@@ -103,8 +103,24 @@ export default function ButtonsControl() {
   return (
     <div className='flex flex-col gap-y-10 items-center max-w-[320px] sm:max-w-xl h-full p-2.5 sm:p-4 rounded'>
 
+      <div className='bg-sky-950 w-full rounded  flex flex-col justify-center items-center overflow-x-auto'>
+        <h2 className='text-xl sm:text-2xl w-full p-2 text-start text-white z-10 '>
+          Simple use of <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>Notify</code>
+        </h2>
+
+        <code className='bg-black p-2 w-full'>
+          <div className='flex self-start gap-y-2 text-xs '>
+            <span className='flex text-white'> notify.</span>
+            <span className='text-yellow-500'>success</span>
+            <span className='text-blue-500'>(</span>
+            <span className='text-lime-300 text-nowrap'>'I'am a sucess Notify'</span>
+            <span className='text-blue-500'>)</span>
+          </div>
+        </code>
+      </div>
+
       <div className='bg-sky-950 w-full rounded p-4 flex flex-col justify-center items-center '>
-        <h2 className='text-xl sm:text-2xl w-full pb-8 rounded text-start text-white z-10 '>
+        <h2 className='text-xl sm:text-2xl w-full p-2 rounded text-start text-white z-10 '>
           Random examples of <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>Notify</code>
         </h2>    
 
@@ -157,7 +173,7 @@ export default function ButtonsControl() {
 
       
 
-      <div className='bg-sky-950 w-full rounded px-4 pt-4 flex flex-col justify-center items-center'>
+      <div className='bg-sky-950 w-full rounded overflow-hidden  flex flex-col justify-center items-center'>
         <h2 className='text-xl sm:text-2xl w-full p-2 text-start text-white z-10 '>
           Or try arbitrary <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>settings</code>
         </h2>
