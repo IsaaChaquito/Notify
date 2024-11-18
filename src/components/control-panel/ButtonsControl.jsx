@@ -82,6 +82,8 @@ export default function ButtonsControl() {
 
   }
 
+  const handleBasicNotify = () => notify.success("I'm a success Notify")
+
 
   const [isMobileView, setIsMobileView] = useState(window.innerWidth < 640); // Tailwind 'sm' breakpoint is 640px
 
@@ -103,7 +105,7 @@ export default function ButtonsControl() {
   return (
     <div className='flex flex-col gap-y-16 items-center w-full sm:w-max-w-[320px] sm:max-w-xl -mt-14 h-full sm:p-4 sm:rounded overflow-hidden z-50'>
 
-      <div className='bg-sky-950 w-full sm:rounded flex flex-col justify-center items-center overflow-x-auto'>
+      <div className='bg-sky-950 gap-y-2 pb-2 w-full sm:rounded flex flex-col justify-center items-center overflow-x-auto'>
         <h2 className='text-xl sm:text-2xl w-full p-3 text-start text-white z-10 '>
           Basic use of <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>Notify</code>
         </h2>
@@ -113,10 +115,15 @@ export default function ButtonsControl() {
             <span className='flex text-white'> notify.</span>
             <span className='text-yellow-500'>success</span>
             <span className='text-blue-500'>(</span>
-            <span className='text-lime-300 text-nowrap'>'I'am a sucess Notify'</span>
+            <span className='text-lime-300 text-nowrap'>"I'm a sucess Notify"</span>
             <span className='text-blue-500'>)</span>
           </div>
         </code>
+
+        <button onClick={ handleBasicNotify } className="w-[200px] rounded p-3 bg-indigo-900 text-white hover:bg-indigo-700  active:scale-95 duration-300">
+          Trigger notify
+        </button>
+
       </div>
 
       <div className='bg-sky-950 w-full sm:rounded flex flex-col justify-center items-center '>
