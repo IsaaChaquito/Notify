@@ -5,8 +5,8 @@ import { useProvider } from '../../context/useProvider'
 import NotifyInteractiveConfig from './NotifyInteractiveConfig'
 import { DicesIcon } from '../../assets/icons/dices'
 import { Flipped, Flipper } from 'react-flip-toolkit'
-import { notifyModel, notifySetup } from '../notify/model'
-import Notify from '../notify/Notify'
+
+import CustomSelect2 from './CustomSelect2'
 
 export const positions = {
   'top-right': 'top-right',
@@ -103,10 +103,10 @@ export default function ButtonsControl() {
 
 
   return (
-    <div className='flex flex-col gap-y-16 items-center w-full sm:w-max-w-[320px] sm:max-w-xl -mt-14 h-full sm:p-4 sm:rounded overflow-hidden z-50'>
+    <div className='flex flex-col gap-y-16 items-center w-full sm:w-max-w-[320px] sm:max-w-xl -mt-14 h-full sm:p-4 sm:rounded overflow-hidden z-10'>
 
-      <div className='bg-sky-950 gap-y-2 pb-2 w-full sm:rounded flex flex-col justify-center items-center overflow-x-auto'>
-        <h2 className='text-xl sm:text-2xl w-full p-3 text-start text-white z-10 '>
+      <div className='bg-sky-950 gap-y-2 pb-2 w-full sm:rounded flex flex-col justify-center items-center '>
+        <h2 className='text-xl sm:text-2xl w-full p-3 text-start text-white z- '>
           Basic use of <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>Notify</code>
         </h2>
 
@@ -120,9 +120,14 @@ export default function ButtonsControl() {
           </div>
         </code>
 
-        <button onClick={ handleBasicNotify } className="w-[200px] rounded p-3 bg-indigo-900 text-white hover:bg-indigo-700  active:scale-95 duration-300">
-          Trigger notify
-        </button>
+        <div 
+          onClick={ 
+            (e) => e.target === e.currentTarget && handleBasicNotify() 
+          } 
+          className="flex items-center justify-center gap-x-1 w-auto rounded p-3 bg-indigo-900 text-white hover:bg-indigo-700 duration-150 cursor-pointer shadow-md z-20">
+          <span className='pointer-events-none'>Trigger notify</span>
+          <CustomSelect2 width='w-[100px]' options={notyTypes} />
+        </div>
 
       </div>
 
@@ -132,12 +137,12 @@ export default function ButtonsControl() {
         </h2>    
 
 
-        <Flipper flipKey={flipKey} spring={{ stiffness: 200, damping: 30 }} stagger>
+        <Flipper flipKey={flipKey} spring={{ stiffness: 200, damping: 30 }} >
           <section className={`flex gap-3 m-2 ${isMobileView ? 'flex-col justify-center  w-[200px] ' : 'flex-row justify-between w-full'}  items-center  select-none`}>
             
             <Flipped flipId="add-notify">
               <div className='w-full sm:w-auto '>
-                <button onClick={handleAddNotify} className="flex items-center justify-center gap-x-2 w-full h-12 px-3 bg-gradient-to-tr from-indigo-900 bg-indigo-900 hover:bg-indigo-700 shadow-sm rounded active:scale-95 duration-300">
+                <button onClick={handleAddNotify} className="flex items-center justify-center gap-x-2 w-full h-12 px-3 bg-gradient-to-tr from-indigo-900 bg-indigo-900 hover:bg-indigo-700 shadow-md rounded active:scale-95 duration-300">
                   <span>Random Notify</span>
                   <DicesIcon />
                 </button>
@@ -146,7 +151,7 @@ export default function ButtonsControl() {
 
             <Flipped flipId="alternate-container">
               <div className='w-full sm:w-auto '>
-                <button onClick={handlePositionList} className='w-full sm:w-auto p-2 rounded group bg-black hover:bg-black/80 shadow-sm text-sm flex flex-col justify-center items-center gap-1 duration-300'>
+                <button onClick={handlePositionList} className='w-full sm:w-auto p-2 rounded group bg-black hover:bg-black/80 shadow-md text-sm flex flex-col justify-center items-center gap-1 duration-300'>
                   <span>Alternate position</span>
                   <code className='text-xs p-1 rounded-sm bg-gradient-to-tr from-indigo-900 bg-indigo-900 hover:bg-indigo-700 shadow-sm group-active:scale-75 duration-300'> 
                     {notifyState?.screenPosition}

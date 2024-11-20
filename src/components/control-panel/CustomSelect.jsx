@@ -34,6 +34,13 @@ const CustomSelect = ({ attribute, options, type, state, updateState }) => {
     setSelectedValue(val)
   }
 
+  /**
+   * Recursively iterates through an object and updates a nested property with a given value.
+   * @param {object} obj - The object to iterate through.
+   * @param {string} attribute - The attribute to update.
+   * @param {*} val - The value to update the attribute with.
+   * @returns {object} A new object with the updated attribute.
+   */
   function iterateObject(obj, attribute, val) {
     for (const key in obj) {
       if(key === attribute) {
