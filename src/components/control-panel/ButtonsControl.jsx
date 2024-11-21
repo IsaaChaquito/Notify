@@ -40,7 +40,7 @@ export default function ButtonsControl() {
   }, [counter])
 
 
-  const notyTypes = ['info', 'success', 'warning', 'error', 'neutral', 'promise']
+  const notyTypes = ['info', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise']
   const handleAddNotify = () => {
 
     const rnd = Math.floor(Math.random() * notyTypes.length)

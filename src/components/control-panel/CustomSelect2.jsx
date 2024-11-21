@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ChevronRightIcon } from '../../assets/icons/chevron-right'
 
 const CustomSelect2 = ( { options, showIndex, width } ) => {
@@ -8,36 +8,38 @@ const CustomSelect2 = ( { options, showIndex, width } ) => {
     isShowingOptions: false,
     showIndex: showIndex ?? false,
 
-    
-    hideOptions: () => setLocalState({ ...localState, isShowingOptions: false }),
-    showOptions: () => setLocalState({ ...localState, isShowingOptions: true }),
+    hideOptions: () => setLocalState(state => ({ ...state, isShowingOptions: false })),
+    showOptions: () => setLocalState(state => ({ ...state, isShowingOptions: true })),
     alternateShowOptions: () => setLocalState(state => ({ ...state, isShowingOptions: !state.isShowingOptions })),
   })
 
   const optionsRef = useRef(null);
   const selectedRef = useRef(null);
 
-
-  const handleOnClick = ( index ) =>{
+  const handleOnClick = ( index ) => {
+    console.log('clicked handleOnClick', index);
     setLocalState({
       ...localState, 
-      selected: index, 
-      isShowingOptions: false
+      indexSelected: index, 
+      isShowingOptions: false,
     })
-
-
   }
 
-  const handleButtonSelected = () =>{
+  const handleButtonSelected = () => {
 
-    if( optionsRef?.current === document.activeElement ) return
     localState.alternateShowOptions()
     setTimeout(() => {
-      optionsRef?.current?.focus()
+      // optionsRef?.current?.focus()
     }, 0)
   }
 
-  const handleKeyUp = (e) => {
+  const handleOnBlurOptions = () => {
+    setTimeout(() => {
+      localState.hideOptions()
+    }, 90)
+  }
+
+  const handleKeyDown = (e) => {
 
     e.preventDefault(); //Prevent scroll while using arrow keys
     
@@ -55,11 +57,40 @@ const CustomSelect2 = ( { options, showIndex, width } ) => {
           indexSelected: state.indexSelected === (options.length - 1) ? 0 : state.indexSelected + 1
         })
       ),
-      'Enter': () => handleOnClick( localState.indexSelected )
+      'Enter': () => {
+        localState.alternateShowOptions()
+        // selectedRef?.current?.focus()
+      }
     }
     
     actions[e.key]?.()
   }
+
+
+  const handleClickOutside = (event) => {
+    if (
+      optionsRef.current &&
+      !optionsRef.current.contains(event.target) &&
+      selectedRef.current &&
+      !selectedRef.current.contains(event.target)
+    ) {
+      setLocalState((state) => ({ ...state, isShowingOptions: false }));
+    }
+  };
+
+  useEffect(() => {
+    if (localState.isShowingOptions) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [localState.isShowingOptions]);
+
+
 
   return (
     <div  className={`relative z-50  ${width || 'w-full'}`}>
@@ -67,8 +98,9 @@ const CustomSelect2 = ( { options, showIndex, width } ) => {
       <button 
         ref={ selectedRef }
         onClick={ handleButtonSelected } 
-        onKeyDown={ handleKeyUp }
-        className={`flex items-center justify-between text-base py-1 px-2 notify-badge w-full outline-none focus:outline-none ${localState.isShowingOptions ? 'rounded-t-md' : 'rounded-md'}`}
+        onKeyDown={ handleKeyDown }
+        // onBlur={ handleOnBlurOptions }
+        className={`flex items-center justify-between text-base py-1 px-2 notify-badge shadow-sm w-full outline-none focus:outline-none focus:ring-2  ${localState.isShowingOptions ? 'rounded-t-md' : 'rounded-md'}`}
       > 
         <h2 className="w-full text-start truncate">
           { options[localState.indexSelected] } 
@@ -77,18 +109,21 @@ const CustomSelect2 = ( { options, showIndex, width } ) => {
       </button>
       
       { localState.isShowingOptions &&
-          <div ref={ optionsRef } tabIndex="0" onBlur={ handleButtonSelected } onKeyDown={ handleKeyUp }
-            className='absolute outline-none focus:outline-none w-full text-black bg-white rounded-b overflow-hidden left-1/2 -translate-x-1/2 '>
+          <div 
+            ref={ optionsRef } 
+            tabIndex="1" //Focusable
+            // onKeyDown={ handleKeyDown }
+            className='absolute outline-none focus:outline-none w-full max-h-[300px] overflow-y-auto text-black bg-white rounded-b left-1/2 -translate-x-1/2 '
+          >
             {
               options.map( (type, i) => (
                 <h3 
                   
-                  key={type} 
+                  key={ i } 
                   onClick={ () => handleOnClick( i ) }
-                  className={`${localState.indexSelected === i ? 'bg-gray-300' : 'hover:bg-gray-200'}  cursor-pointerw-auto flex text-nowrap justify-start items-center gap-x-2 py-1 px-2 duration-150`}
+                  className={`${localState.indexSelected === i ? 'bg-gray-300' : 'hover:bg-gray-200'}  cursor-pointerw-auto flex text-nowrap justify-start items-center gap-x-2 py-1 px-2 duration-0`}
                   title={type}
                   tabIndex="0"
-                  onBlur={ handleButtonSelected }
                 >
                     { localState.showIndex && <span className="font-light">{ i + 1 }</span> }
                     <span className="truncate">{type}</span>
