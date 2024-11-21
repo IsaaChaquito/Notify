@@ -6,7 +6,7 @@ import NotifyInteractiveConfig from './NotifyInteractiveConfig'
 import { DicesIcon } from '../../assets/icons/dices'
 import { Flipped, Flipper } from 'react-flip-toolkit'
 
-import CustomSelect2 from './CustomSelect2'
+import CustomSelect2 from '../custom-select-2/CustomSelect2'
 
 export const positions = {
   'top-right': 'top-right',
@@ -33,14 +33,13 @@ export default function ButtonsControl() {
   }
 
 
-
   useEffect(() => {
     const key = Object.keys(positions)[counter]
     setNotifiesPosition( positions[key] )
   }, [counter])
 
 
-  const notyTypes = ['info', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise']
+  const notyTypes = ['info', 'success', 'warning', 'error', 'neutral', 'promise', 'successsssss', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise']
   const handleAddNotify = () => {
 
     const rnd = Math.floor(Math.random() * notyTypes.length)
@@ -126,7 +125,7 @@ export default function ButtonsControl() {
           } 
           className="flex items-center justify-center gap-x-1 w-auto rounded p-3 bg-indigo-900 text-white hover:bg-indigo-700 duration-150 cursor-pointer shadow-md z-20">
           <span className='pointer-events-none'>Trigger notify</span>
-          <CustomSelect2 width='w-[100px]' options={notyTypes} />
+          <CustomSelect2 width='w-[100px] '  options={notyTypes} />
         </div>
 
       </div>

@@ -1,7 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { ChevronRightIcon } from '../../assets/icons/chevron-right'
+import SimpleBar from 'simplebar-react';
+import 'simplebar-react/dist/simplebar.min.css';
+import './styles.css';
 
-const CustomSelect2 = ( { options, showIndex, width } ) => {
+
+const CustomSelect2 = ( { 
+  options = ['You need to pass an array of options...'], 
+  showIndex = false, 
+  width = 'w-full',
+  maxHeight = 'max-h-[300px]', 
+  autoHide = false,
+} ) => {
 
   const [localState, setLocalState] = useState({
     indexSelected: 0,
@@ -13,11 +23,11 @@ const CustomSelect2 = ( { options, showIndex, width } ) => {
     alternateShowOptions: () => setLocalState(state => ({ ...state, isShowingOptions: !state.isShowingOptions })),
   })
 
-  const optionsRef = useRef(null);
+  const optionsContainerRef = useRef(null);
+  const optionRefs = useRef([]);
   const selectedRef = useRef(null);
 
   const handleOnClick = ( index ) => {
-    console.log('clicked handleOnClick', index);
     setLocalState({
       ...localState, 
       indexSelected: index, 
@@ -25,52 +35,45 @@ const CustomSelect2 = ( { options, showIndex, width } ) => {
     })
   }
 
-  const handleButtonSelected = () => {
+  const handleButtonSelected = () => localState.alternateShowOptions()
 
-    localState.alternateShowOptions()
-    setTimeout(() => {
-      // optionsRef?.current?.focus()
-    }, 0)
-  }
-
-  const handleOnBlurOptions = () => {
-    setTimeout(() => {
-      localState.hideOptions()
-    }, 90)
-  }
 
   const handleKeyDown = (e) => {
-
-    e.preventDefault(); //Prevent scroll while using arrow keys
-    
+    e.preventDefault(); // Prevent default scrolling behavior for body
+  
     const actions = {
-      'Escape': () => {
-        selectedRef?.current?.focus()
-        localState.hideOptions()
+      Escape: () => {
+        selectedRef?.current?.focus();
+        localState.hideOptions();
       },
-      'ArrowUp': () => setLocalState( state => ({
-        ...state,
-        indexSelected: state.indexSelected === 0 ? options.length - 1 : state.indexSelected - 1
-      })),
-      'ArrowDown': () => setLocalState( state => ({
-          ...state,
-          indexSelected: state.indexSelected === (options.length - 1) ? 0 : state.indexSelected + 1
+      ArrowUp: () => {
+        setLocalState((state) => {
+          const newIndex = state.indexSelected === 0 ? options.length - 1 : state.indexSelected - 1;
+          optionRefs.current[newIndex]?.scrollIntoView({ block: 'nearest'})
+          return { ...state, indexSelected: newIndex };
+        });
+      },
+      ArrowDown: () => {
+        setLocalState((state) => {
+          const newIndex = (state.indexSelected === options.length - 1) ? 0 : state.indexSelected + 1;
+          optionRefs.current[newIndex]?.scrollIntoView({ block: 'nearest'})
+          return { ...state, indexSelected: newIndex };
         })
-      ),
-      'Enter': () => {
-        localState.alternateShowOptions()
-        // selectedRef?.current?.focus()
-      }
-    }
-    
-    actions[e.key]?.()
-  }
+      },
+      Enter: () => {
+        localState.alternateShowOptions();
+      },
+    };
+  
+    actions[e.key]?.();
+  };
+  
 
 
   const handleClickOutside = (event) => {
     if (
-      optionsRef.current &&
-      !optionsRef.current.contains(event.target) &&
+      optionsContainerRef.current &&
+      !optionsContainerRef.current.contains(event.target) &&
       selectedRef.current &&
       !selectedRef.current.contains(event.target)
     ) {
@@ -99,7 +102,6 @@ const CustomSelect2 = ( { options, showIndex, width } ) => {
         ref={ selectedRef }
         onClick={ handleButtonSelected } 
         onKeyDown={ handleKeyDown }
-        // onBlur={ handleOnBlurOptions }
         className={`flex items-center justify-between text-base py-1 px-2 notify-badge shadow-sm w-full outline-none focus:outline-none focus:ring-2  ${localState.isShowingOptions ? 'rounded-t-md' : 'rounded-md'}`}
       > 
         <h2 className="w-full text-start truncate">
@@ -108,18 +110,18 @@ const CustomSelect2 = ( { options, showIndex, width } ) => {
         <ChevronRightIcon className={`w-5 h-5 duration-75 ${localState.isShowingOptions ? 'rotate-90' : ''}`}/>
       </button>
       
-      { localState.isShowingOptions &&
-          <div 
-            ref={ optionsRef } 
-            tabIndex="1" //Focusable
-            // onKeyDown={ handleKeyDown }
-            className='absolute outline-none focus:outline-none w-full max-h-[300px] overflow-y-auto text-black bg-white rounded-b left-1/2 -translate-x-1/2 '
-          >
+      { localState.isShowingOptions && 
+        <div 
+          ref={ optionsContainerRef } 
+          tabIndex="1" //Make it focusable
+          className='absolute outline-none focus:outline-none w-full max-h-[300px] overflow-y-auto text-black bg-white rounded-b left-1/2 -translate-x-1/2 '
+        >
+          <SimpleBar className={ maxHeight } autoHide={ autoHide } >
             {
               options.map( (type, i) => (
                 <h3 
-                  
                   key={ i } 
+                  ref={(el) => (optionRefs.current[i] = el)}
                   onClick={ () => handleOnClick( i ) }
                   className={`${localState.indexSelected === i ? 'bg-gray-300' : 'hover:bg-gray-200'}  cursor-pointerw-auto flex text-nowrap justify-start items-center gap-x-2 py-1 px-2 duration-0`}
                   title={type}
@@ -130,8 +132,8 @@ const CustomSelect2 = ( { options, showIndex, width } ) => {
                 </h3>
               ))
             }
-          </div>
-
+          </SimpleBar>
+        </div>
       }
     </div>
   )

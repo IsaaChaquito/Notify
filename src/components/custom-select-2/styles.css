@@ -1,0 +1,8 @@
+
+
+/* Color del "relleno" de la barra */
+.simplebar-scrollbar::before {
+  background-color: #6a6464;
+  opacity: 1 !important;
+}
+
