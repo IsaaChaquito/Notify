@@ -17,6 +17,9 @@ export const positions = {
   'top-center': 'top-center',
 }
 
+const notyTypes = ['info', 'success', 'warning', 'error', 'neutral', 'promise']
+
+
 export default function ButtonsControl() {
 
 
@@ -39,7 +42,6 @@ export default function ButtonsControl() {
   }, [counter])
 
 
-  const notyTypes = ['info', 'success', 'warning', 'error', 'neutral', 'promise', 'successsssss', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise', 'success', 'warning', 'error', 'neutral', 'promise']
   const handleAddNotify = () => {
 
     const rnd = Math.floor(Math.random() * notyTypes.length)
@@ -81,7 +83,9 @@ export default function ButtonsControl() {
 
   }
 
-  const handleBasicNotify = () => notify.success("I'm a success Notify")
+  const [basicNotify, setBasicNotify] = useState('info')
+  const handleSetBasicNotify = ( newVal ) => setBasicNotify( newVal )  
+  const handleBasicNotify = () => notify[basicNotify](`I'm a ${basicNotify} Notify`)
 
 
   const [isMobileView, setIsMobileView] = useState(window.innerWidth < 640); // Tailwind 'sm' breakpoint is 640px
@@ -112,9 +116,9 @@ export default function ButtonsControl() {
         <code className='bg-black p-6 w-full'>
           <div className='flex gap-y-2 text-xs '>
             <span className='flex text-white'> notify.</span>
-            <span className='text-yellow-500'>success</span>
+            <span className='text-yellow-500'>{ basicNotify }</span>
             <span className='text-blue-500'>(</span>
-            <span className='text-lime-300 text-nowrap'>"I'm a sucess Notify"</span>
+            <span className='text-lime-300 text-nowrap'>{`"I'm a ${ basicNotify } Notify"`}</span>
             <span className='text-blue-500'>)</span>
           </div>
         </code>
@@ -123,9 +127,14 @@ export default function ButtonsControl() {
           onClick={ 
             (e) => e.target === e.currentTarget && handleBasicNotify() 
           } 
-          className="flex items-center justify-center gap-x-1 w-auto rounded p-3 bg-indigo-900 text-white hover:bg-indigo-700 duration-150 cursor-pointer shadow-md z-20">
-          <span className='pointer-events-none'>Trigger notify</span>
-          <CustomSelect2 width='w-[100px] '  options={notyTypes} />
+          className="flex items-center justify-center gap-x-1 w-auto rounded p-3 bg-indigo-900 text-white hover:bg-indigo-700 duration-150 cursor-pointer shadow-md z-20 select-none">
+          <span className='pointer-events-none '>Trigger notify</span>
+          <CustomSelect2 
+            width='w-[100px]' 
+            options={notyTypes} 
+            value={basicNotify}
+            setValue={ setBasicNotify }
+          />
         </div>
 
       </div>

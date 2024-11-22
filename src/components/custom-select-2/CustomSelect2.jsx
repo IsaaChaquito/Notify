@@ -7,6 +7,8 @@ import './styles.css';
 
 const CustomSelect2 = ( { 
   options = ['You need to pass an array of options...'], 
+  value,
+  setValue,
   showIndex = false, 
   width = 'w-full',
   maxHeight = 'max-h-[300px]', 
@@ -14,15 +16,14 @@ const CustomSelect2 = ( {
 } ) => {
 
   const [localState, setLocalState] = useState({
-    indexSelected: 0,
+    indexSelected: options.findIndex((option) => option === value),
     isShowingOptions: false,
     showIndex: showIndex ?? false,
+  });
+  
 
-    hideOptions: () => setLocalState(state => ({ ...state, isShowingOptions: false })),
-    showOptions: () => setLocalState(state => ({ ...state, isShowingOptions: true })),
-    alternateShowOptions: () => setLocalState(state => ({ ...state, isShowingOptions: !state.isShowingOptions })),
-  })
-
+  const alternateShowOptions = () => setLocalState((state) => ({ ...state, isShowingOptions: !state.isShowingOptions }));
+  
   const optionsContainerRef = useRef(null);
   const optionRefs = useRef([]);
   const selectedRef = useRef(null);
@@ -35,8 +36,9 @@ const CustomSelect2 = ( {
     })
   }
 
-  const handleButtonSelected = () => localState.alternateShowOptions()
+  useEffect(() => setValue( options[localState.indexSelected] ), [localState.indexSelected])
 
+  const handleButtonSelected = () => alternateShowOptions()
 
   const handleKeyDown = (e) => {
     e.preventDefault(); // Prevent default scrolling behavior for body
@@ -44,7 +46,7 @@ const CustomSelect2 = ( {
     const actions = {
       Escape: () => {
         selectedRef?.current?.focus();
-        localState.hideOptions();
+        alternateShowOptions()
       },
       ArrowUp: () => {
         setLocalState((state) => {
@@ -61,7 +63,7 @@ const CustomSelect2 = ( {
         })
       },
       Enter: () => {
-        localState.alternateShowOptions();
+        alternateShowOptions();
       },
     };
   
@@ -70,6 +72,11 @@ const CustomSelect2 = ( {
   
 
 
+  /**
+   * Handles clicks outside the options container. If the user clicks outside the container and the selected
+   * element, the options are hidden.
+   * @param {MouseEvent} event The event of the click outside the container.
+   */
   const handleClickOutside = (event) => {
     if (
       optionsContainerRef.current &&
