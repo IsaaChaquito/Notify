@@ -108,12 +108,25 @@ export default function ButtonsControl() {
   return (
     <div className='flex flex-col gap-y-16 items-center w-full sm:w-max-w-[320px] sm:max-w-xl -mt-14 h-full sm:p-4 sm:rounded overflow-hidden z-10'>
 
-      <div className='bg-sky-950 gap-y-2 pb-2 w-full sm:rounded flex flex-col justify-center items-center '>
-        <h2 className='text-xl sm:text-2xl w-full p-3 text-start text-white z- '>
+      <div className='bg-sky-950 gap-y-4 w-full sm:rounded flex flex-col justify-center items-center '>
+        <h2 className='text-xl sm:text-2xl w-full p-3 text-start text-white '>
           Basic use of <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>Notify</code>
         </h2>
 
-        <code className='bg-black p-6 w-full'>
+        <div 
+          onClick={ (e) => e.target === e.currentTarget && handleBasicNotify() } 
+          className="w- flex items-center justify-center rounded gap-x-4 p-3 bg-indigo-900 text-white hover:bg-indigo-700 duration-150 cursor-pointer shadow-md z-20 select-none"
+        >
+          <span className='pointer-events-none text-nowrap'>Click me!</span>
+          <CustomSelect2 
+            width='w-[200px]' 
+            options={notyTypes} 
+            value={basicNotify}
+            setValue={ handleSetBasicNotify }
+          />
+        </div>
+
+        <code className='bg-black p-6 w-full rounded-b'>
           <div className='flex gap-y-2 text-xs '>
             <span className='flex text-white'> notify.</span>
             <span className='text-yellow-500'>{ basicNotify }</span>
@@ -123,19 +136,7 @@ export default function ButtonsControl() {
           </div>
         </code>
 
-        <div 
-          onClick={ 
-            (e) => e.target === e.currentTarget && handleBasicNotify() 
-          } 
-          className="flex items-center justify-center gap-x-1 w-auto rounded p-3 bg-indigo-900 text-white hover:bg-indigo-700 duration-150 cursor-pointer shadow-md z-20 select-none">
-          <span className='pointer-events-none '>Trigger notify</span>
-          <CustomSelect2 
-            width='w-[100px]' 
-            options={notyTypes} 
-            value={basicNotify}
-            setValue={ setBasicNotify }
-          />
-        </div>
+        
 
       </div>
 
