@@ -106,18 +106,17 @@ export default function ButtonsControl() {
 
 
   return (
-    <div className='flex flex-col gap-y-16 items-center w-full sm:w-max-w-[320px] sm:max-w-xl -mt-14 h-full sm:p-4 sm:rounded overflow-hidden z-10'>
+    <div className='flex flex-col gap-y-16 items-center w-full sm:w-max-w-[320px] sm:max-w-xl -mt-14 h-full sm:p-1 sm:rounded overflow-hidden z-10'>
 
       <div className='bg-sky-950 gap-y-4 w-full sm:rounded flex flex-col justify-center items-center '>
         <h2 className='text-xl sm:text-2xl w-full p-3 text-start text-white '>
           Basic use of <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>Notify</code>
         </h2>
 
-        <div 
-          onClick={ (e) => e.target === e.currentTarget && handleBasicNotify() } 
-          className="w- flex items-center justify-center rounded gap-x-4 p-3 bg-indigo-900 text-white hover:bg-indigo-700 duration-150 cursor-pointer shadow-md z-20 select-none"
+        <div className=" flex items-center justify-center rounded gap-x-2 p-1  bg-gradient-to-tr from-indigo-900 bg-indigo-900 hover:bg-indigo-700 text-white duration-150 cursor-pointer shadow-md z-20 select-none "
         >
-          <span className='pointer-events-none text-nowrap'>Click me!</span>
+          <button onClick={ (e) => e.target === e.currentTarget && handleBasicNotify() }  className='active:scale-90 p-1 rounded-sm text-nowrap duration-75 h-9 bg-black border border-black'>Click me!</button>
+
           <CustomSelect2 
             width='w-[200px]' 
             options={notyTypes} 

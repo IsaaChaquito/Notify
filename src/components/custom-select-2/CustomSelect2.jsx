@@ -6,7 +6,7 @@ import './styles.css';
 
 
 const CustomSelect2 = ( { 
-  options = ['You need to pass an array of options...'], 
+  options = ['Require an array of options...'], 
   value,
   setValue,
   showIndex = false, 
@@ -111,7 +111,7 @@ const CustomSelect2 = ( {
         ref={selectedRef}
         onClick={handleButtonSelected}
         onKeyDown={handleKeyDown}
-        className="peer relative w-full flex items-center justify-between cursor-pointer rounded-md bg-white py-1.5 pl-3 pr-1 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 "
+        className="peer relative w-full flex items-center justify-between cursor-pointer rounded-sm bg-white py-1.5 pl-3 pr-1 text-gray-900 shadow-md ring-1 ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 "
       >
         {/* <span className="flex items-center"> */}
           <span className=" block truncate">{options[localState.indexSelected]}</span>
@@ -128,7 +128,7 @@ const CustomSelect2 = ( {
         <div 
           ref={ optionsContainerRef } 
           tabIndex="1" //Make it focusable
-          className='translate-y-0.5 absolute outline-none focus:outline-none w-full max-h-[300px] overflow-y-auto text-black bg-white rounded left-1/2 -translate-x-1/2 '
+          className='translate-y-1 absolute outline-none focus:outline-none w-full max-h-[300px] overflow-y-auto text-black bg-white rounded left-1/2 -translate-x-1/2 '
         >
           <SimpleBar className={ maxHeight } autoHide={ autoHide } >
             {
