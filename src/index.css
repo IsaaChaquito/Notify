@@ -95,10 +95,10 @@ input[type="range"]::-moz-slider-thumb:hover {
 
   background-size: 4000% 4000%;
 
-  -webkit-animation: gradientAnimation 20s linear infinite;
-  -moz-animation: gradientAnimation 20s linear infinite;
-  -o-animation: gradientAnimation 20s linear infinite;
-  animation: gradientAnimation 20s linear infinite;
+  -webkit-animation: gradientAnimation 60s linear infinite;
+  -moz-animation: gradientAnimation 60s linear infinite;
+  -o-animation: gradientAnimation 60s linear infinite;
+  animation: gradientAnimation 60s linear infinite;
 }
 
 @keyframes gradientAnimation {
