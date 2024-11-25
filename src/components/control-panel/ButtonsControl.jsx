@@ -194,7 +194,7 @@ export default function ButtonsControl() {
 
       
 
-      <div className='bg-black w-full sm:rounded overflow-hidden  flex flex-col justify-center items-center border border-[#ffffff30] shadow-md'>
+      <div className='bg-black w-full rounded overflow-hidden  flex flex-col justify-center items-center border border-[#ffffff30] shadow-md'>
         <h2 className='text-xl sm:text-2xl w-full p-3 text-start text-white z-10 border-b border-[#ffffff30]'>
           Or try arbitrary <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>settings</code>
         </h2>
