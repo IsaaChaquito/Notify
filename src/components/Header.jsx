@@ -21,8 +21,7 @@ const Header = () => {
 
       </div>
 
-      <div className="w-full h-full blur-xl bg-gradient-to-t from-[#242424] from-10%  to-indigo-700  absolute top-0  opacity-500"></div>
-      {/* <div className="w-full h-full blur-xl bg-gradient-to-t from-[#242424] from-10%  to-white  absolute top-0  opacity-500"></div> */}
+      {/* <div className="w-full h-full blur-xl bg-gradient-to-t from-[#242424] from-10%  to-indigo-700  absolute top-0  opacity-500" /> */}
     </div>
   )
 }

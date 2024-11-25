@@ -142,7 +142,7 @@ export default function ButtonsControl() {
       </div>
 
       <div className='bg-black w-full sm:rounded flex flex-col justify-center items-center '>
-        <h2 className='text-xl sm:text-2xl w-full p-3 rounded text-start text-white z-10 border-b border-[#ffffff30]'>
+        <h2 className='text-xl sm:text-2xl w-full p-3  text-start text-white z-10 border-b border-[#ffffff30]'>
           Random examples of <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>Notify</code>
         </h2>    
 
