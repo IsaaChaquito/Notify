@@ -126,7 +126,7 @@ export default function ButtonsControl() {
           />
         </div>
 
-        <code className='bg-black p-6 w-full sm:rounded-b'>
+        <code className='bg-black p-6 w-full rounded-b'>
           <div className='flex gap-y-2 text-xs '>
             <span className='flex text-white'> notify.</span>
             <span className='text-yellow-500'>{ basicNotify }</span>
