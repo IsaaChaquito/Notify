@@ -54,7 +54,6 @@ export default function ButtonsControl() {
       icon: isPromise ? notyTypes['promise'] : notyTypes[rnd],
       iconFirst: Math.floor(Math.random() * 10) % 2 === 0,
       autoClose: !isPromise,
-      // autoClose: false,
       showProgressBar: isPromise ? 'false' : Math.floor(Math.random() * 10) % 2 === 0,
       timeSettings: {
         duration: Math.floor(Math.random() * 3) * 1000 + 3000,
@@ -72,7 +71,7 @@ export default function ButtonsControl() {
         notify.update(
           {
             ...notifyObj, 
-            text: 'Promise resolve successfully', 
+            text: 'Promise resolved successfully', 
             icon: 'success',
             autoClose: true,
           }
