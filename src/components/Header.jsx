@@ -11,10 +11,10 @@ const Header = () => {
 
         {/* <h1 className='text-5xl sm:text-8xl z-50 duration-75'>JUST NOTIFY</h1> */}
 
-        <a href="https://tailwindcss.com/" target='_blank' title='Tailwind documentation' className=" p-3  duration-300 text-white z-50 ">
-          <h3 className="flex gap-x-1  bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-violet-700">
+        <a href="https://tailwindcss.com/" target='_blank' title='Tailwind documentation' className="group py-2  duration-300 text-white z-50 hover:underline decoration-pink-500 underline-offset-2">
+          <h3 className="group-hover: flex gap-x-1 text-sm font-medium bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-violet-700 group-hover:from-rose-600 group-hover:to-violet-800 ">
             Made with Tailwind
-            <LinkIcon className="w-3.5 h-3.5 inline text-blue-500"/>
+            <LinkIcon className="group-hover:scale-110 w-3.5 h-3.5 inline text-blue-500 duration-150"/>
           </h3>
         </a>
         

@@ -111,7 +111,7 @@ const CustomSelect2 = ( {
         ref={selectedRef}
         onClick={handleButtonSelected}
         onKeyDown={handleKeyDown}
-        className="peer relative w-full flex items-center justify-between cursor-pointer rounded-sm bg-white py-1.5 pl-3 pr-1 text-gray-900 shadow-md ring-1 ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 "
+        className="peer relative w-full flex items-center justify-between cursor-pointer rounded-sm bg-white py-1.5 pl-3 pr-1 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:ring-indigo-500 hover:ring-2"
       >
         {/* <span className="flex items-center"> */}
           <span className=" block truncate">{options[localState.indexSelected]}</span>

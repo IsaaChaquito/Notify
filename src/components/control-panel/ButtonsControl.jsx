@@ -108,17 +108,19 @@ export default function ButtonsControl() {
   return (
     <div className='flex flex-col gap-y-16 items-center w-full sm:w-max-w-[320px] sm:max-w-xl -mt-20 sm:-mt-4 h-full sm:p-1 sm:rounded overflow-hidden z-10 duration-300'>
 
-      <div className='bg-sky-950 gap-y-4 w-full sm:rounded flex flex-col justify-center items-center '>
-        <h2 className='text-xl sm:text-2xl w-full p-3 text-start text-white '>
+      <div className='bg-black gap-y-4 w-full sm:rounded flex flex-col justify-center items-cente '>
+        <h2 className='text-xl sm:text-2xl w-full p-3 text-start text-white border-b border-[#ffffff30]'>
           Basic use of <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>Notify</code>
         </h2>
 
-        <div className=" flex items-center justify-center rounded gap-x-2 p-1  bg-gradient-to-tr from-indigo-900 bg-indigo-900 hover:bg-indigo-700 text-white duration-150 cursor-pointer shadow-md z-20 select-none "
+        <div className="w-full flex items-center justify-center rounded gap-x-2 p-2  bg-black text-white duration-150 cursor-pointer shadow-md z-20 select-none "
         >
-          <button onClick={ (e) => e.target === e.currentTarget && handleBasicNotify() }  className='active:scale-90 p-1 rounded-sm text-nowrap duration-75 h-9 bg-black border border-black'>Click me!</button>
+          <button onClick={ (e) => e.target === e.currentTarget && handleBasicNotify() }  className='w-1/3 active:scale-90 px-2 py-2 text-sm rounded text-nowrap  duration-75 bg-gradient-to-tr from-indigo-900 bg-indigo-900 hover:bg-indigo-700 '>
+            Click me!
+          </button>
 
           <CustomSelect2 
-            width='w-[200px]' 
+            width='w-full' 
             options={notyTypes} 
             value={basicNotify}
             setValue={ handleSetBasicNotify }
@@ -139,8 +141,8 @@ export default function ButtonsControl() {
 
       </div>
 
-      <div className='bg-sky-950 w-full sm:rounded flex flex-col justify-center items-center '>
-        <h2 className='text-xl sm:text-2xl w-full p-3 rounded text-start text-white z-10 '>
+      <div className='bg-black w-full sm:rounded flex flex-col justify-center items-center '>
+        <h2 className='text-xl sm:text-2xl w-full p-3 rounded text-start text-white z-10 border-b border-[#ffffff30]'>
           Random examples of <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>Notify</code>
         </h2>    
 
@@ -193,8 +195,8 @@ export default function ButtonsControl() {
 
       
 
-      <div className='bg-sky-950 w-full sm:rounded overflow-hidden  flex flex-col justify-center items-center'>
-        <h2 className='text-xl sm:text-2xl w-full p-3 text-start text-white z-10 '>
+      <div className='bg-black w-full sm:rounded overflow-hidden  flex flex-col justify-center items-center'>
+        <h2 className='text-xl sm:text-2xl w-full p-3 text-start text-white z-10 border-b border-[#ffffff30]'>
           Or try arbitrary <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>settings</code>
         </h2>
 
