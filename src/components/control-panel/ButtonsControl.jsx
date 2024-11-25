@@ -105,9 +105,9 @@ export default function ButtonsControl() {
 
 
   return (
-    <div className='flex flex-col gap-y-16 items-center w-full sm:w-max-w-[320px] sm:max-w-xl -mt-20 sm:-mt-4 h-full p-2 sm:rounded overflow-hidden z-10 duration-300 mb-16'>
+    <div className='flex flex-col gap-y-16 items-center w-full sm:w-max-w-[320px] sm:max-w-xl -mt-20 sm:-mt-4 h-full p-2 rounded overflow-hidden z-10 duration-300 mb-16'>
 
-      <div className='bg-black gap-y-4 w-full sm:rounded flex flex-col justify-center items-cente border border-[#ffffff30] shadow-md'>
+      <div className='bg-black gap-y-4 w-full rounded flex flex-col justify-center items-cente border border-[#ffffff30] shadow-md'>
         <h2 className='text-xl sm:text-2xl w-full p-3 text-start text-white border-b border-[#ffffff30]'>
           Basic use of <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>Notify</code>
         </h2>
@@ -140,7 +140,7 @@ export default function ButtonsControl() {
 
       </div>
 
-      <div className='bg-black w-full sm:rounded flex flex-col justify-center items-center border border-[#ffffff30] shadow-md'>
+      <div className='bg-black w-full rounded flex flex-col justify-center items-center border border-[#ffffff30] shadow-md'>
         <h2 className='text-xl sm:text-2xl w-full p-3  text-start text-white z-10 border-b border-[#ffffff30]'>
           Random examples of <code className='notify-badge text-base rounded-md py-1 px-2 sm:ml-1'>Notify</code>
         </h2>    
