@@ -1,0 +1,27 @@
+
+@font-face {
+  font-family: 'ballet_24';
+  src: url('./Ballet_24pt-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'ballet_28';
+  src: url('./Ballet_28pt-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'ballet_48';
+  src: url('./Ballet_48pt-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'ballet_60';
+  src: url('./Ballet_60pt-Regular.ttf');
+}
+
+
+
+@font-face {
+  font-family: 'mae_culpa';
+  src: url('./MeaCulpa-Regular.ttf');
+}
