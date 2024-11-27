@@ -10,7 +10,7 @@ export const Footer = () => {
         <HeartIcon title='Love' className="w-5 h-5 mx-1"/> by 
           <a 
             title='Isaac Castro G. on LinkedIn'
-            className="pl-1 font-['mae\_culpa'] text-xl text-blue-500 hover:text-blue-600 underline underline-offset-2 decoration-1" 
+            className="pl-1 font-['mea\_culpa'] text-xl text-blue-5000 hover:text-blue-600 underline underline-offset-2 decoration-1" 
             href="https://www.linkedin.com/in/isaac-castro-guzmán-603a34211" target="_blank"
           >
             Isaac Castro G.
