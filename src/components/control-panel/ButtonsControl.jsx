@@ -100,7 +100,7 @@ export default function ButtonsControl() {
     };
   }, []);
 
-  // Puedes usar isMobileView como parte del flipKey
+
   const flipKey = isMobileView ? 'mobile-view' : 'desktop-view';
 
 
